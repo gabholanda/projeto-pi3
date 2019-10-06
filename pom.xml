@@ -8,7 +8,38 @@
     <packaging>war</packaging>
 
     <name>projeto-pi3</name>
-
+    
+     <organization>
+        <name>Senac TADS PI3</name>
+    </organization>
+    
+    <developers>
+        <developer>
+            <id>gab-holanda</id>
+            <name>Gabriel Holanda</name>
+        </developer>
+        
+        <developer>
+            <id>henrique-cyrrilo</id>
+            <name>Henrique Cyrillo</name>
+        </developer>
+        
+        <developer>
+            <id>lucas-mateus</id>
+            <name>Gabriel Holanda</name>
+        </developer>
+        
+        <developer>
+            <id>m-moraes</id>
+            <name>Marcelo Moraes</name>
+        </developer>
+        
+        <developer>
+            <id>patrick-chargas</id>
+            <name>Patrick Chargas</name>
+        </developer>
+    </developers>
+       
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,6 +51,12 @@
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 
