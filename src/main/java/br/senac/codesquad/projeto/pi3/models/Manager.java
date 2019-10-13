@@ -7,16 +7,20 @@ package br.senac.codesquad.projeto.pi3.models;
 
 /**
  *
- * @author gabriel.hsantos21
+ * @author marcelo.moraes
  */
-public class Employee extends User {
+public class Manager extends User {
 
-    private int permission = 1; //permission user
+    private int permission = 2; //permission user 
 
-    public Employee(String mail, String senha, String nome) {
+    public Manager(String mail, String senha, String nome) {
         super(mail, senha, nome);
     }
 
+//   
+    /**
+     * @return the permission
+     */
     public int getPermission() {
         return permission;
     }

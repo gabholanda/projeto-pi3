@@ -5,10 +5,21 @@
  */
 package br.senac.codesquad.projeto.pi3.DAOs;
 
+import br.senac.codesquad.projeto.pi3.models.Product;
+import java.util.ArrayList;
+
 /**
  *
  * @author gabriel.hsantos21
  */
 public class ProductDAO {
+
+    public static boolean save;
+    public static boolean update;
+    public static boolean delete;
+
+    public static ArrayList<Product> getProduct() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
