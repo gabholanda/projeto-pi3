@@ -14,12 +14,13 @@ public class Product {
     private int id; 
     private String nameProduct; 
     private double values; 
+    private double valeusSale;  
     private int amount; 
     private int stock; 
     private String details; 
     private int idBranchOffice; 
     
-    public Product(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice){ 
+    public Product(int id, String nameProduct, double values, double valeusSale, int amount, int stock, String details, int idBranchOffice){ 
         this.id=id; 
         this.nameProduct = nameProduct; 
         this.values = values; 
@@ -27,6 +28,15 @@ public class Product {
         this.stock = stock; 
         this.details = details; 
         this.idBranchOffice = idBranchOffice; 
+        this.valeusSale = valeusSale; 
+    }
+
+    public double getValeusSale() {
+        return valeusSale;
+    }
+
+    public void setValeusSale(double valeusSale) {
+        this.valeusSale = valeusSale;
     }
 
     /**
