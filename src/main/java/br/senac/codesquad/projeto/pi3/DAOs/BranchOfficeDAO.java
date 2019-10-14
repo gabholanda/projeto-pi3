@@ -10,6 +10,7 @@ import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +23,7 @@ public class BranchOfficeDAO {
     private static ResultSet rs = null;
     private static boolean retorno = false;
 
-    public static boolean create(String name, String cnpj) throws Exception {
+    public static boolean create(String name, String cnpj) throws SQLException {
 
         try {
             Connection con = ConnectionManager.getConnection();
@@ -85,32 +86,31 @@ public class BranchOfficeDAO {
     }
 
     public static ArrayList<BranchOffice> read() throws Exception {
-      ArrayList<BranchOffice> Branchs = new ArrayList<BranchOffice>();
-      try{
-          Connection con = ConnectionManager.getConnection();
-          String query = "SELECT "
-                + "       *"
-                + "   FROM"
-                + "       BRANCH_OFFICE";
-          
-           
-          rs=ps.executeQuery(query);
-          if(rs!=null){
-              while(rs.next()){
-                  BranchOffice branch = new BranchOffice();
-                  branch.setName(rs.getString("NAME"));
-                  branch.setCnpj(rs.getString("CNPJ"));
-                  branch.setAdress((rs.getString("ADDRESS")));
-                  Branchs.add(branch);
-              }
-          }
-          
-        return Branchs;
-          
-      }catch(Exception ex){
-          throw ex;
-      }
-      
+        ArrayList<BranchOffice> Branchs = new ArrayList<BranchOffice>();
+        try {
+            Connection con = ConnectionManager.getConnection();
+            String query = "SELECT "
+                    + "       *"
+                    + "   FROM"
+                    + "       BRANCH_OFFICE";
+
+            rs = ps.executeQuery(query);
+            if (rs != null) {
+                while (rs.next()) {
+                    BranchOffice branch = new BranchOffice();
+                    branch.setName(rs.getString("NAME"));
+                    branch.setCnpj(rs.getString("CNPJ"));
+                    branch.setAdress((rs.getString("ADDRESS")));
+                    Branchs.add(branch);
+                }
+            }
+
+            return Branchs;
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
     }
 
 }
