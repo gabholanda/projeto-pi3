@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class ClientDAO {
 
-    
+    //teste
 
     public static ArrayList<Client> getClient() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
