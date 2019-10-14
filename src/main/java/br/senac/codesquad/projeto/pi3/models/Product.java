@@ -31,6 +31,10 @@ public class Product {
         this.valeusSale = valeusSale; 
     }
 
+    public Product(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public double getValeusSale() {
         return valeusSale;
     }

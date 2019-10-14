@@ -22,7 +22,7 @@ public class ClientController {
     }
 
     public static boolean update(int id, String name, String cpf, String address, String mail) {
-        Client client = new Client(id, name, cpf, address, mail);
+        Client client = new Client (id, name, cpf, address, mail); 
         return ClientDAO.update(client);
 
     }
@@ -30,21 +30,20 @@ public class ClientController {
     public static boolean delete(int id) {
         return ClientDAO.delete(id);
     }
+    
+     public static ArrayList<String[]> getClient() {
+        ArrayList<Client> clientes = ClientDAO.getClient();
+        ArrayList<String[]> Clients = new ArrayList<>();
 
-    public static ArrayList<String[]> getClient() {
-        ArrayList<Client> clients = ClientDAO.getClient();
-        ArrayList<String[]> ListClients = new ArrayList<>();
-
-        for (int i = 0; i < clients.size(); i++) {
-            ListClients.add(new String[]{String.valueOf(clients.get(i).getId()),
-                clients.get(i).getName(),
-                clients.get(i).getCpf(),
-                clients.get(i).getAddress(),
-                clients.get(i).getMail(), 
-            }); 
+        for (int i = 0; i < clientes.size(); i++) {
+            //Clients.add(new String[]
         }
-            return ListClients;
 
-        }
+        return Clients;
 
     }
+    
+
+}
+
+

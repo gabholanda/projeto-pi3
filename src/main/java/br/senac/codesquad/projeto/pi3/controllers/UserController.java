@@ -5,21 +5,10 @@
  */
 package br.senac.codesquad.projeto.pi3.controllers;
 
-
-import br.senac.codesquad.projeto.pi3.models.User;
-import java.util.ArrayList;
-
 /**
  *
  * @author marcelo.moraes
  */
 public class UserController {
-    
-    /* public static boolean save(int id, String password, String name, String mail) {
-      //  User user = new User(id, password, name, mail); 
-        return 
-
-    }
-*/
     
 }

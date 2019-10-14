@@ -15,14 +15,14 @@ import java.util.ArrayList;
  */
 public class EmployeeController {
 
-    public static boolean save(int id, String name, String mail, String password) {
-        Employee employee = new Employee(name, mail, password);
+    public static boolean save(int id, String senha, String name, String mail) {
+        Employee employee = new Employee(senha, name, mail);
         return EmployeeDAO.save(employee);
 
     }
 
-    public static boolean update(int id, String name, String mail, String password) {
-        Employee employee = new Employee(name, mail, password);
+    public static boolean update(int id, String senha, String name, String mail) {
+        Employee employee = new Employee(senha, name, mail);
         return EmployeeDAO.update(employee);
 
     }
@@ -33,17 +33,14 @@ public class EmployeeController {
 
     public static ArrayList<String[]> getEmployee() {
         ArrayList<Employee> employee = EmployeeDAO.getEmployee();
-        ArrayList<String[]> Listemployees = new ArrayList<>();
+        ArrayList<String[]> employees = new ArrayList<>();
 
-        for (int i = 0; i < employee.size(); i++) {
-            Listemployees.add(new String[]{String.valueOf(employee.get(i).getId()),
-                employee.get(i).getName(),
-                employee.get(i).getMail(),
-                employee.get(i).getPassword(),});
-
+        for (int i = 0; i < employees.size(); i++) {
+            // employee.add(new String[]
         }
-        
-        return Listemployees; 
+
+        return employees;
 
     }
+
 }
