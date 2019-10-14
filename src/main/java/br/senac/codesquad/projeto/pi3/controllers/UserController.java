@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.codesquad.projeto.pi3.application.controllers;
+package br.senac.codesquad.projeto.pi3.controllers;
 
 
 import br.senac.codesquad.projeto.pi3.models.User;
