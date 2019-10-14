@@ -5,19 +5,18 @@
  */
 package br.senac.codesquad.projeto.pi3.DAOs;
 
-import br.senac.codesquad.projeto.pi3.models.Client;
-import br.senac.codesquad.projeto.pi3.models.Employee;
+import br.senac.codesquad.projeto.pi3.models.Management;
 import java.util.ArrayList;
 
 /**
  *
- * @author gabriel.hsantos21
+ * @author marcelo.moraes
  */
-public class ClientDAO {
+public class ManagementDAO {
 
-    //teste
+    
 
-    public static ArrayList<Client> getClient() {
+    public static ArrayList<Management> getManagement() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -25,14 +24,12 @@ public class ClientDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static boolean update(Client client) {
+    public static boolean update(Management management) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static boolean save(Client client) {
+    public static boolean save(Management management) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     
-    
-} 
+}

@@ -20,7 +20,7 @@ public abstract class User {
     private int permission = 0; //permission user
     private ArrayList<Sale> saleList;
 
-    public User(String email, String senha, String nome) {
+    public User(String mail, String password, String name) {
         this.mail = mail;
         this.password = password;
         this.name = name;

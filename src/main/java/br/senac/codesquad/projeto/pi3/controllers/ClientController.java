@@ -17,18 +17,18 @@ public class ClientController {
 
     public static boolean save(int id, String name, String cpf, String address, String mail) {
         Client client = new Client(id, name, cpf, address, mail);
-        return ClientDAO.save;
+        return ClientDAO.save(client);
 
     }
 
     public static boolean update(int id, String name, String cpf, String address, String mail) {
         Client client = new Client (id, name, cpf, address, mail); 
-        return ClientDAO.update;
+        return ClientDAO.update(client);
 
     }
 
     public static boolean delete(int id) {
-        return ClientDAO.delete;
+        return ClientDAO.delete(id);
     }
     
      public static ArrayList<String[]> getClient() {

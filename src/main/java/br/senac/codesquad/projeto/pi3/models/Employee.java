@@ -13,8 +13,8 @@ public class Employee extends User {
 
     private int permission = 1; //permission user
 
-    public Employee(String mail, String senha, String nome) {
-        super(mail, senha, nome);
+    public Employee(String mail, String password, String name) {
+        super(mail, password, name);
     }
 
     public int getPermission() {

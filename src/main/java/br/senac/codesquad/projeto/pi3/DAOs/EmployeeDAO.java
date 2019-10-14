@@ -14,12 +14,22 @@ import java.util.ArrayList;
  */
 public class EmployeeDAO {
 
-    public static boolean save;
-    public static boolean update;
-    public static boolean delete;
-
+   
     public static ArrayList<Employee> getEmployee() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public static boolean save(Employee employee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static boolean update(Employee employee) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+   
 }
