@@ -15,23 +15,23 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean save(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
+    public  boolean create(int id, String nameProduct, double values, double valeusSale, int amount, int stock, String details, int idBranchOffice) throws Exception {
         Product product = new Product(id, nameProduct, values, amount, stock, details, idBranchOffice);
-        return ProductDAO.save(product);
+        return ProductDAO.create(nameProduct,  values, valeusSale,amount,details,stock, idBranchOffice);
 
     }
 
-    public static boolean update(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
-        Product product = new Product(id, nameProduct, values, amount, stock, details, idBranchOffice);
-        return ProductDAO.update(product);
+    public  boolean update( String nameProduct, double values,double valeusSale, int amount, int stock, String details, int idBranchOffice) throws Exception {
+        Product product = new Product( nameProduct, values, amount, stock, details, idBranchOffice);
+        return ProductDAO.update( nameProduct,  values, valeusSale, details, amount, stock);
 
     }
 
-    public static boolean delete(int id) {
-        return ProductDAO.delete(id);
+    public  boolean delete() throws Exception {
+        return ProductDAO.delete();
     }
 
-    public static ArrayList<String[]> getProduct() {
+    public  ArrayList<String[]> getProduct() throws Exception {
         ArrayList<Product> product = ProductDAO.getProduct();
         ArrayList<String[]> products = new ArrayList<>();
 

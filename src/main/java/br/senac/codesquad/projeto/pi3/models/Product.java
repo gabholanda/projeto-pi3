@@ -11,16 +11,16 @@ package br.senac.codesquad.projeto.pi3.models;
  */
 public class Product {
     
-    private int id; 
-    private String nameProduct; 
-    private double values; 
-    private double valeusSale;  
-    private int amount; 
-    private int stock; 
-    private String details; 
-    private int idBranchOffice; 
+    private static int id; 
+    private  static String nameProduct; 
+    private  double values; 
+    private  double valuesSale;  
+    private  int amount; 
+    private  int stock; 
+    private  String details; 
+    private  int idBranchOffice; 
     
-    public Product(int id, String nameProduct, double values, double valeusSale, int amount, int stock, String details, int idBranchOffice){ 
+    public Product(int id, String nameProduct, double values, double valuesSale, int amount, int stock, String details, int idBranchOffice){ 
         this.id=id; 
         this.nameProduct = nameProduct; 
         this.values = values; 
@@ -28,25 +28,33 @@ public class Product {
         this.stock = stock; 
         this.details = details; 
         this.idBranchOffice = idBranchOffice; 
-        this.valeusSale = valeusSale; 
+        this.valuesSale = valuesSale; 
     }
 
     public Product(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public double getValeusSale() {
-        return valeusSale;
+    public Product() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setValeusSale(double valeusSale) {
-        this.valeusSale = valeusSale;
+    public Product(String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public double getValuesSale() {
+        return valuesSale;
+    }
+
+    public void setValuesSale(double valuesSale) {
+        this.valuesSale = valuesSale;
     }
 
     /**
      * @return the id
      */
-    public int getId() {
+    public static int getId() {
         return id;
     }
 
