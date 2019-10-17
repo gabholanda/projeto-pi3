@@ -31,15 +31,9 @@ public class ProductController {
         return ProductDAO.delete();
     }
 
-    public  ArrayList<String[]> getProduct() throws Exception {
-        ArrayList<Product> product = ProductDAO.getProduct();
-        ArrayList<String[]> products = new ArrayList<>();
+    public  ArrayList<Product> getProduct() throws Exception {
 
-        for (int i = 0; i < products.size(); i++) {
-            // product.add(new String[]
-        }
-
-        return products;
+        return ProductDAO.getProduct();
 
     }
 
