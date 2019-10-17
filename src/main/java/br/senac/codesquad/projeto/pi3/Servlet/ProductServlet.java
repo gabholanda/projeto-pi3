@@ -5,7 +5,7 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
-import br.senac.codesquad.projeto.pi3.application.controllers.ProductController;
+import br.senac.codesquad.projeto.pi3.controllers.ProductController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author marcelo.moraes
  */
-public class ProductServlet extends HttpServlet{
-    
-     @Override
+public class ProductServlet extends HttpServlet {
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -35,7 +35,6 @@ public class ProductServlet extends HttpServlet{
         String stock = request.getParameter("stock");
         String details = request.getParameter("details");
         String idBranchOffice = request.getParameter("idBranchOffice");
-        
 
         request.setAttribute("idAttr", idStr);
         request.setAttribute("nameProductAttr", nameProduct);
@@ -45,8 +44,15 @@ public class ProductServlet extends HttpServlet{
         request.setAttribute("stockAttr", stock);
         request.setAttribute("detailsAttr", details);
         request.setAttribute("idBranchOfficeAttr", idBranchOffice);
-        
-        ProductController.save(Integer.parseInt(idStr), nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), Integer.parseInt(amount), Integer.parseInt(stock), details, Integer.parseInt(idBranchOffice));
-                
+
+        ProductController.save(
+                Integer.parseInt(idStr),
+                nameProduct,
+                Double.parseDouble(values),
+                Integer.parseInt(amount),
+                Integer.parseInt(stock),
+                details,
+                Integer.parseInt(idBranchOffice));
+
     }
 }

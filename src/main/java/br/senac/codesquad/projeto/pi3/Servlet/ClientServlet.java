@@ -5,15 +5,15 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
-import br.senac.codesquad.projeto.pi3.application.controllers.ClientController;
+import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** 
- * 
+/**
+ *
  * //teste
  *
  * @author marcelo.moraes
@@ -41,8 +41,7 @@ public class ClientServlet extends HttpServlet {
         request.setAttribute("addressAttr", address);
         request.setAttribute("mailAttr", mail);
 
-        ClientController.save(Integer.parseInt(idStr), name, cpf, address, mail); 
-        
+        ClientController.save(Integer.parseInt(idStr), name, cpf, address, mail);
+
     }
 }
-
