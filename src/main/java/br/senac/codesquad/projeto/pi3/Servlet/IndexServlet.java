@@ -25,8 +25,10 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+
         String path = "./Teste/TesteJSP.jsp";
         request.setAttribute("path", path);
+
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
                         "/WEB-INF/IndexJSP.jsp");

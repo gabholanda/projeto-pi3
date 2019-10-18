@@ -38,6 +38,7 @@ public class SaleServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         String path = "./SaleJSPs/SaleJSP.jsp";
+        request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
                         "/WEB-INF/IndexJSP.jsp");
