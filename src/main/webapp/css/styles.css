@@ -1,5 +1,5 @@
 nav {
-    display: flex;
+    display: flex!important;
     justify-content: space-around;
     padding: 15px 5%;
     background-color: rgb(48, 44, 44);
