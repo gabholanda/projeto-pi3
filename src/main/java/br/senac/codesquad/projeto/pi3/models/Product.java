@@ -10,44 +10,52 @@ package br.senac.codesquad.projeto.pi3.models;
  * @author gabriel.hsantos21
  */
 public class Product {
-    
-    private static int id; 
-    private  static String nameProduct; 
-    private  double values; 
-    private  double valuesSale;  
-    private  int amount; 
-    private  int stock; 
-    private  String details; 
-    private  int idBranchOffice; 
-    
-    public Product(int id, String nameProduct, double values, double valuesSale, int amount, int stock, String details, int idBranchOffice){ 
-        this.id=id; 
-        this.nameProduct = nameProduct; 
-        this.values = values; 
-        this.amount = amount; 
-        this.stock = stock; 
-        this.details = details; 
-        this.idBranchOffice = idBranchOffice; 
-        this.valuesSale = valuesSale; 
+
+    private int id;
+    private String nameProduct;
+    private double values;
+    private double valuesSale;
+    private int amount;
+    private int stock;
+    private String details;
+    private int idBranchOffice;
+
+    public Product(int id, String nameProduct, double values, double valuesSale, int amount, int stock, String details, int idBranchOffice) {
+        this.id = id;
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.amount = amount;
+        this.stock = stock;
+        this.details = details;
+        this.idBranchOffice = idBranchOffice;
+        this.valuesSale = valuesSale;
     }
-    
-    
-    
+
     public Product(int id, String nameProduct, double values, double valueSale, int amount, int stock, String details) {
-        this.id=id; 
-        this.nameProduct = nameProduct; 
-        this.values = values; 
-        this.valuesSale=valueSale;
-        this.amount = amount; 
-        this.stock = stock; 
-        this.details = details; 
-        
+        this.id = id;
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.amount = amount;
+        this.stock = stock;
+        this.details = details;
+
     }
 
     public Product() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
-    
+
+    public Product(String nameProduct, double values, double valueSale, int amount, int stock, String details, int idBranchOffice) {
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.amount = amount;
+        this.stock = stock;
+        this.details = details;
+        this.idBranchOffice = idBranchOffice;
+    }
+
     public double getValuesSale() {
         return valuesSale;
     }
@@ -59,7 +67,7 @@ public class Product {
     /**
      * @return the id
      */
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
@@ -139,7 +147,5 @@ public class Product {
     public int getIdBranchOffice() {
         return idBranchOffice;
     }
-    
-    
-    
+
 }

@@ -2,9 +2,7 @@ package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.Product;
-import static br.senac.codesquad.projeto.pi3.models.Product.getId;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +17,8 @@ public class ProductDAO {
     private static Connection connection;
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
-    private static boolean retorno = false; 
+    private static boolean retorno = false;
+
     public static ArrayList<Product> getProduct() throws Exception {
         ArrayList<Product> Product = new ArrayList<Product>();
         try {
@@ -47,12 +46,12 @@ public class ProductDAO {
         } catch (Exception ex) {
             throw ex;
         }
-      
+
     }
 
-    public static boolean delete() throws SQLException {
+    public static boolean delete(int id) throws SQLException {
 
-      Connection con = ConnectionManager.getConnection();
+        Connection con = ConnectionManager.getConnection();
         String query = "DELETE "
                 + "         * "
                 + "     FROM "
@@ -60,12 +59,13 @@ public class ProductDAO {
                 + "     WHERE"
                 + "         ID=? ";
         ps = con.prepareStatement(query);
-        ps.setInt(1, getId());
+        ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
-        retorno = updatedlines > 0 ? true : false;
+        retorno = updatedlines > 0;
         return retorno;
     }
-    public static boolean update( int id,String nameProduct, double value, double valueSale, int amount, int stock,String details) throws Exception {
+
+    public static boolean update(int id, String nameProduct, double value, double valueSale, int amount, int stock, String details) throws Exception {
 
         boolean returnn = false;
 
@@ -90,7 +90,7 @@ public class ProductDAO {
             ps.setString(3, details);
             ps.setInt(4, amount);
             ps.setInt(5, stock);
-            ps.setInt(6,id);
+            ps.setInt(6, id);
 
             int updatedlines = ps.executeUpdate();
 

@@ -45,7 +45,7 @@ public class ProductServlet extends HttpServlet {
                 case "/formProduct":
                     form(request, response);
                     break;
-                    case "/searchProduct":
+                case "/searchProduct":
                     search(request, response);
                     break;
                 case "/create":
@@ -77,7 +77,7 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     private void search(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = "./ProductJSP/ProductScreen.jsp";
@@ -90,9 +90,7 @@ public class ProductServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        
-        
-        String idStr = request.getParameter("id");
+
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
@@ -101,7 +99,6 @@ public class ProductServlet extends HttpServlet {
         String details = request.getParameter("details");
         String idBranchOffice = request.getParameter("idBranchOffice");
 
-        request.setAttribute("idAttr", idStr);
         request.setAttribute("nameProductAttr", nameProduct);
         request.setAttribute("valuesAttr", values);
         request.setAttribute("valuesSaleAttr", valuesSale);
@@ -111,7 +108,6 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("idBranchOfficeAttr", idBranchOffice);
 
         ProductController.save(
-                Integer.parseInt(idStr),
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
@@ -120,7 +116,7 @@ public class ProductServlet extends HttpServlet {
                 details,
                 Integer.parseInt(idBranchOffice));
         response.sendRedirect("list");
-        
+
         String path = "./ProductJSP/ProductScreen.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
@@ -129,25 +125,23 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-   
-    
-    private void delete(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException, SQLException{
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         String idStr = request.getParameter("id");
         request.setAttribute("idAttr", idStr);
-        
+
         ProductController.delete(Integer.parseInt(idStr));
         response.sendRedirect("list");
-        
-         String path = "./ProductJSP/ProductScreen.jsp";
+
+        String path = "./ProductJSP/ProductScreen.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
-        
+
     }
-    
-    private void update(HttpServletRequest request, HttpServletResponse response)throws IOException, Exception{
+
+    private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
         String idStr = request.getParameter("id");
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
@@ -165,16 +159,16 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("stockAttr", stock);
         request.setAttribute("detailsAttr", details);
         request.setAttribute("idBranchOfficeAttr", idBranchOffice);
-        
-        ProductController.update(Integer.parseInt(idStr), 
-                nameProduct, 
+
+        ProductController.update(Integer.parseInt(idStr),
+                nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
                 Integer.parseInt(amount),
                 Integer.parseInt(stock),
                 details);
         response.sendRedirect("list");
-         String path = "./ProductJSP/ProductScreen.jsp";
+        String path = "./ProductJSP/ProductScreen.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(

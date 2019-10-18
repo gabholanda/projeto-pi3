@@ -11,27 +11,25 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean save(int id, String nameProduct, double values,double valueSale, int amount, int stock, String details, int idBranchOffice) {
-        Product product = new Product(id, nameProduct, values, valueSale,amount, stock, details, idBranchOffice);
+    public static boolean save(String nameProduct, double values, double valueSale, int amount, int stock, String details, int idBranchOffice) {
+        Product product = new Product(nameProduct, values, valueSale, amount, stock, details, idBranchOffice);
         return ProductDAO.save(product);
 
     }
 
     public static boolean update(int id, String nameProduct, double values, double valueSale, int amount, int stock, String details) throws Exception {
-        Product product = new Product(id,nameProduct, values,valueSale, amount, stock,details);
-        return ProductDAO.update(id, nameProduct,  values,  valueSale, amount , stock, details);
+        Product product = new Product(id, nameProduct, values, valueSale, amount, stock, details);
+        return ProductDAO.update(id, nameProduct, values, valueSale, amount, stock, details);
 
     }
 
     public static boolean delete(int id) throws SQLException {
-        return ProductDAO.delete();
+        return ProductDAO.delete(id);
     }
 
     public static ArrayList<Product> getProduct() throws Exception {
         return ProductDAO.getProduct();
 
     }
-
-    
 
 }
