@@ -7,6 +7,7 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * //teste
+ *
  *
  * @author marcelo.moraes
  */
@@ -26,6 +27,13 @@ public class ClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String path = "./Client/ClientJSP.jsp";
+        request.setAttribute("path", path);
+
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
