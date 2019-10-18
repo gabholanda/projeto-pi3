@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.codesquad.projeto.pi3.application;
+package br.senac.codesquad.projeto.pi3.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +37,7 @@ public class ServletApplication extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletApplication</title>");
+            out.println("<title>Servlet ServletApplication</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ServletApplication at " + request.getContextPath() + "</h1>");
