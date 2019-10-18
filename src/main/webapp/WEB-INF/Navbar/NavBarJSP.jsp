@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<nav id="nv-bar">
+<nav>
     <a href="/teste">Venda</a>
     <a href="/client">Cliente</a>
     <a href="/product">Produto</a>
