@@ -90,14 +90,13 @@ public class ProductServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
         String amount = request.getParameter("amount");
         String stock = request.getParameter("stock");
         String details = request.getParameter("details");
-        String idBranchOffice = request.getParameter("idBranchOffice");
+//        String idBranchOffice = request.getParameter("idBranchOffice");
 
         request.setAttribute("nameProductAttr", nameProduct);
         request.setAttribute("valuesAttr", values);
@@ -105,7 +104,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("amountAttr", amount);
         request.setAttribute("stockAttr", stock);
         request.setAttribute("detailsAttr", details);
-        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
+//        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
 
         ProductController.save(
                 nameProduct,
@@ -114,7 +113,8 @@ public class ProductServlet extends HttpServlet {
                 Integer.parseInt(amount),
                 Integer.parseInt(stock),
                 details,
-                Integer.parseInt(idBranchOffice));
+                1
+        );
         response.sendRedirect("list");
 
         String path = "./ProductJSP/ProductScreen.jsp";
@@ -174,5 +174,7 @@ public class ProductServlet extends HttpServlet {
                 = request.getRequestDispatcher(
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
+        response.sendRedirect("list");
+
     }
 }
