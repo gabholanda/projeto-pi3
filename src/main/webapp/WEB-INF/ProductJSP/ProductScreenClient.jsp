@@ -114,32 +114,6 @@
                                 </div>
                             </div>
                         </div>
-                            <fieldset>
-                            <legend>Categoria</legend>
-                            <div>
-                                <div>
-                                    <input type="radio" name="game" 
-                                           id="optvideoGame" value="0" checked />
-                                    <label for="optSexoF">
-                                        VideoGame
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="game"
-                                          id="optCamiseta" value="1" />
-                                    <label for="optCamiseta">
-                                        Camiseta
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="radio" name="game"
-                                            id="optAcessorio" value="1" />
-                                    <label for="optAcessorio">
-                                        Acessorio
-                                    </label>
-                                </div>
-                            </div>
-                        </fieldset>
                             
                          <fieldset>
                             <legend>Filiais</legend>
