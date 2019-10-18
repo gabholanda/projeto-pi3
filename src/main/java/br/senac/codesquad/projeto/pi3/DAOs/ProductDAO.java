@@ -1,9 +1,11 @@
 package br.senac.codesquad.projeto.pi3.DAOs;
 
+import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,8 +16,13 @@ import java.util.ArrayList;
 public class ProductDAO {
 
     private static Connection connection;
-
-    public static ArrayList<Product> getProduct() {
+    
+    public static ArrayList<Product> getProduct() throws SQLException {
+        
+        ArrayList<Product> Products = new ArrayList<Product>(); 
+        
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

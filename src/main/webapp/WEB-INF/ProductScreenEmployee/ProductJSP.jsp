@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+
+
 <div>
     <section style="width: 70%; margin: 0 auto">
         <h1>Produtos</h1>
