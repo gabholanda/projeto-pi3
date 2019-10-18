@@ -3,8 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.codesquad.projeto.pi3.application;
+package br.senac.codesquad.projeto.pi3.Servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author gabriel.hsantos21
+ */
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -25,11 +37,10 @@ public class SaleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        String path = "../Teste/TesteJSP.jsp";
-        request.setAttribute("path", path);
+        String path = "./SaleJSPs/SaleJSP.jsp";
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
-                        "/WEB-INF/SaleJSPs/SaleJSP.jsp");
+                        "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
 
     }
