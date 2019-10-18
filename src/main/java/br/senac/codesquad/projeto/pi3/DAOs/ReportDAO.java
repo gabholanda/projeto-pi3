@@ -11,4 +11,6 @@ package br.senac.codesquad.projeto.pi3.DAOs;
  */
 public class ReportDAO {
     
+    
+    
 }

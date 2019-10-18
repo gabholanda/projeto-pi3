@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.codesquad.projeto.pi3.application.controllers;
+package br.senac.codesquad.projeto.pi3.controllers;
 
 /**
  *
  * @author gabriel.hsantos21
  */
-public class ProductController {
+public class SaleController {
     
 }
