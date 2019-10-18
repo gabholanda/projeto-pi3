@@ -7,24 +7,32 @@ package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.BranchOfficeDAO;
 import br.senac.codesquad.projeto.pi3.models.BranchOffice;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  *
- * @author gabriel.hsantos21
+ * @author lucas.paiva
  */
 public class BranchOfficeController {
-    public boolean CreateBranch(){
-        return true;
+
+    public static boolean CreateBranch(String name, String address, String cnpj) throws SQLException {
+        return (BranchOfficeDAO.create( name, address, cnpj));
+     
     }
-    public boolean DeleteBranch(){
-     return true;   
+
+    public boolean DeleteBranch(int id) throws SQLException {
+        return BranchOfficeDAO.delete(id) ;
+       
     }
-    public boolean UpdateBranch(){
-        return  true;
+
+    public boolean UpdateBranch(int id,String name,String cnpj,String address) throws Exception {
+        return BranchOfficeDAO.update(id , name, cnpj,address);
+   
     }
-    public ArrayList<BranchOffice> ReadBranchs() throws Exception{
+
+    public ArrayList<BranchOffice> ReadBranchs() throws Exception {
         return BranchOfficeDAO.read();
     }
-    
+
 }
