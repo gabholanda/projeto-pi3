@@ -12,10 +12,10 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nome</th>
+            <th scope="col">CNPJ</th>
+            <th scope="col">Endereço</th>
         </tr>
     </thead>
     <tbody>

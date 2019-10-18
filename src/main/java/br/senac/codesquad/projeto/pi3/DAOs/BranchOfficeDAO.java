@@ -22,14 +22,14 @@ public class BranchOfficeDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
+    private static Connection con = ConnectionManager.getConnection();
 
     public static boolean create(String name, String address, String cnpj) throws SQLException {
 
         try {
-            Connection con = ConnectionManager.getConnection();
 
-            String query = "IF NOT EXISTS (SELECT TOP 1 1 FROM BRANCH_OFFICE WHERE NAME like '%?')"
-                    + "INSERT"
+            String query
+                    = "INSERT"
                     + "       INTO"
                     + "   BRANCH_OFFICE"
                     + "       (NAME,CNPJ,ADDRESS)"
@@ -46,15 +46,13 @@ public class BranchOfficeDAO {
             return retorno;
 
         } catch (SQLException ex) {
-
-            throw ex;
+            printSQLException(ex);
 
         }
-
+        return false;
     }
 
     public static boolean delete(int id) throws SQLException {
-        Connection con = ConnectionManager.getConnection();
         String query = "DELETE "
                 + "         * "
                 + "     FROM "
@@ -70,7 +68,6 @@ public class BranchOfficeDAO {
 
     public static boolean update(BranchOffice Branch) throws Exception {
         try {
-            Connection con = ConnectionManager.getConnection();
             String query = "UPDATE"
                     + "       BRANCH_OFFICE"
                     + "   SET"
@@ -101,29 +98,41 @@ public class BranchOfficeDAO {
     public static ArrayList<BranchOffice> read() throws Exception {
         ArrayList<BranchOffice> Branchs = new ArrayList<>();
         try {
-            Connection con = ConnectionManager.getConnection();
-            String query = "SELECT "
-                    + "       *"
-                    + "   FROM"
-                    + "       BRANCH_OFFICE";
+            String query = "SELECT * FROM BRANCH_OFFICE";
 
-            rs = ps.executeQuery(query);
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     BranchOffice branch = new BranchOffice();
+                    branch.setId(rs.getInt("ID_BRANCH_OFFICE"));
                     branch.setName(rs.getString("NAME"));
                     branch.setCnpj(rs.getString("CNPJ"));
                     branch.setAddress((rs.getString("ADDRESS")));
                     Branchs.add(branch);
                 }
             }
-
             return Branchs;
-
         } catch (SQLException ex) {
-            throw ex;
+            printSQLException(ex);
         }
+        return null;
+    }
 
+    private static void printSQLException(SQLException ex) {
+        for (Throwable e : ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
     }
 
 }

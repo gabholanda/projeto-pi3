@@ -16,13 +16,11 @@ import java.util.ArrayList;
 public class ProductDAO {
 
     private static Connection connection;
-    
+
     public static ArrayList<Product> getProduct() throws SQLException {
-        
-        ArrayList<Product> Products = new ArrayList<Product>(); 
-        
-        
-        
+
+        ArrayList<Product> Products = new ArrayList<>();
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -20,13 +20,13 @@ public class ConnectionManager {
     private static final String username = "root";
     private static final String password = "admin";
     private static Connection con;
-    private static String urlstring;
+    private static String urlString = "jdbc:mysql://localhost:3306/codesquad?useTimezone=true&serverTimezone=UTC";
 
     public static Connection getConnection() {
         try {
             Class.forName(driverName);
             try {
-                con = DriverManager.getConnection(username, username, password);
+                con = DriverManager.getConnection(urlString, username, password);
             } catch (SQLException ex) {
                 System.out.println("Failed to create the database connection.");
             }

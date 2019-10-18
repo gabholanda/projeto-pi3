@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lucas.mnpaiva
  */
-@WebServlet(name = "BranchServlet", urlPatterns = {"/branch"})
+@WebServlet(name = "BranchServlet", urlPatterns = {"/branch/*"})
 public class BranchServlet extends HttpServlet {
 
     @Override
@@ -113,7 +113,10 @@ public class BranchServlet extends HttpServlet {
             BranchOfficeController.CreateBranch(name, address, cnpj);
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            response.sendRedirect("branch");
         }
+
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
@@ -133,16 +136,17 @@ public class BranchServlet extends HttpServlet {
         try {
             ArrayList<BranchOffice> branchList = BranchOfficeController.ReadBranchs();
             request.setAttribute("branchList", branchList);
-        } catch (Exception ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
             String path = "./Branch/BranchList.jsp";
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
-        }
+        } catch (Exception ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
 
+        }
     }
+
 }
