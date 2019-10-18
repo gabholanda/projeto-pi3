@@ -9,7 +9,7 @@
 
     <name>projeto-pi3</name>
     
-     <organization>
+    <organization>
         <name>Senac TADS PI3</name>
     </organization>
     
@@ -58,7 +58,6 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>

@@ -43,12 +43,11 @@ public class ProductServlet extends HttpServlet {
                 case "/product":
                     form(request, response);
                     break;
+
                 case "/create":
                     create(request, response);
                     break;
-                case "/insert":
 
-                    break;
                 case "/delete":
 
                     break;
@@ -59,7 +58,7 @@ public class ProductServlet extends HttpServlet {
 
                     break;
                 default:
-
+                    form(request, response);
                     break;
             }
         } catch (SQLException ex) {
@@ -86,7 +85,7 @@ public class ProductServlet extends HttpServlet {
         String amount = request.getParameter("amount");
         String stock = request.getParameter("stock");
         String details = request.getParameter("details");
-        String idBranchOffice = request.getParameter("idBranchOffice");
+//        String idBranchOffice = request.getParameter("idBranchOffice");
 
         request.setAttribute("idAttr", idStr);
         request.setAttribute("nameProductAttr", nameProduct);
@@ -95,7 +94,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("amountAttr", amount);
         request.setAttribute("stockAttr", stock);
         request.setAttribute("detailsAttr", details);
-        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
+//        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
 
         ProductController.save(
                 Integer.parseInt(idStr),
@@ -104,7 +103,7 @@ public class ProductServlet extends HttpServlet {
                 Integer.parseInt(amount),
                 Integer.parseInt(stock),
                 details,
-                Integer.parseInt(idBranchOffice));
+                1);
         response.sendRedirect("list");
     }
 }

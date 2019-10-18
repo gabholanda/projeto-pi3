@@ -41,11 +41,11 @@ public class BranchOfficeDAO {
             ps.setString(3, address);
             int updatedlines = ps.executeUpdate();
 
-            retorno = updatedlines > 0 ? true : false;
+            retorno = updatedlines > 0;
 
             return retorno;
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
 
             throw ex;
 
@@ -64,7 +64,7 @@ public class BranchOfficeDAO {
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
-        retorno = updatedlines > 0 ? true : false;
+        retorno = updatedlines > 0;
         return retorno;
     }
 
@@ -88,18 +88,18 @@ public class BranchOfficeDAO {
 
             int updatedlines = ps.executeUpdate();
 
-            retorno = updatedlines > 0 ? true : false;
+            retorno = updatedlines > 0;
 
             return retorno;
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             throw ex;
         }
 
     }
 
     public static ArrayList<BranchOffice> read() throws Exception {
-        ArrayList<BranchOffice> Branchs = new ArrayList<BranchOffice>();
+        ArrayList<BranchOffice> Branchs = new ArrayList<>();
         try {
             Connection con = ConnectionManager.getConnection();
             String query = "SELECT "
@@ -120,7 +120,7 @@ public class BranchOfficeDAO {
 
             return Branchs;
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             throw ex;
         }
 

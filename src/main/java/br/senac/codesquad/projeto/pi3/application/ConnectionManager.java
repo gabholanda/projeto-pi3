@@ -7,7 +7,6 @@ package br.senac.codesquad.projeto.pi3.application;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -17,9 +16,9 @@ import java.sql.SQLException;
 public class ConnectionManager {
 
     //private static String url = "jdbc:mysql://localhost:3306/prototypeeop";
-    private static String driverName = "com.mysql.jdbc.Driver";
-    private static String username = "root";
-    private static String password = "password";
+    private static final String driverName = "com.mysql.jdbc.Driver";
+    private static final String username = "root";
+    private static final String password = "admin";
     private static Connection con;
     private static String urlstring;
 

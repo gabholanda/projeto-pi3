@@ -8,8 +8,8 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 import br.senac.codesquad.projeto.pi3.controllers.BranchOfficeController;
 import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lucas.mnpaiva
  */
-@WebServlet(name = "BranchServlet", urlPatterns = {"/branch"}) //SEGUE ESSA URL PATTERN <<<<<<<
+@WebServlet(name = "BranchServlet", urlPatterns = {"/branch"})
 public class BranchServlet extends HttpServlet {
 
     @Override
@@ -39,19 +39,26 @@ public class BranchServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/branch":
+                    read(request, response);
+                    break;
+
+                case "/new":
                     form(request, response);
                     break;
+
                 case "/create":
                     create(request, response);
                     break;
+
                 case "/delete":
 
                     break;
+
                 case "/update":
                     update(request, response);
                     break;
                 default:
-
+                    read(request, response);
                     break;
             }
         } catch (SQLException ex) {
@@ -70,7 +77,7 @@ public class BranchServlet extends HttpServlet {
 
     private void form(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String path = "./Branch/Branch.jsp";
+        String path = "./Branch/BranchCreate.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
@@ -106,6 +113,35 @@ public class BranchServlet extends HttpServlet {
             BranchOfficeController.CreateBranch(name, address, cnpj);
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void delete(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        String id = request.getAttribute("id").toString();
+        request.setAttribute("id", id);
+        try {
+            BranchOfficeController.DeleteBranch(Integer.parseInt(id));
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void read(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+
+        try {
+            ArrayList<BranchOffice> branchList = BranchOfficeController.ReadBranchs();
+            request.setAttribute("branchList", branchList);
+        } catch (Exception ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            String path = "./Branch/BranchList.jsp";
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

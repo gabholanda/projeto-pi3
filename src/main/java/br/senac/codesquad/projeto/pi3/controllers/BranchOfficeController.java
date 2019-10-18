@@ -31,7 +31,7 @@ public class BranchOfficeController {
 
     }
 
-    public ArrayList<BranchOffice> ReadBranchs() throws Exception {
+    public static ArrayList<BranchOffice> ReadBranchs() throws Exception {
         return BranchOfficeDAO.read();
     }
 
