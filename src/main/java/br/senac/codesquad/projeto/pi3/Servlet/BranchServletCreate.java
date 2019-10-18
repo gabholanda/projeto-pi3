@@ -22,13 +22,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lucas.mnpaiva
  */
-@WebServlet(name = "CreateBranchServlet", urlPatterns = {"/branch/create"})
+@WebServlet(name = "BranchServletCreate", urlPatterns = {"/branch/create"}) //SEGUE ESSA URL PATTERN <<<<<<<
 public class BranchServletCreate extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Branch/Branch.jsp");
+        String path = "./Branch/Branch.jsp";
+        request.setAttribute("path", path);
+
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
 
