@@ -27,7 +27,8 @@ public class ProductController {
     }
 
     public static ArrayList<String[]> getProduct() {
-        ArrayList<Product> product = ProductDAO.getProduct();
+        return null;
+      /*  ArrayList<Product> product = ProductDAO.getProduct();
         ArrayList<String[]> products = new ArrayList<>();
 
         for (int i = 0; i < products.size(); i++) {
@@ -35,7 +36,7 @@ public class ProductController {
         }
 
         return products;
-
-    }
+*/
+    } 
 
 }
