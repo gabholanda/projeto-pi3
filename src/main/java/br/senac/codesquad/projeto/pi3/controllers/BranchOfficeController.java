@@ -17,18 +17,18 @@ import java.util.ArrayList;
 public class BranchOfficeController {
 
     public static boolean CreateBranch(String name, String address, String cnpj) throws SQLException {
-        return (BranchOfficeDAO.create( name, address, cnpj));
-     
+        return (BranchOfficeDAO.create(name, address, cnpj));
+
     }
 
-    public boolean DeleteBranch(int id) throws SQLException {
-        return BranchOfficeDAO.delete(id) ;
-       
+    public static boolean DeleteBranch(int id) throws SQLException {
+        return BranchOfficeDAO.delete(id);
+
     }
 
-    public boolean UpdateBranch(int id,String name,String cnpj,String address) throws Exception {
-        return BranchOfficeDAO.update(id , name, cnpj,address);
-   
+    public static boolean UpdateBranch(BranchOffice Branch) throws Exception {
+        return BranchOfficeDAO.update(Branch);
+
     }
 
     public ArrayList<BranchOffice> ReadBranchs() throws Exception {

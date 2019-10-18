@@ -23,7 +23,7 @@ public class BranchOfficeDAO {
     private static ResultSet rs = null;
     private static boolean retorno = false;
 
-    public static boolean create( String name, String address, String cnpj) throws SQLException {
+    public static boolean create(String name, String address, String cnpj) throws SQLException {
 
         try {
             Connection con = ConnectionManager.getConnection();
@@ -68,7 +68,7 @@ public class BranchOfficeDAO {
         return retorno;
     }
 
-    public static boolean update(int ID, String name, String cnpj, String address) throws Exception {
+    public static boolean update(BranchOffice Branch) throws Exception {
         try {
             Connection con = ConnectionManager.getConnection();
             String query = "UPDATE"
@@ -81,10 +81,10 @@ public class BranchOfficeDAO {
                     + "       ID=?";
             ps = con.prepareStatement(query);
 
-            ps.setString(1, name);
-            ps.setString(2, cnpj);
-            ps.setString(3, address);
-            ps.setInt(4, ID);
+            ps.setString(1, Branch.getName());
+            ps.setString(2, Branch.getCnpj());
+            ps.setString(3, Branch.getAddress());
+            ps.setInt(4, Branch.getId());
 
             int updatedlines = ps.executeUpdate();
 
@@ -113,7 +113,7 @@ public class BranchOfficeDAO {
                     BranchOffice branch = new BranchOffice();
                     branch.setName(rs.getString("NAME"));
                     branch.setCnpj(rs.getString("CNPJ"));
-                    branch.setAdress((rs.getString("ADDRESS")));
+                    branch.setAddress((rs.getString("ADDRESS")));
                     Branchs.add(branch);
                 }
             }
