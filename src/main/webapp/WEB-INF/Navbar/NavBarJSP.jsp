@@ -11,4 +11,5 @@
     <a href="/product">Produto</a>
     <a href="/report">Relatório</a>
     <a href="/employee">Funcionário</a>
+    <a href="/branch">Filial</a>
 </nav>
