@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.ProductDAO;
@@ -15,27 +10,32 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public  boolean create(int id, String nameProduct, double values, double valeusSale, int amount, int stock, String details, int idBranchOffice) throws Exception {
+    public static boolean save(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
         Product product = new Product(id, nameProduct, values, amount, stock, details, idBranchOffice);
-        return ProductDAO.create(nameProduct,  values, valeusSale,amount,details,stock, idBranchOffice);
+        return ProductDAO.save(product);
 
     }
 
-    public  boolean update( String nameProduct, double values,double valeusSale, int amount, int stock, String details, int idBranchOffice) throws Exception {
-        Product product = new Product( nameProduct, values, amount, stock, details, idBranchOffice);
-        return ProductDAO.update( nameProduct,  values, valeusSale, details, amount, stock);
+    public static boolean update(int id, String nameProduct, double values, int amount, int stock, String details, int idBranchOffice) {
+        Product product = new Product(id, nameProduct, values, amount, stock, details, idBranchOffice);
+        return ProductDAO.update(product);
 
     }
 
-    public  boolean delete() throws Exception {
-        return ProductDAO.delete();
+    public static boolean delete(int id) {
+        return ProductDAO.delete(id);
     }
 
-    public  ArrayList<Product> getProduct() throws Exception {
+    public static ArrayList<String[]> getProduct() {
+        ArrayList<Product> product = ProductDAO.getProduct();
+        ArrayList<String[]> products = new ArrayList<>();
 
-        return ProductDAO.getProduct();
+        for (int i = 0; i < products.size(); i++) {
+            // product.add(new String[]
+        }
+
+        return products;
 
     }
 
 }
-
