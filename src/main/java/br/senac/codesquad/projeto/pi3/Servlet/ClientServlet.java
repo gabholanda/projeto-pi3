@@ -8,6 +8,7 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author marcelo.moraes
  */
+@WebServlet(name = "ClientServlet", urlPatterns = {"/client"})
 public class ClientServlet extends HttpServlet {
 
     @Override
