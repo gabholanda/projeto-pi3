@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author gabriel.hsantos21
+ * @author lucas.mnpaiva
  */
 public class BranchOfficeDAO {
 
@@ -23,7 +23,7 @@ public class BranchOfficeDAO {
     private static ResultSet rs = null;
     private static boolean retorno = false;
 
-    public static boolean create(String name, String cnpj) throws SQLException {
+    public static boolean create( String name, String address, String cnpj) throws SQLException {
 
         try {
             Connection con = ConnectionManager.getConnection();
@@ -32,12 +32,13 @@ public class BranchOfficeDAO {
                     + "INSERT"
                     + "       INTO"
                     + "   BRANCH_OFFICE"
-                    + "       (NAME,CNPJ)"
+                    + "       (NAME,CNPJ,ADDRESS)"
                     + "   VALUES"
-                    + "        (?,?)  ";
+                    + "        (?,?,?)  ";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, cnpj);
+            ps.setString(3, address);
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0 ? true : false;
@@ -52,12 +53,22 @@ public class BranchOfficeDAO {
 
     }
 
-    public static boolean delete() {
-        String query = "";
-        return true;
+    public static boolean delete(int id) throws SQLException {
+        Connection con = ConnectionManager.getConnection();
+        String query = "DELETE "
+                + "         * "
+                + "     FROM "
+                + "         BRANCH_OFFICE"
+                + "     WHERE"
+                + "         ID=? ";
+        ps = con.prepareStatement(query);
+        ps.setInt(1, id);
+        int updatedlines = ps.executeUpdate();
+        retorno = updatedlines > 0 ? true : false;
+        return retorno;
     }
 
-    public static boolean update(String ID, String name, String cnpj) throws Exception {
+    public static boolean update(int ID, String name, String cnpj, String address) throws Exception {
         try {
             Connection con = ConnectionManager.getConnection();
             String query = "UPDATE"
@@ -65,19 +76,21 @@ public class BranchOfficeDAO {
                     + "   SET"
                     + "       NAME='?',"
                     + "       CNPJ='?'"
+                    + "       ADDRESS='?'"
                     + "   WHERE"
                     + "       ID=?";
             ps = con.prepareStatement(query);
 
             ps.setString(1, name);
             ps.setString(2, cnpj);
-            ps.setString(3, ID);
+            ps.setString(3, address);
+            ps.setInt(4, ID);
 
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0 ? true : false;
 
-            return true;
+            return retorno;
 
         } catch (Exception ex) {
             throw ex;
