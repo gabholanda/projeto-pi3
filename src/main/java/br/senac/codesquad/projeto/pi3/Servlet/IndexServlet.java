@@ -18,21 +18,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author gabriel.hsantos21
  */
-@WebServlet(name = "IndexServlet", urlPatterns = {"/home"})
+@WebServlet(name = "IndexServlet", urlPatterns = {"/"})
 public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-
-        String path = "./Teste/TesteJSP.jsp";
+        String path = "./Auth/LoginJSP.jsp";
         request.setAttribute("path", path);
 
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
     }
 }
