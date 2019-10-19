@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * @author gabriel.hsantos21
  */
 public class Client {
-    
-    private int id; 
+
+    private int id;
     private String name;
     private String cpf;
     private String address;
@@ -23,13 +23,23 @@ public class Client {
     /**
      * @return the name
      */
-    public Client(int id, String name, String cpf, String address, String mail) {
-        this.id = id; 
+    public Client(String name, String cpf, String address, String mail) {
         this.name = name;
         this.cpf = cpf;
         this.address = address;
         this.mail = mail;
+    }
 
+    public Client(int id, String name, String cpf, String address, String mail) {
+        this.id = id;  
+        this.name = name;
+        this.cpf = cpf;
+        this.address = address;
+        this.mail = mail;
+    }
+
+    public Client() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getName() {

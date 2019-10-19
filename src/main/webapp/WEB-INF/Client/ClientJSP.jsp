@@ -29,7 +29,7 @@
                                    required maxlength="100" value="${nomeAttr}" />
                             <c:if test="${erroNome}">
                                 <div class="erro-input">
-                                    Digite o nome do cliente: 
+                                    
                                 </div>
                             </c:if>
                         </div>
@@ -37,7 +37,9 @@
 
                     <div>
                         <label for="txtCPF">
-                            Digite um CPF: 
+                            Digite um CPF:  
+                            <br> 
+                           
                         </label>
                         <div>
                             <input name="cpf" id="txtCPF" 
@@ -49,6 +51,7 @@
                     <div>
                         <label for="txtAddress">
                             Digite o endereco do cliente: 
+                            <br> 
                         </label>
                         <div>
                             <textarea name="address" id="txtAddress"
@@ -61,13 +64,13 @@
                                 E-mail
                             </label>
                             <div>
-                                <input type="email" name="email" id="txtEmail" 
+                                <input type="email" name="mail" id="txtEmail" 
                                        placeholder="E-mail"
                                        required />
 
                                 <div
                                     class="erro-input">
-                                    Digite um e-mail.
+                                    <br>
                                 </div>
                             </div>
 

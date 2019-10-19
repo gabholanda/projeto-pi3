@@ -42,13 +42,13 @@ public class ProductServlet extends HttpServlet {
 
         try {
             switch (action) {
-                case "/formProduct":
+                case "/product":
                     form(request, response);
                     break;
-                case "/searchProduct":
+                case "/SearchProduct":
                     search(request, response);
                     break;
-                    case "/menuProduct":
+                case "/MenuProduct":
                     menu(request, response);
                     break;
                 case "/create":
@@ -73,7 +73,7 @@ public class ProductServlet extends HttpServlet {
 
     private void form(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String path = "./ProductJSP/ProductScreenClient.jsp";
+        String path = "./ProductJSP/FormProduct.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
@@ -83,13 +83,14 @@ public class ProductServlet extends HttpServlet {
 
     private void search(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String path = "./ProductJSP/ProductScreen.jsp";
+        String path = "./ProductJSP/SearchProduct.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
+
     private void menu(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = "./ProductJSP/MenuProduct.jsp";
@@ -99,23 +100,18 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
-    
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
-        String amount = request.getParameter("amount");
-        String stock = request.getParameter("stock");
         String details = request.getParameter("details");
 //        String idBranchOffice = request.getParameter("idBranchOffice");
 
         request.setAttribute("nameProductAttr", nameProduct);
         request.setAttribute("valuesAttr", values);
         request.setAttribute("valuesSaleAttr", valuesSale);
-        request.setAttribute("amountAttr", amount);
-        request.setAttribute("stockAttr", stock);
         request.setAttribute("detailsAttr", details);
 //        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
 
@@ -123,19 +119,8 @@ public class ProductServlet extends HttpServlet {
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
-                Integer.parseInt(amount),
-                Integer.parseInt(stock),
-                details,
-                1
-        );
-        response.sendRedirect("list");
+                details, 1);
 
-        String path = "./ProductJSP/ProductScreen.jsp";
-        request.setAttribute("path", path);
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher(
-                        "/WEB-INF/IndexJSP.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
@@ -143,14 +128,6 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("idAttr", idStr);
 
         ProductController.delete(Integer.parseInt(idStr));
-        response.sendRedirect("list");
-
-        String path = "./ProductJSP/ProductScreen.jsp";
-        request.setAttribute("path", path);
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher(
-                        "/WEB-INF/IndexJSP.jsp");
-        dispatcher.forward(request, response);
 
     }
 
@@ -159,8 +136,6 @@ public class ProductServlet extends HttpServlet {
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
-        String amount = request.getParameter("amount");
-        String stock = request.getParameter("stock");
         String details = request.getParameter("details");
         String idBranchOffice = request.getParameter("idBranchOffice");
 
@@ -168,8 +143,6 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("nameProductAttr", nameProduct);
         request.setAttribute("valuesAttr", values);
         request.setAttribute("valuesSaleAttr", valuesSale);
-        request.setAttribute("amountAttr", amount);
-        request.setAttribute("stockAttr", stock);
         request.setAttribute("detailsAttr", details);
         request.setAttribute("idBranchOfficeAttr", idBranchOffice);
 
@@ -177,8 +150,6 @@ public class ProductServlet extends HttpServlet {
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
-                Integer.parseInt(amount),
-                Integer.parseInt(stock),
                 details);
         response.sendRedirect("list");
         String path = "./ProductJSP/ProductScreen.jsp";
