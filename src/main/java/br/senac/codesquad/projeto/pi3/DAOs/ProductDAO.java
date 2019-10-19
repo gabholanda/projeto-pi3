@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class ProductDAO {
 
-    private static Connection connection;
+    private static Connection con = ConnectionManager.getConnection();
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
@@ -65,7 +65,7 @@ public class ProductDAO {
         return retorno;
     }
 
-    public static boolean update(int id, String nameProduct, double value, double valueSale, int amount, int stock, String details) throws Exception {
+    public static boolean update(int id, String nameProduct, double value, double valueSale, String details) throws Exception {
 
         boolean returnn = false;
 
@@ -86,11 +86,10 @@ public class ProductDAO {
 
             ps.setString(1, nameProduct);
             ps.setDouble(2, value);
-            ps.setDouble(2, valueSale);
-            ps.setString(3, details);
-            ps.setInt(4, amount);
-            ps.setInt(5, stock);
-            ps.setInt(6, id);
+            ps.setDouble(3, valueSale);
+            ps.setString(4, details);
+
+            ps.setInt(5, id);
 
             int updatedlines = ps.executeUpdate();
 
@@ -104,36 +103,47 @@ public class ProductDAO {
     }
 
     public static boolean save(Product product) {
-        boolean returnn = false;
+        try {
 
-        /*  try {
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, LOGIN, SENHA);
-        
-            PreparedStatement comand = connection.prepareStatement("INSERT INTO PRODUCT "
-                    + "(NAME, AMOUNT, VALUES, VALUESSALE, DETAILS)"
-                    + "VALUES(?,?,?,?,?,)");
-            comand.setString(1, product.getNameProduct());
-            comand.setInt(2, product.getAmount());
-            comand.setDouble(3, product.getValues());
-            comand.setDouble(4, product.getValeusSale());
-            comand.setString(5, product.getDetails());
-            int lineserror = comand.executeUpdate();
-            if (lineserror > 0) {
-                returnn = true;
-            } else {
-                returnn = false;
-            }
+            String query
+                    = "INSERT"
+                    + "       INTO"
+                    + "   PRODUCT"
+                    + "       (NAME,BUYVALUE,SALEVALUE, DETAILS)"
+                    + "   VALUES"
+                    + "        (?,?,?,?)  ";
+            ps = con.prepareStatement(query);
+            ps.setString(1, product.getNameProduct());
+            ps.setDouble(2, product.getValues());
+            ps.setDouble(3, product.getValuesSale());
+            ps.setString(4, product.getDetails());
+
+            int updatedlines = ps.executeUpdate();
+
+            retorno = updatedlines > 0;
+
+            return retorno;
+
         } catch (SQLException ex) {
-            returnn = false;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                returnn = false;
+            printSQLException(ex);
+
+        }
+        return false;
+    }
+
+    private static void printSQLException(SQLException ex) {
+        for (Throwable e : ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
             }
         }
-        return returnn; */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

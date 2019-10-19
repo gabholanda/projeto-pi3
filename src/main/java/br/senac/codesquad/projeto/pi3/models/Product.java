@@ -56,6 +56,14 @@ public class Product {
         this.idBranchOffice = idBranchOffice;
     }
 
+    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Product(int id, String nameProduct, double values, double valueSale, String details) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public double getValuesSale() {
         return valuesSale;
     }
