@@ -48,6 +48,9 @@ public class ProductServlet extends HttpServlet {
                 case "/searchProduct":
                     search(request, response);
                     break;
+                    case "/menuProduct":
+                    menu(request, response);
+                    break;
                 case "/create":
                     create(request, response);
                     break;
@@ -87,6 +90,16 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
+    private void menu(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String path = "./ProductJSP/MenuProduct.jsp";
+        request.setAttribute("path", path);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
+    }
+    
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {

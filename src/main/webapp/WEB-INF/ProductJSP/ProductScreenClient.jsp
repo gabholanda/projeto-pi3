@@ -143,7 +143,8 @@
                          </fieldset>
                         <div>
                             <button type="submit" >Salvar</button>
-                            <button type="reset">Cancelar</button>
+                            <button type="reset">Resetar Dados</button>
+                            <a href="http://localhost:8080/product/menuProduct" role="button">Cancelar</a>
                         </div>
                     </form>
                 </section>
