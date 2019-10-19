@@ -87,13 +87,13 @@ public class BranchServlet extends HttpServlet {
 
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, Exception {
-        String idAttr = request.getAttribute("id").toString();
-        String name = request.getAttribute("name").toString();
+        String idAttr = request.getParameter("id");
+        String name = request.getParameter("name");
         int id = Integer.parseInt(idAttr);
         BranchOffice Branch = new BranchOffice();
         Branch.setId(id);
-        Branch.setName(request.getAttribute("name").toString());
-        Branch.setCnpj(request.getAttribute("cnpj").toString());
+        Branch.setName(request.getParameter("name"));
+        Branch.setCnpj(request.getParameter("cnpj"));
         Branch.setAddress(request.getAttribute("address").toString());
 
         BranchOfficeController.UpdateBranch(Branch);
@@ -101,21 +101,16 @@ public class BranchServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String name = request.getAttribute("name").toString();
-        String address = request.getAttribute("address").toString();
-        String cnpj = request.getAttribute("cnpj").toString();
 
-        request.setAttribute("name", name);
-        request.setAttribute("address", address);
-        request.setAttribute("cnpj", cnpj);
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String cnpj = request.getParameter("cnpj");
 
-        try {
-            BranchOfficeController.CreateBranch(name, address, cnpj);
-        } catch (SQLException ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            response.sendRedirect("branch");
-        }
+        request.setAttribute("nameAttr", name);
+        request.setAttribute("cnpjAttr", cnpj);
+        request.setAttribute("addressAttr", address);
+
+        BranchOfficeController.CreateBranch(name, address, cnpj);
 
     }
 

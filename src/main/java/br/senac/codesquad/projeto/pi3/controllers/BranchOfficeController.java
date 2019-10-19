@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class BranchOfficeController {
 
     public static boolean CreateBranch(String name, String address, String cnpj) throws SQLException {
-        return (BranchOfficeDAO.create(name, address, cnpj));
+        return BranchOfficeDAO.create(name, address, cnpj);
 
     }
 
