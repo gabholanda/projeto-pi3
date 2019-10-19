@@ -8,7 +8,7 @@
 <nav>
     <a href="/sale">Venda</a>
     <a href="/client">Cliente</a>
-    <a href="/product">Produto</a>
+    <a href="product/menuProduct">Produto</a>
     <a href="/report">Relatório</a>
     <a href="/employee">Funcionário</a>
     <a href="/branch">Filial</a>

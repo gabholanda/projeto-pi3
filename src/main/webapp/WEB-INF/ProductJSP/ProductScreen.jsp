@@ -69,7 +69,7 @@
                         <td> asad</td>
                         <td>asdds</td>
                         <td> <a href="http://localhost:8080/update">Alterar</a> </td>
-                        <td> <a href="http://localhost:8080/delete">Excluir</a> </td>
+                        <td> <a href="http://localhost:8080/product/searchProduct">Excluir</a> </td>
                     </tr>
                    <tr>
                         <td>sdfdsf</td>
@@ -96,7 +96,7 @@
                         <td> asad</td>
                         <td>asdds</td>
                         <td> <a href="http://localhost:8080/update">Alterar</a></td>
-                        <td> <a href="http://localhost:8080/delete">Excluir</a> </td>
+                       <td> <a href="http://localhost:8080/product/searchProduct">Excluir</a> </td>
                     </tr>
                     <tr>
                         <td>sdfdsf</td>
@@ -105,7 +105,7 @@
                         <td> asad</td>
                         <td>asdds</td>
                         <td> <a href="http://localhost:8080/update">Alterar</a> </td>
-                        <td> <a href="http://localhost:8080/delete">Excluir</a> </td>
+                        <td> <a href="http://localhost:8080/product/searchProduct">Excluir</a> </td>
                     </tr>
                 </tbody>
             </table>
