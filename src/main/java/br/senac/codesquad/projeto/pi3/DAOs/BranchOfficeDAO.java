@@ -22,19 +22,13 @@ public class BranchOfficeDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static Connection con = ConnectionManager.getConnection();
+    private static final Connection con = ConnectionManager.getConnection();
 
     public static boolean create(String name, String address, String cnpj) throws SQLException {
 
         try {
+            String query = "INSERT INTO BRANCH_OFFICE VALUES(NAME,CNPJ,ADDRESS)";
 
-            String query
-                    = "INSERT"
-                    + "       INTO"
-                    + "   BRANCH_OFFICE"
-                    + "       (NAME,CNPJ,ADDRESS)"
-                    + "   VALUES"
-                    + "        (?,?,?)  ";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, cnpj);
