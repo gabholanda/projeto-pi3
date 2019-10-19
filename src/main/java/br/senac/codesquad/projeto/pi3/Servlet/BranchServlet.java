@@ -71,8 +71,7 @@ public class BranchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Branch.jsp");
-        dispatcher.forward(request, response);
+        doGet(request, response);
     }
 
     private void form(HttpServletRequest request, HttpServletResponse response)

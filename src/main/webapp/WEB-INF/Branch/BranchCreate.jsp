@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<form  method="post" action="">
+<form  method="post" action="create">
     <div class="form-group">
         <label>Nome da Filial</label>
         <input type="text" name="name" class="form-control" value="${nameAttr}" />

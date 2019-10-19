@@ -27,7 +27,7 @@ public class BranchOfficeDAO {
     public static boolean create(String name, String address, String cnpj) throws SQLException {
 
         try {
-            String query = "INSERT INTO BRANCH_OFFICE VALUES(NAME,CNPJ,ADDRESS)";
+            String query = "INSERT INTO BRANCH_OFFICE(NAME,CNPJ,ADDRESS) VALUES(?,?,?)";
 
             ps = con.prepareStatement(query);
             ps.setString(1, name);
@@ -41,7 +41,6 @@ public class BranchOfficeDAO {
 
         } catch (SQLException ex) {
             printSQLException(ex);
-
         }
         return false;
     }
