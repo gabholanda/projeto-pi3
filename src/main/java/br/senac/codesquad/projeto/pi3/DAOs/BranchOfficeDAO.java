@@ -27,7 +27,7 @@ public class BranchOfficeDAO {
     public static boolean create(String name, String address, String cnpj) throws SQLException {
 
         try {
-            String query = "INSERT INTO BRANCH_OFFICE VALUES(NAME,CNPJ,ADDRESS)";
+            String query = "INSERT INTO BRANCH_OFFICE(NAME,CNPJ,ADDRESS) VALUES(?,?,?)";
 
             ps = con.prepareStatement(query);
             ps.setString(1, name);
@@ -41,18 +41,13 @@ public class BranchOfficeDAO {
 
         } catch (SQLException ex) {
             printSQLException(ex);
-
         }
         return false;
     }
 
     public static boolean delete(int id) throws SQLException {
-        String query = "DELETE "
-                + "         * "
-                + "     FROM "
-                + "         BRANCH_OFFICE"
-                + "     WHERE"
-                + "         ID=? ";
+        String query = "DELETE FROM BRANCH_OFFICE WHERE ID_BRANCH_OFFICE=?";
+
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
@@ -60,22 +55,16 @@ public class BranchOfficeDAO {
         return retorno;
     }
 
-    public static boolean update(BranchOffice Branch) throws Exception {
+    public static boolean update(BranchOffice branch) throws Exception {
         try {
-            String query = "UPDATE"
-                    + "       BRANCH_OFFICE"
-                    + "   SET"
-                    + "       NAME='?',"
-                    + "       CNPJ='?'"
-                    + "       ADDRESS='?'"
-                    + "   WHERE"
-                    + "       ID=?";
+            String query = "UPDATE BRANCH_OFFICE SET NAME = ?,CNPJ= ?, ADDRESS =? WHERE ID_BRANCH_OFFICE = ?";
+
             ps = con.prepareStatement(query);
 
-            ps.setString(1, Branch.getName());
-            ps.setString(2, Branch.getCnpj());
-            ps.setString(3, Branch.getAddress());
-            ps.setInt(4, Branch.getId());
+            ps.setString(1, branch.getName());
+            ps.setString(2, branch.getCnpj());
+            ps.setString(3, branch.getAddress());
+            ps.setInt(4, branch.getId());
 
             int updatedlines = ps.executeUpdate();
 
@@ -107,6 +96,29 @@ public class BranchOfficeDAO {
                 }
             }
             return Branchs;
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
+    }
+
+    public static BranchOffice findBydId(int id) {
+
+        try {
+            String query = "SELECT * FROM BRANCH_OFFICE WHERE ID_BRANCH_OFFICE = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            BranchOffice branch = new BranchOffice();
+            if (rs != null) {
+                branch.setId(rs.getInt("ID_BRANCH_OFFICE"));
+                branch.setName(rs.getString("NAME"));
+                branch.setCnpj(rs.getString("CNPJ"));
+                branch.setAddress((rs.getString("ADDRESS")));
+            }
+            return branch;
         } catch (SQLException ex) {
             printSQLException(ex);
         }

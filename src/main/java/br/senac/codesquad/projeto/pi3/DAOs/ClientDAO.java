@@ -109,14 +109,14 @@ public class ClientDAO {
                     = "INSERT"
                     + "       INTO"
                     + "   CLIENT"
-                    + "       (NAME,CPF,ADDRESS, MAIL)"
+                    + "       (NAME,CPF,ADDRESS, EMAIL)"
                     + "   VALUES"
                     + "        (?,?,?,?)  ";
             ps = con.prepareStatement(query);
             ps.setString(1, client.getName());
             ps.setString(2, client.getCpf());
             ps.setString(3, client.getAddress());
-            ps.setString(4, client.getMail()); 
+            ps.setString(4, client.getMail());
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
@@ -129,8 +129,7 @@ public class ClientDAO {
         }
         return false;
     }
-    
-    
+
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

@@ -4,11 +4,11 @@
     Author     : gabriel.santos
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <h2>Lista de Filiais</h2>
-
 <table class="table">
     <thead>
         <tr>
@@ -19,20 +19,24 @@
         </tr>
     </thead>
     <tbody>
-    <c:forEach var="branchOffice" items="${branchList}">
-        <tr>
-            <th scope="row"><c:out value="${branchOffice.id}" /></th>
-        <td><c:out value="${branchOffice.name}" /></td>
-        <td><c:out value="${branchOffice.cnpj}" /></td>
-        <td><c:out value="${branchOffice.address}" /></td>
-        <td>
-            <a href="edit?id=<c:out value='${branchOffice.id}' />">Edit</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="delete?id=<c:out value='${branchOffice.id}' />">Delete</a>                    	
-        </td>
-        </tr>
-    </c:forEach>
-</tbody>
+        <c:forEach var="branchOffice" items="${branchList}">
+            <tr>
+                <th scope="row"><c:out value="${branchOffice.id}" /></th>
+                <td><c:out value="${branchOffice.name}"/></td>
+                <td><c:out value="${branchOffice.cnpj}"/></td>
+                <td><c:out value="${branchOffice.address}"/></td>
+                <td>
+                    <a href="/branch/edit?id=<c:out value='${branchOffice.id}' />">Editar</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form method="post" action="delete">
+                        <input type="hidden" name="id" value="${branchOffice.id}">
+                        <button type="submit">Deletar</button> 
+                    </form>
+
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
 </table>
 
 <a href="/branch/new">Add New User</a>
