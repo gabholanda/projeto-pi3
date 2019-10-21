@@ -46,12 +46,16 @@ public class BranchServlet extends HttpServlet {
                     form(request, response);
                     break;
 
+                case "/edit":
+                    formEdit(request, response);
+                    break;
+
                 case "/create":
                     create(request, response);
                     break;
 
                 case "/delete":
-
+                    delete(request, response);
                     break;
 
                 case "/update":
@@ -74,6 +78,7 @@ public class BranchServlet extends HttpServlet {
         doGet(request, response);
     }
 
+//Pages
     private void form(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = "./Branch/BranchCreate.jsp";
@@ -84,53 +89,76 @@ public class BranchServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, Exception {
-        String idAttr = request.getParameter("id");
-        String name = request.getParameter("name");
-        int id = Integer.parseInt(idAttr);
-        BranchOffice Branch = new BranchOffice();
-        Branch.setId(id);
-        Branch.setName(request.getParameter("name"));
-        Branch.setCnpj(request.getParameter("cnpj"));
-        Branch.setAddress(request.getAttribute("address").toString());
+    private void formEdit(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
 
-        BranchOfficeController.UpdateBranch(Branch);
+        String idAttr = request.getParameter("id");
+        int id = Integer.parseInt(idAttr);
+
+        BranchOffice branch = BranchOfficeController.findById(id);
+
+        request.setAttribute("idAttr", branch.getId());
+        request.setAttribute("nameAttr", branch.getName());
+        request.setAttribute("cnpjAttr", branch.getCnpj());
+        request.setAttribute("addressAttr", branch.getCnpj());
+
+        String path = "./Branch/BranchEdit.jsp";
+        request.setAttribute("path", path);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
     }
+//CRUD
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+            throws IOException {
 
+        try {
+            String name = request.getParameter("name");
+            String address = request.getParameter("address");
+            String cnpj = request.getParameter("cnpj");
+
+            BranchOfficeController.create(name, address, cnpj);
+
+            response.sendRedirect("branch");
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void update(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, Exception {
+        String idAttr = request.getParameter("id");
         String name = request.getParameter("name");
-        String address = request.getParameter("address");
         String cnpj = request.getParameter("cnpj");
+        String address = request.getParameter("address");
+        int id = Integer.parseInt(idAttr);
 
-        request.setAttribute("nameAttr", name);
-        request.setAttribute("cnpjAttr", cnpj);
-        request.setAttribute("addressAttr", address);
-
-        BranchOfficeController.CreateBranch(name, address, cnpj);
-
+        BranchOfficeController.update(id, name, cnpj, address);
+        response.sendRedirect("branch");
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        String id = request.getAttribute("id").toString();
-        request.setAttribute("id", id);
+            throws IOException {
         try {
-            BranchOfficeController.DeleteBranch(Integer.parseInt(id));
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+
+            BranchOfficeController.delete(Integer.parseInt(id));
+            response.sendRedirect("branch");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void read(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
+            throws IOException, ServletException {
 
         try {
-            ArrayList<BranchOffice> branchList = BranchOfficeController.ReadBranchs();
-            request.setAttribute("branchList", branchList);
+            ArrayList<BranchOffice> branchList = BranchOfficeController.read();
             String path = "./Branch/BranchList.jsp";
+            request.setAttribute("branchList", branchList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(

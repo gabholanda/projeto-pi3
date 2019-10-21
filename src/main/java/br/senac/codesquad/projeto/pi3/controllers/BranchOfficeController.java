@@ -16,23 +16,28 @@ import java.util.ArrayList;
  */
 public class BranchOfficeController {
 
-    public static boolean CreateBranch(String name, String address, String cnpj) throws SQLException {
+    public static boolean create(String name, String address, String cnpj) throws SQLException {
         return BranchOfficeDAO.create(name, address, cnpj);
 
     }
 
-    public static boolean DeleteBranch(int id) throws SQLException {
+    public static boolean delete(int id) throws SQLException {
         return BranchOfficeDAO.delete(id);
 
     }
 
-    public static boolean UpdateBranch(BranchOffice Branch) throws Exception {
-        return BranchOfficeDAO.update(Branch);
+    public static boolean update(int id, String name, String cnpj, String address) throws Exception {
+        BranchOffice branch = new BranchOffice(id, name, cnpj, address);
+        return BranchOfficeDAO.update(branch);
 
     }
 
-    public static ArrayList<BranchOffice> ReadBranchs() throws Exception {
+    public static ArrayList<BranchOffice> read() throws Exception {
         return BranchOfficeDAO.read();
+    }
+
+    public static BranchOffice findById(int id) {
+        return BranchOfficeDAO.findBydId(id);
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class BranchOffice {
 
-    private int Id;
+    private int id;
     private String name;
     private String cnpj;
     private String address;
@@ -21,6 +21,13 @@ public class BranchOffice {
     private ArrayList<Employee> employeeList;
 
     public BranchOffice(String name, String cnpj, String address) {
+        this.name = name;
+        this.cnpj = cnpj;
+        this.address = address;
+    }
+
+    public BranchOffice(int id, String name, String cnpj, String address) {
+        this.id = id;
         this.name = name;
         this.cnpj = cnpj;
         this.address = address;
@@ -63,11 +70,11 @@ public class BranchOffice {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int Id) {
-        this.Id = Id;
+        this.id = id;
     }
 
 }
