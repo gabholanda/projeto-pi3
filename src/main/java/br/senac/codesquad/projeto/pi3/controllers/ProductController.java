@@ -27,9 +27,18 @@ public class ProductController {
         return ProductDAO.delete(id);
     }
 
-    public static ArrayList<Product> getProduct() throws Exception {
-        return ProductDAO.getProduct();
-
+     public static ArrayList<Product> read() throws Exception {
+        return ProductDAO.read();
     }
+
+    public static Product findById(int id) {
+        return ProductDAO.findBydId(id);
+    }
+
+    public static void update(int parseInt, String nameProduct, double parseDouble, double parseDouble0, String details) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+ 
 
 }

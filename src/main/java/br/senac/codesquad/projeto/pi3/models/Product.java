@@ -28,7 +28,6 @@ public class Product {
         this.idBranchOffice = idBranchOffice;
         this.valuesSale = valuesSale;
     }
-
    
     public Product(int id, String nameProduct, double values, double valueSale, int amount, String details) {
         this.id = id;
@@ -37,12 +36,10 @@ public class Product {
         this.valuesSale = valueSale;
         this.amount = amount;
         this.details = details;
-
+        this.idBranchOffice = idBranchOffice;
     }
 
-    public Product() {
-        
-    }
+    public Product() {}
 
     public Product(String nameProduct, double values, double valueSale, int amount, int stock, String details, int idBranchOffice) {
         this.nameProduct = nameProduct;
@@ -70,6 +67,8 @@ public class Product {
         this.amount = amount;
         this.details = details;
     }
+
+    
 
     public double getValuesSale() {
         return valuesSale;

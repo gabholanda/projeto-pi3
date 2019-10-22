@@ -4,14 +4,41 @@
     Author     : marcelo.moraes
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<h2>Lista de Clientes</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="client" items="${clientList}">
+            <tr>
+                <th scope="row"><c:out value="${client.id}" /></th>
+                <td><c:out value="${client.name}"/></td>
+                <td><c:out value="${client.cpf}"/></td>
+                <td><c:out value="${client.address}"/></td>
+                <td><c:out value="${client.mail}"/></td>
+                <td>
+                    <a href="/client/edit?id=<c:out value='${client.id}' />">Editar</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form method="post" action="/client/delete?id=<c:out value='${client.id}' />">
+                        <input type="hidden" name="id" value="${client.id}">
+                        <button type="submit">Deletar</button> 
+                    </form>
+
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
+<a href="/client/new">Add New User</a>

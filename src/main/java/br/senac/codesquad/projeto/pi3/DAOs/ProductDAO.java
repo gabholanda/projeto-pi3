@@ -14,10 +14,11 @@ import java.util.ArrayList;
  */
 public class ProductDAO {
 
-    private static Connection con = ConnectionManager.getConnection();
+    
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
+    private static final Connection con = ConnectionManager.getConnection(); 
 
     public static ArrayList<Product> getProduct() throws Exception {
         ArrayList<Product> Product = new ArrayList<Product>();
