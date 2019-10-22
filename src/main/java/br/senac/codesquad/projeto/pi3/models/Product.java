@@ -16,41 +16,56 @@ public class Product {
     private double values;
     private double valuesSale;
     private int amount;
-    private int stock;
     private String details;
     private int idBranchOffice;
 
-    public Product(int id, String nameProduct, double values, double valuesSale, int amount, int stock, String details, int idBranchOffice) {
+    public Product(int id, String nameProduct, double values, double valuesSale, int amount, String details, int idBranchOffice) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.values = values;
         this.amount = amount;
-        this.stock = stock;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
         this.valuesSale = valuesSale;
     }
+   
+    public Product(int id, String nameProduct, double values, double valueSale, int amount, String details) {
+        this.id = id;
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.amount = amount;
+        this.details = details;
+        this.idBranchOffice = idBranchOffice;
+    }
+
+    public Product() {}
 
     public Product(String nameProduct, double values, double valueSale, int amount, int stock, String details, int idBranchOffice) {
         this.nameProduct = nameProduct;
         this.values = values;
         this.valuesSale = valueSale;
         this.amount = amount;
-        this.stock = stock;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
     }
 
-    public Product() {
-    
+    public Product(String nameProduct, double values, double valueSale, String details, int amount, int idBranchOffice) {
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.amount = amount;
+        this.details = details;
+        this.idBranchOffice = idBranchOffice;
     }
 
-    public Product(String nameProduct, double values, double valueSale, int amount, String details, int idBranchOffice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Product(int id, String nameProduct, int amount, double values, double valueSale, String details) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Product(int id, String nameProduct, double values, double valueSale, String details) {
+        this.id = id;
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.amount = amount;
+        this.details = details;
     }
 
     
@@ -61,6 +76,7 @@ public class Product {
 
     public void setValuesSale(double valuesSale) {
         this.valuesSale = valuesSale;
+        
     }
 
     /**
@@ -69,6 +85,13 @@ public class Product {
     public int getId() {
         return id;
     }
+    /**
+     * @param id the nameProduct to set
+     */
+     public void setId(int id) {
+        this.id = id;
+    }
+
 
     /**
      * @return the nameProduct
@@ -112,19 +135,6 @@ public class Product {
         this.amount = amount;
     }
 
-    /**
-     * @return the stock
-     */
-    public int getStock() {
-        return stock;
-    }
-
-    /**
-     * @param stock the stock to set
-     */
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
 
     /**
      * @return the details
