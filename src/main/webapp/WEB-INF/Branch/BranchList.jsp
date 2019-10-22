@@ -26,9 +26,9 @@
                 <td><c:out value="${branchOffice.cnpj}"/></td>
                 <td><c:out value="${branchOffice.address}"/></td>
                 <td>
-                    <a href="/branch/edit?id=<c:out value='${branchOffice.id}' />">Editar</a>
+                    <a href="/branch/edit">Editar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <form method="post" action="delete">
+                    <form method="post" action="/branch/delete?id=<c:out value='${branchOffice.id}' />">
                         <input type="hidden" name="id" value="${branchOffice.id}">
                         <button type="submit">Deletar</button> 
                     </form>

@@ -33,6 +33,7 @@ public class BranchOfficeDAO {
             ps.setString(1, name);
             ps.setString(2, cnpj);
             ps.setString(3, address);
+            
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;

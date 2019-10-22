@@ -73,7 +73,7 @@ public class BranchOffice {
         return id;
     }
 
-    public void setId(int Id) {
+    public void setId(int id) {
         this.id = id;
     }
 
