@@ -14,20 +14,20 @@ import java.util.ArrayList;
  */
 public class ProductDAO {
 
-    private static Connection con = ConnectionManager.getConnection();
+    
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
+    private static final Connection con = ConnectionManager.getConnection(); 
 
     public static ArrayList<Product> getProduct() throws Exception {
         ArrayList<Product> Product = new ArrayList<Product>();
         try {
-            Connection con = ConnectionManager.getConnection();
             String query = "SELECT "
                     + "       *"
                     + "   FROM"
-                    + "       BRANCH_OFFICE";
-
+                    + "       PRODUCT";
+            ps=con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
                 while (rs.next()) {
@@ -55,17 +55,17 @@ public class ProductDAO {
         String query = "DELETE "
                 + "         * "
                 + "     FROM "
-                + "         BRANCH_OFFICE"
+                + "         PRODUCT"
                 + "     WHERE"
                 + "         ID=? ";
         ps = con.prepareStatement(query);
-        ps.setInt(1, id);
+        ps.setInt(1,id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
         return retorno;
     }
 
-    public static boolean update(int id, String nameProduct, double value, double valueSale, String details) throws Exception {
+    public static boolean update(Product product ) throws Exception {
 
         boolean returnn = false;
 
@@ -78,18 +78,17 @@ public class ProductDAO {
                     + "       VALUE='?'"
                     + "       VALUESALE='?'"
                     + "       DETAILS='?',"
-                    + "       AMOUNT='?'"
-                    + "       STOKE='?'"
+                    + "       AMOUNT='?',"
                     + "   WHERE"
                     + "       ID_PRODUCT=?";
             ps = con.prepareStatement(query);
 
-            ps.setString(1, nameProduct);
-            ps.setDouble(2, value);
-            ps.setDouble(3, valueSale);
-            ps.setString(4, details);
-
-            ps.setInt(5, id);
+            ps.setString(1, product.getNameProduct());
+            ps.setDouble(2, product.getValues());
+            ps.setDouble(3, product.getValuesSale());
+            ps.setString(4, product.getDetails());
+            ps.setInt(5, product.getAmount());
+            ps.setInt(6, product.getId());
 
             int updatedlines = ps.executeUpdate();
 
@@ -109,7 +108,7 @@ public class ProductDAO {
                     = "INSERT"
                     + "       INTO"
                     + "   PRODUCT"
-                    + "       (NAME,BUYVALUE,SALEVALUE, DETAILS)"
+                    + "       (NAME,BUYVALUE,SALEVALUE, DETAILS, AMOUNT)"
                     + "   VALUES"
                     + "        (?,?,?,?)  ";
             ps = con.prepareStatement(query);
@@ -117,6 +116,7 @@ public class ProductDAO {
             ps.setDouble(2, product.getValues());
             ps.setDouble(3, product.getValuesSale());
             ps.setString(4, product.getDetails());
+            ps.setInt(5, product.getAmount());
 
             int updatedlines = ps.executeUpdate();
 
@@ -145,5 +145,30 @@ public class ProductDAO {
                 }
             }
         }
+    }
+    
+    public static Product findBydId(int id) {
+
+        try {
+            String query = "SELECT * FROM PRODUCT WHERE ID_PRODUCT = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            Product product = new Product();
+            if (rs != null) {
+                product.setId(rs.getInt("ID_PRODUCT"));
+                product.setNameProduct(rs.getString("NAME_PRODUCT"));
+                product.setValues(rs.getDouble("BUYVALUE"));
+                product.setValuesSale((rs.getDouble("SALEVALUE")));
+                product.setDetails(rs.getString("DETAILS"));
+                product.setAmount(rs.getInt("AMOUNT"));
+            }
+            return product;
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
     }
 }

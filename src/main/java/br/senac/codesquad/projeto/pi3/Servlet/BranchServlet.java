@@ -100,7 +100,7 @@ public class BranchServlet extends HttpServlet {
         request.setAttribute("idAttr", branch.getId());
         request.setAttribute("nameAttr", branch.getName());
         request.setAttribute("cnpjAttr", branch.getCnpj());
-        request.setAttribute("addressAttr", branch.getCnpj());
+        request.setAttribute("addressAttr", branch.getAddress());
 
         String path = "./Branch/BranchEdit.jsp";
         request.setAttribute("path", path);
@@ -146,7 +146,7 @@ public class BranchServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             BranchOfficeController.delete(Integer.parseInt(id));
-            response.sendRedirect("branch");
+            response.sendRedirect("");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -154,7 +154,6 @@ public class BranchServlet extends HttpServlet {
 
     public void read(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
         try {
             ArrayList<BranchOffice> branchList = BranchOfficeController.read();
             String path = "./Branch/BranchList.jsp";

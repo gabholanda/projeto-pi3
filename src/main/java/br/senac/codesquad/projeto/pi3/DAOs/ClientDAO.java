@@ -22,101 +22,54 @@ public class ClientDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static Connection con = ConnectionManager.getConnection();
+    private static final Connection con = ConnectionManager.getConnection();
 
-    public static ArrayList<Client> getClient() {
+    public static boolean delete(int id) throws SQLException {
+        String query = "DELETE FROM client WHERE ID_CLIENT =?";
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ps = con.prepareStatement(query);
+        ps.setInt(1, id);
+        int updatedlines = ps.executeUpdate();
+        retorno = updatedlines > 0;
+        return retorno;
     }
 
-    public static boolean delete(int id) {
-        boolean returnn = false;
+    public static boolean update(Client client) throws SQLException {
 
-        /*   try { 
-            
-            Class.forName(DRIVER); 
-            connection = DriverManager.getConnection(URL, LOGIN, SENHA); 
-            
-            PreparedStatement comand = connection.prepareStatement("DELETE FROM CLIENT WHERE ID_CLIENT=?"); 
-            
-            comand.setInt(1, id);
-            
-            int lineserror = comand.executeUpdate(); 
-            
-            if(lineserror > 0){ 
-                returnn = true; 
-            } else { 
-                returnn = false; 
-            }                        
-            
-        }catch (ClassNotFoundException | SQLException ex) { 
-            returnn = false; 
-        }finally { 
-            try { 
-                connection.close();
-            }catch (SQLException ex) { 
-                returnn = false; 
-            }
+        try {
+            String query = "UPDATE client SET NAME = ?,CPF= ?, ADDRESS =?, EMAIL =? WHERE ID_CLIENT = ?";
+
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, client.getName());
+            ps.setString(2, client.getCpf());
+            ps.setString(3, client.getAddress());
+            ps.setString(4, client.getMail());
+            ps.setInt(5, client.getId());
+
+            int updatedlines = ps.executeUpdate();
+
+            retorno = updatedlines > 0;
+
+            return retorno;
+
+        } catch (SQLException ex) {
+            throw ex;
         }
-        
-       return returnn; */
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
-    public static boolean update(Client client) {
-
-        boolean returnn = false;
-
-        /*     try {
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, LOGIN, SENHA);
-
-            PreparedStatement comand = connection.prepareStatement("UPDATE CLIENT SET "
-                    + "NAME=?, ANDRESS=?"
-                    + "WHERE ID_CLIENT=?");
-
-            comand.setString(1, client.getName());
-            comand.setString(2, client.getAddress());
-
-            int lineserror = comand.executeUpdate();
-
-            if (lineserror > 0) {
-                returnn = true;
-            } else {
-                returnn = false;
-            }
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            returnn = false;
-
-        } finally { 
-            try { 
-                connection.close();
-            } catch (SQLException ex){ 
-                returnn = false; 
-            }
-        }
-        
-        return returnn; */
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static boolean save(Client client) {
+    public static boolean save(Client client) throws SQLException {
 
         try {
 
-            String query
-                    = "INSERT"
-                    + "       INTO"
-                    + "   CLIENT"
-                    + "       (NAME,CPF,ADDRESS, EMAIL)"
-                    + "   VALUES"
-                    + "        (?,?,?,?)  ";
+            String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, client.getName());
             ps.setString(2, client.getCpf());
             ps.setString(3, client.getAddress());
             ps.setString(4, client.getMail());
+
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
@@ -144,5 +97,56 @@ public class ClientDAO {
                 }
             }
         }
+    }
+
+    public static ArrayList<Client> read() {
+        ArrayList<Client> Clients = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM client";
+
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Client client = new Client();
+                    client.setId(rs.getInt("ID_CLIENT"));
+                    client.setName(rs.getString("NAME"));
+                    client.setCpf(rs.getString("CPF"));
+                    client.setAddress((rs.getString("ADDRESS")));
+                    client.setMail(rs.getString("EMAIL"));
+                    Clients.add(client);
+                }
+            }
+            return Clients;
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
+    }
+
+    public static Client findBydId(int id) {
+
+        try {
+            String query = "SELECT * FROM client WHERE ID_CLIENT = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            Client client = new Client();
+            while(rs.next()) {
+                client.setId(rs.getInt("ID_CLIENT"));
+                client.setName(rs.getString("NAME"));
+                client.setCpf(rs.getString("CPF"));
+                client.setAddress((rs.getString("ADDRESS")));
+                client.setMail(rs.getString("EMAIL"));
+            }
+
+            return client;
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
     }
 }

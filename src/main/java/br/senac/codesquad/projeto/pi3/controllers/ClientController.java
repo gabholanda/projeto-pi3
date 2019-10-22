@@ -7,6 +7,7 @@ package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.ClientDAO;
 import br.senac.codesquad.projeto.pi3.models.Client;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -15,32 +16,28 @@ import java.util.ArrayList;
  */
 public class ClientController {
 
-    public static boolean save(String name, String cpf, String address, String mail) {
+    public static boolean save(String name, String cpf, String address, String mail) throws SQLException {
         Client client = new Client(name, cpf, address, mail);
         return ClientDAO.save(client);
 
     }
 
-    public static boolean update(int id, String name, String cpf, String address, String mail) {
+    public static boolean update(int id, String name, String cpf, String address, String mail) throws SQLException {
         Client client = new Client (id, name, cpf, address, mail); 
         return ClientDAO.update(client);
 
     }
 
-    public static boolean delete(int id) {
+    public static boolean delete(int id) throws SQLException {
         return ClientDAO.delete(id);
     }
     
-     public static ArrayList<String[]> getClient() {
-        ArrayList<Client> clientes = ClientDAO.getClient();
-        ArrayList<String[]> Clients = new ArrayList<>();
+     public static ArrayList<Client> read() throws Exception {
+        return ClientDAO.read();
+    }
 
-        for (int i = 0; i < clientes.size(); i++) {
-            //Clients.add(new String[]
-        }
-
-        return Clients;
-
+    public static Client findById(int id) {
+        return ClientDAO.findBydId(id);
     }
     
 
