@@ -31,21 +31,6 @@ public class Product {
         this.valuesSale = valuesSale;
     }
 
-    public Product(int id, String nameProduct, double values, double valueSale, int amount, int stock, String details) {
-        this.id = id;
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.amount = amount;
-        this.stock = stock;
-        this.details = details;
-
-    }
-
-    public Product() {
-
-    }
-
     public Product(String nameProduct, double values, double valueSale, int amount, int stock, String details, int idBranchOffice) {
         this.nameProduct = nameProduct;
         this.values = values;
@@ -56,13 +41,19 @@ public class Product {
         this.idBranchOffice = idBranchOffice;
     }
 
-    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice) {
+    public Product() {
+    
+    }
+
+    public Product(String nameProduct, double values, double valueSale, int amount, String details, int idBranchOffice) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Product(int id, String nameProduct, double values, double valueSale, String details) {
+    public Product(int id, String nameProduct, int amount, double values, double valueSale, String details) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
     public double getValuesSale() {
         return valuesSale;
