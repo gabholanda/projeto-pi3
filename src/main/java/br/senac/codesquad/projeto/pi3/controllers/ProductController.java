@@ -11,15 +11,15 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean save(String nameProduct, double values, double valueSale, String details, int idBranchOffice) {
-        Product product = new Product(nameProduct, values, valueSale, details, idBranchOffice);
+    public static boolean save(String nameProduct, double values, double valueSale, String details, int amount, int idBranchOffice) {
+        Product product = new Product(nameProduct, values, valueSale, details,amount,idBranchOffice);
         return ProductDAO.save(product);
 
     }
 
-    public static boolean update(int id, String nameProduct, double values, double valueSale, String details) throws Exception {
-        Product product = new Product(id, nameProduct, values, valueSale, details);
-        return ProductDAO.update(id, nameProduct, values, valueSale, details);
+    public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int amount) throws Exception {
+        Product product = new Product(id, nameProduct, values, valueSale,amount, details);
+        return ProductDAO.update(product);
 
     }
 
