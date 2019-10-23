@@ -18,7 +18,9 @@
     <div class="fadeIn first">
       <img src="https://icon-library.net/images/java-icon-image/java-icon-image-0.jpg" id="icon" alt="User Icon" />
     </div>
-
+    <body>
+        
+    </body>
     <!-- Login Form -->
     <form>
       <input type="text" id="login" class="fadeIn second" name="login" placeholder="Digite seu login">
