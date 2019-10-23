@@ -43,74 +43,40 @@
         </style>
     </head>
     <body>
-    <div>
-        <h1>Produtos - Pesquisa</h1>  
-        <hr>
-      <div id="divBusca">
-        <input type="text" id="txtBusca" placeholder="Buscar..."/>
-        <button type="submit"><img src="C:\Users\hcyrillo\Downloads\lupa.png" id="btnBusca"/></button>
-      </div>
-        <div>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th><label for="nameProduct"> Nome</label></th>
-                        <th><label for="valuesProduct"> Preço Compra</label></th>
-                        <th><label for="valuesSaleProduct"> Preço Venda</label></th>
-                        <th><label for="amountProduct"> Quantidade</label></th>
-                        <th><label for="stockProduct"> Estoque</label></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>sdfdsf</td>
-                        <td>ds</td>
-                        <td>sdfsdf</td>
-                        <td> asad</td>
-                        <td>asdds</td>
-                        <td> <a href="http://localhost:8080/update">Alterar</a> </td>
-                        <td> <a href="http://localhost:8080/product/searchProduct">Excluir</a> </td>
-                    </tr>
-                   <tr>
-                        <td>sdfdsf</td>
-                        <td>ds</td>
-                        <td>sdfsdf</td>
-                        <td> asad</td>
-                        <td>asdds</td>
-                        <td> <a href="http://localhost:8080/update">Alterar</a> </td>
-                        <td> <a href="http://localhost:8080/delete">Excluir</a> </td>
-                    </tr>
-                    <tr>
-                        <td>sdfdsf</td>
-                        <td>ds</td>
-                        <td>sdfsdf</td>
-                        <td> asad</td>
-                        <td>asdds</td>
-                        <td> <a href="http://localhost:8080/update">Alterar</a> </td>
-                        <td> <a href="http://localhost:8080/delete">Excluir</a> </td>
-                    </tr>
-                    <tr>
-                        <td>sdfdsf</td>
-                        <td>ds</td>
-                        <td>sdfsdf</td>
-                        <td> asad</td>
-                        <td>asdds</td>
-                        <td> <a href="http://localhost:8080/update">Alterar</a></td>
-                       <td> <a href="http://localhost:8080/product/searchProduct">Excluir</a> </td>
-                    </tr>
-                    <tr>
-                        <td>sdfdsf</td>
-                        <td>ds</td>
-                        <td>sdfsdf</td>
-                        <td> asad</td>
-                        <td>asdds</td>
-                        <td> <a href="http://localhost:8080/update">Alterar</a> </td>
-                        <td> <a href="http://localhost:8080/product/searchProduct">Excluir</a> </td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2>Lista de Produtos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Detalhe</th>
+                <th scope="col">Preço Venda</th>
+                <th scope="col">Preço Compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="product" items="${searchProduct}">
+                <tr>
+                    <th scope="row"><c:out value="${searchProduct.idProduct}" /></th>
+                    <td><c:out value="${searchProduct.nameProduct}"/></td>
+                    <td><c:out value="${searchProduct.details}"/></td>
+                    <td><c:out value="${searchProduct.values}"/></td>
+                    <td><c:out value="${searchProduct.valuesSale}"/></td>
+                    <td>
+                        <a href="http://localhost:8084/product/FormEdit">Editar</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <form method="post" action="http://localhost:8084/product/delete?id=<c:out value='${branchOffice.idProduct}' />">
+                            <input type="hidden" name="id" value="${branchOffice.idProduct}">
+                            <button type="submit">Deletar</button> 
+                        </form>
 
-        </div>
-    </div>        
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+
+    <a href="http://localhost:8084/product/product">Add New User</a>
+
     </body>
 </html>

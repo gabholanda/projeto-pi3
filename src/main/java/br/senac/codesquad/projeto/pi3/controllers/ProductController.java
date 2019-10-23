@@ -11,14 +11,14 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean save(String nameProduct, double values, double valueSale, String details, int amount, int idBranchOffice) {
-        Product product = new Product(nameProduct, values, valueSale, details,amount,idBranchOffice);
+    public static boolean create(String nameProduct, double values, double valueSale, String details, int idBranchOffice) {
+        Product product = new Product(nameProduct, values, valueSale, details, idBranchOffice);
         return ProductDAO.save(product);
 
     }
 
-    public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int amount) throws Exception {
-        Product product = new Product(id, nameProduct, values, valueSale,amount, details);
+    public static boolean update(int id, String nameProduct, double values, double valueSale, String details) throws Exception {
+        Product product = new Product(id, nameProduct, values, valueSale, details);
         return ProductDAO.update(product);
 
     }
@@ -28,16 +28,14 @@ public class ProductController {
     }
 
      public static ArrayList<Product> read() throws Exception {
-        return ProductDAO.read();
+        return ProductDAO.getProduct();
     }
 
     public static Product findById(int id) {
         return ProductDAO.findBydId(id);
     }
 
-    public static void update(int parseInt, String nameProduct, double parseDouble, double parseDouble0, String details) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
  
 

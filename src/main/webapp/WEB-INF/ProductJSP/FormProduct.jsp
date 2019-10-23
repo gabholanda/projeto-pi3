@@ -34,15 +34,13 @@
             <div>
                 <section style="width: 70%; margin: 0 auto">
                     <h1>Produtos</h1>
-                    <form method="post" action="">
+                    <form method="post" action="create">
  
                         <input type="hidden" name="id" value="123">
                         <hr/>    
-                        <div>
-                            <label for="txtName">
-                                Nome
-                            </label>
-                            <div>
+                        <div class="form-groupProduct">
+                            <label for="txtName"> Nome</label>
+                            <div class="form-groupProduct">
                                 <input type="text" name="name" id="txtName" 
                                        placeholder="Digite um nome..." 
                                        required maxlength="100" />
@@ -52,7 +50,7 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div class="form-groupProduct">
                             <label for="txtDescription">
                                 Descrição
                             </label>
@@ -62,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div>
+                        <div class="form-groupProduct">
                             <label for="txtPriceSale">
                               Preço Venda
                             </label>
@@ -75,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="form-groupProduct">
                             <label for="txt">
                                 Preço Compra
                             </label>
@@ -87,64 +85,13 @@
                                         Digite um preço.    
                             </div>
                         </div>
+                       
                             
-                        <div>
-                            <label for="txtAmount">
-                                Quantidade Produto
-                            </label>
-                            <div>
-                                <input type="number" name="amount" id="txtAmount" 
-                                       placeholder="Quantidade..." 
-                                       >
-                                <div class="erro-input">
-                                    Digite uma quantidade válida.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label for="txtStock">
-                                Estoque Produto
-                            </label>
-                            <div>
-                                <input type="number" name="stock" id="txtStock" 
-                                       placeholder="Estoque..." 
-                                       >
-                                <div class="erro-input">
-                                </div>
-                            </div>
-                        </div>
-                            
-                         <fieldset>
-                            <legend>Filiais</legend>
-                            <div>
-                                <div>
-                                    <input type="checkbox" name="branchOfice" 
-                                           id="branchOfficeUZGame" value="UZGame" />
-                                    <label for="branchOfficeUZGame">
-                                        UZGame
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="branchOfice" 
-                                           id="branchOfficeRiot" value="Riot" />
-                                    <label for="branchOfficeRiot">
-                                        Riot
-                                    </label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" name="branchOfice" 
-                                           id="branchOfficelevelUp" value="LevelUp" />
-                                    <label for="branchOfficelevelUp">
-                                        LevelUp
-                                    </label>
-                                </div>
-                            </div>
-                         </fieldset>
+                         
                         <div>
                             <button type="submit" >Salvar</button>
                             <button type="reset">Resetar Dados</button>
-                            <a href="http://localhost:8084/product/MenuProduct" role="button">Cancelar</a>
+                            <a href="http://localhost:8084/product/SearchProduct" role="button">Cancelar</a>
                         </div>
                     </form>
                 </section>
