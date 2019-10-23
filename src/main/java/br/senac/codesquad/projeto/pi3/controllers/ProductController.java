@@ -28,16 +28,13 @@ public class ProductController {
     }
 
      public static ArrayList<Product> read() throws Exception {
-        return ProductDAO.read();
+        return ProductDAO.getProduct();
     }
 
     public static Product findById(int id) {
         return ProductDAO.findBydId(id);
     }
 
-    public static void update(int parseInt, String nameProduct, double parseDouble, double parseDouble0, String details) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
  
 

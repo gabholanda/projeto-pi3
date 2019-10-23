@@ -15,15 +15,15 @@
     <form>
      <div class="form-group">
     <label for="exampleFormControlInput1">Nome da filial</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Branch Office">
+    <input type="text" class="form-control" name="name" id="exampleFormControlInput1" placeholder="Branch Office">
   </div>
      <div class="form-group">
     <label for="exampleFormControlInput1">Endereço</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Address">
+    <input type="text" class="form-control"name="address" id="exampleFormControlInput1" placeholder="Address">
   </div>
     <div class="form-group">
     <label for="exampleFormControlInput1">CNPJ</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="CNPJ">
+    <input type="text" class="form-control" name="cnpj" id="exampleFormControlInput1" placeholder="CNPJ">
     <button>Submit </button>
     </form>
   </div>
