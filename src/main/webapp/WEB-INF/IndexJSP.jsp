@@ -19,5 +19,6 @@
     <body>
         <jsp:include page="./Navbar/NavBarJSP.jsp" />
         <jsp:include page="${path}" />
+        
     </body>
 </html>

@@ -13,7 +13,7 @@ public class Manager extends User {
 
     private int permission = 2; //permission user 
 
-    public Manager(String mail, String password, String name) {
+    public Manager(String name, String mail, String password) {
         super(mail, password, name);
     }
 

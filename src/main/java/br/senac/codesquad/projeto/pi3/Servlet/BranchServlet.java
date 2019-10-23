@@ -154,7 +154,6 @@ public class BranchServlet extends HttpServlet {
 
     public void read(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
         try {
             ArrayList<BranchOffice> branchList = BranchOfficeController.read();
             String path = "./Branch/BranchList.jsp";
