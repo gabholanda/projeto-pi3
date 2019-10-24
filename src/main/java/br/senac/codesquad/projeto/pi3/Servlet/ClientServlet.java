@@ -118,9 +118,9 @@ public class ClientServlet extends HttpServlet {
             throws SQLException, IOException, Exception {
         String idAttr = request.getParameter("id");
         String name = (request.getParameter("name"));
-        String cpf = (request.getParameter("cnpj"));
+        String cpf = (request.getParameter("cpf"));
         String address = (request.getParameter("address"));
-        String mail = (request.getParameter("address"));
+        String mail = (request.getParameter("mail"));
         int id = Integer.parseInt(idAttr);
 
         ClientController.update(id, name, cpf, address, mail);

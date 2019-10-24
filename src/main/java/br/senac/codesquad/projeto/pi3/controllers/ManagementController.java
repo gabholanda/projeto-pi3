@@ -15,17 +15,6 @@ import java.util.ArrayList;
  */
 public class ManagementController {
 
-    public static boolean save(int id, String name, String mail, String password) {
-        Management management = new Management(name, mail, password);
-        return ManagementDAO.save(management);
-
-    }
-
-    public static boolean update(int id, String name, String mail, String password) {
-        Management management = new Management(name, mail, password);
-        return ManagementDAO.update(management);
-
-    }
     
      public static boolean delete(int id) {
         return ManagementDAO.delete(id);

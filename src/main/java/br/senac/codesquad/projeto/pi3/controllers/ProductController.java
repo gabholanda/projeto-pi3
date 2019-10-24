@@ -34,9 +34,4 @@ public class ProductController {
     public static Product findById(int id) {
         return ProductDAO.findBydId(id);
     }
-
-    
-
- 
-
 }
