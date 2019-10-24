@@ -15,6 +15,6 @@
         <h1 style="text-align: center">Produto</h1>
         <a href="http://localhost:8084/product/product"> Cadastrar Produto</a>
         <br>
-        <a href="http://localhost:8080/product/SearchProduct">Pesquisar Produto</a>
+        <a href="http://localhost:8084/product/SearchProduct">Pesquisar Produto</a>
     </body>
 </html>
