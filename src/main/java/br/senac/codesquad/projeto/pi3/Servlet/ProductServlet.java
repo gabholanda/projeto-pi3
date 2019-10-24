@@ -134,6 +134,7 @@ public class ProductServlet extends HttpServlet {
         String valuesSale = request.getParameter("valuesSale");
         String amount = request.getParameter("amount");
         String details = request.getParameter("details");
+
       //  String amount = request.getParameter("amount");
 //        String idBranchOffice = request.getParameter("idBranchOffice");
 
