@@ -128,12 +128,14 @@ public class ProductServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        
+
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
         String amount = request.getParameter("amount");
         String details = request.getParameter("details");
+
+      //  String amount = request.getParameter("amount");
 //        String idBranchOffice = request.getParameter("idBranchOffice");
 
         request.setAttribute("nameProductAttr", nameProduct);
@@ -141,18 +143,17 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("valuesSaleAttr", valuesSale);
         request.setAttribute("detailsAttr", details);
         request.setAttribute("amountAttr", amount);
-        
-  
-//        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
 
+//        request.setAttribute("idBranchOfficeAttr", idBranchOffice);
         ProductController.save(
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
-                details, 
+                details,
                 Integer.parseInt(amount), 1);
         response.sendRedirect("product");
     }
+
     //ARRUMAR BAGAÇA
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         String idStr = request.getParameter("id");
@@ -164,27 +165,24 @@ public class ProductServlet extends HttpServlet {
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
         String idAttr = request.getParameter("id");
-        
+
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
-        String amount= request.getParameter("amount");
+        String amount = request.getParameter("amount");
         String idBranchOffice = request.getParameter("idBranchOffice");
-        int id= Integer.parseInt(idAttr);
-        
-        ProductController.update(id, 
+        int id = Integer.parseInt(idAttr);
+
+        ProductController.update(id,
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
-                details, 
+                details,
                 Integer.parseInt(amount));
-        
+
         response.sendRedirect("product");
-        
 
-
-   
         response.sendRedirect("list");
         String path = "./ProductJSP/ProductScreen.jsp";
         request.setAttribute("path", path);
