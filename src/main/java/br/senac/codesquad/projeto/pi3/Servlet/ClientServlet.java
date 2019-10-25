@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
-
+//
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import br.senac.codesquad.projeto.pi3.models.Client;
 import java.io.IOException;
@@ -140,7 +140,7 @@ public class ClientServlet extends HttpServlet {
         request.setAttribute("addressAttr", address);
         request.setAttribute("mailAttr", mail);
 
-        ClientController.save(name, cpf, address, mail);
+        ClientController.create(name, cpf, address, mail);
         response.sendRedirect("client");
 
     }

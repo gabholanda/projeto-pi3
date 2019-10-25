@@ -58,9 +58,8 @@ public class ClientDAO {
         }
 
     }
-
-    public static boolean save(Client client) throws SQLException {
-
+    
+    public static boolean create(Client client) {
         try {
 
             String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
@@ -83,6 +82,8 @@ public class ClientDAO {
         return false;
     }
 
+
+   
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
@@ -134,7 +135,7 @@ public class ClientDAO {
             rs = ps.executeQuery();
 
             Client client = new Client();
-            while(rs.next()) {
+            while (rs.next()) {
                 client.setId(rs.getInt("ID_CLIENT"));
                 client.setName(rs.getString("NAME"));
                 client.setCpf(rs.getString("CPF"));
@@ -149,4 +150,6 @@ public class ClientDAO {
         }
         return null;
     }
+
+    
 }
