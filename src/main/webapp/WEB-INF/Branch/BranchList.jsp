@@ -12,7 +12,7 @@
 <section class="p-5">
     <table class="table">
         <thead>
-            <tr>
+            <tr>    
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CNPJ</th>
@@ -34,7 +34,6 @@
                             <input type="hidden" name="id" value="${branchOffice.id}">
                             <button type="submit" class="btn btn-danger">Deletar</button> 
                         </form>
-
                     </td>
                 </tr>
             </c:forEach>
