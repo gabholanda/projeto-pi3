@@ -146,27 +146,8 @@ public class ProductServlet extends HttpServlet {
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
-    
-    /*    ProductController.create(
-                nameProduct,
-                Double.parseDouble(values),
-                Double.parseDouble(valuesSale),
-                details);
-        response.sendRedirect("product"); */
         
     }
-    /* String nameProduct = request.getParameter("nameProduct");
-        String values = request.getParameter("values");
-        String valuesSale = request.getParameter("valuesSale");
-        String details = request.getParameter("details");
-        String idBranchOffice = request.getParameter("idBranchOffice");
-    
-        ProductController.create(
-                nameProduct,
-                Double.parseDouble(values),
-                Double.parseDouble(valuesSale),
-                details, 1);
-        response.sendRedirect("product");*/
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         try{
