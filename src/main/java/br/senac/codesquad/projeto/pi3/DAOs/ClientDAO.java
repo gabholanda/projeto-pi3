@@ -59,16 +59,15 @@ public class ClientDAO {
 
     }
 
-    public static boolean create(Client client) throws SQLException {
-
+    public static boolean create(String name, String cpf, String address, String mail) {
         try {
 
             String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
             ps = con.prepareStatement(query);
-            ps.setString(1, client.getName());
-            ps.setString(2, client.getCpf());
-            ps.setString(3, client.getAddress());
-            ps.setString(4, client.getMail());
+            ps.setString(1, name);
+            ps.setString(2, cpf);
+            ps.setString(3, address);
+            ps.setString(4, mail);
 
             int updatedlines = ps.executeUpdate();
 
@@ -134,7 +133,7 @@ public class ClientDAO {
             rs = ps.executeQuery();
 
             Client client = new Client();
-            while(rs.next()) {
+            while (rs.next()) {
                 client.setId(rs.getInt("ID_CLIENT"));
                 client.setName(rs.getString("NAME"));
                 client.setCpf(rs.getString("CPF"));
@@ -149,4 +148,5 @@ public class ClientDAO {
         }
         return null;
     }
+
 }
