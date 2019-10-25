@@ -11,19 +11,19 @@
             <input type="hidden" name="id" value="${idAttr}"/>
             <div class="form-group">
                 <label>Nome do Cliente</label>
-                <input type="text" name="name" class="form-control" value="${nameAttr}" placeholder= "Digite o Nome do Cliente:"/>
+                <input type="text" name="name" class="form-control" value="${nameAttr}" placeholder= "Digite o Nome do Cliente:" required/>
             </div>
             <div class="form-group">
                 <label>CPF do Cliente</label>
-                <input type="text" name="cpf" class="form-control" value="${cpfAttr}" placeholder= "Digite o CPF do Cliente:"/>
+                <input type="text" name="cpf" class="form-control" value="${cpfAttr}" placeholder= "Digite o CPF do Cliente:" required/>
             </div>
             <div class="form-group">
                 <label>Endereço do Cliente</label>
-                <input type="text" name="address" class="form-control" value="${addressAttr}" placeholder= "Digite o Endereco do Cliente:"/>
+                <input type="text" name="address" class="form-control" value="${addressAttr}" placeholder= "Digite o Endereco do Cliente:" required/>
             </div>
             <div class="form-group">
                 <label>Email do Cliente</label>
-                <input type="email" name="mail" class="form-control" value="${mailAttr}" placeholder= "Digite o Email do Cliente:"/>
+                <input type="email" name="mail" class="form-control" value="${mailAttr}" placeholder= "Digite o Email do Cliente:" required/>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>

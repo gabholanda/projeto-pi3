@@ -10,19 +10,19 @@
         <form  method="post" action="create">
             <div class="form-group">
                 <label>Nome do Cliente</label>
-                <input type="text" name="name" class="form-control" />
+                <input type="text" name="name" class="form-control" required/>
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CPF</label>
-                <input type="text" name="cpf" class="form-control" />
+                <input type="text" name="cpf" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label>Endereço</label>
-                <input type="text" name="address" class="form-control" />
+                <input type="text" name="address" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="mail" class="form-control" />
+                <input type="email" name="mail" class="form-control" required/>
             </div>
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>

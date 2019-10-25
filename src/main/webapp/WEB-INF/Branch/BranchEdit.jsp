@@ -11,15 +11,15 @@
             <input type="hidden" name="id" value="${idAttr}"/>
             <div class="form-group">
                 <label>Nome da Filial</label>
-                <input type="text" name="name" class="form-control" value="${nameAttr}" />
+                <input type="text" name="name" class="form-control" value="${nameAttr}" required />
             </div>
             <div class="form-group">
                 <label>Endereço</label>
-                <input type="text" name="address" class="form-control" value="${addressAttr}" />
+                <input type="text" name="address" class="form-control" value="${addressAttr}" required/>
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CNPJ</label>
-                <input type="text" name="cnpj" class="form-control" value="${cnpjAttr}" />
+                <input type="text" name="cnpj" class="form-control" value="${cnpjAttr}" required/>
             </div>
             <button type="submit" class="btn btn-primary">Editar</button>
         </form>
