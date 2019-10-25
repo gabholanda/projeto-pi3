@@ -5,33 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Produtos</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <style>
-            .erro-input {
-                display: none;
-                color: #e74c3c;
-            }
-            .com-erro {
-                display: block;
-            }
-            input[type='text'],
-            input[type='email'],
-            input[type='number'],
-            input[type='password'],
-            input[type='date'],
-            textarea {
-                width: 100%;
-            }
-        </style>
-    </head>
-    <body>
-        <main>
-            <div>
                 <section style="width: 70%; margin: 0 auto">
                     <h1>Produtos</h1>
                     <form method="post" action="create">
@@ -89,14 +62,9 @@
                             
                          
                         <div>
-                            <button type="submit" >Salvar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
                             <button type="reset">Resetar Dados</button>
-                            <a href="http://localhost:8084/product/SearchProduct" role="button">Cancelar</a>
+                            <a href="http://localhost:8080/product/SearchProduct" role="button">Cancelar</a>
                         </div>
                     </form>
                 </section>
-            </div>
-        </main>
-
-    </body>
-</html>
