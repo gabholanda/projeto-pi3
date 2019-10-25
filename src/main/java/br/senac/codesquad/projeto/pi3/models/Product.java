@@ -36,7 +36,9 @@ public class Product {
         this.idBranchOffice = idBranchOffice;
     }
 
-    public Product() {}
+    public Product() {
+        
+    }
 
     public Product(String nameProduct, double values, double valueSale,String details) {
         this.nameProduct = nameProduct;

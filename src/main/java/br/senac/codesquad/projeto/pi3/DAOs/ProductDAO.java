@@ -61,36 +61,27 @@ public class ProductDAO {
         return retorno;
     }
 
-    public static boolean update(int id,String nameProduct,double values,double valueSale, String details) throws Exception {
-
-        boolean returnn = false;
+    public static boolean update(int id,String nameProduct,double values,double valueSale, String details) throws SQLException {
         
         try {
-            Connection con = ConnectionManager.getConnection();
-            String query = "UPDATE"
-                    + "       PRODUCT"
-                    + "   SET"
-                    + "       NAMEPRODUCT='?',"
-                    + "       BUYVALUE='?',"
-                    + "       SALEVALUE='?',"
-                    + "       DETAILS='?'"
-                    + "   WHERE"
-                    + "       ID_PRODUCT=?";
-            ps = con.prepareStatement(query);
-
+            String query = "UPDATE PRODUCT SET NAMEPRODUCT = ?,BUYVALUE=?, SALEVALUE=?, DETAILS= ? WHERE ID_PRODUCT = ?";
+           
+                ps = con.prepareStatement(query);
+            
             ps.setString(1, nameProduct);
             ps.setDouble(2, values);
             ps.setDouble(3, valueSale);
-            ps.setString(4,details );
+            ps.setString(4, details);
             ps.setInt(5, id);
-
+            
+            
+            
             int updatedlines = ps.executeUpdate();
 
-            retorno = updatedlines > 0 ? true : false;
+            retorno = updatedlines > 0;
 
             return retorno;
-
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             throw ex;
         }
     }
@@ -150,9 +141,9 @@ public class ProductDAO {
             rs = ps.executeQuery();
 
             Product product = new Product();
-            if (rs != null) {
+            if (rs.next()) {
                 product.setId(rs.getInt("ID_PRODUCT"));
-                product.setNameProduct(rs.getString("NAME_PRODUCT"));
+                product.setNameProduct(rs.getString("NAMEPRODUCT"));
                 product.setValues(rs.getDouble("BUYVALUE"));
                 product.setValuesSale((rs.getDouble("SALEVALUE")));
                 product.setDetails(rs.getString("DETAILS"));
