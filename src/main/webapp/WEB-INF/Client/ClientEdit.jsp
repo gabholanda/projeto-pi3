@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
         <label>Email do Cliente</label>
-        <input type="text" name="mail" class="form-control" value="${mailAttr}" placeholder= "Digite o Email do Cliente:"/>
+        <input type="email" name="mail" class="form-control" value="${mailAttr}" placeholder= "Digite o Email do Cliente:"/>
 
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>

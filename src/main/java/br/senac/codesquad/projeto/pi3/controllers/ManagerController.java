@@ -20,14 +20,8 @@ public class ManagerController {
         return ManagerDAO.save(manager);
     }
 
-    public static boolean update(int id, String name, String mail, String password) {
-        Manager manager = new Manager(name, mail, password);
-        return ManagerDAO.update(manager);
-    }
 
-    public static boolean delete(int id) {
-        return ManagerDAO.delete(id);
-    }
+
 
     public static ArrayList<String[]> getManager() {
         ArrayList<Manager> manager = ManagerDAO.getManager();

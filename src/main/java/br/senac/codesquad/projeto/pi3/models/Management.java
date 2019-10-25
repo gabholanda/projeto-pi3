@@ -11,12 +11,13 @@ package br.senac.codesquad.projeto.pi3.models;
  */
 public class Management extends User {
     
-    private int permission = 3; 
+    private static int permission = 3; 
     
-    public Management(String mail, String password, String name) {
+    public Management(String name, String mail, String password ) {
         super(mail, password, name);
     }
-
+    
+    @Override
     public int getPermission() {
         return permission;
     }

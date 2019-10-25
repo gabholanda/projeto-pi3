@@ -18,7 +18,7 @@ public class ManagerDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static boolean update(Manager manager) {
+    public static boolean update(Manager manager, int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
