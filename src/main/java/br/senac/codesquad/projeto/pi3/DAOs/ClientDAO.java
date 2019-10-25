@@ -59,7 +59,7 @@ public class ClientDAO {
 
     }
 
-    public static boolean save(Client client) throws SQLException {
+    public static boolean create(Client client) throws SQLException {
 
         try {
 

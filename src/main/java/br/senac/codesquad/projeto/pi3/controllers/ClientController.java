@@ -16,9 +16,9 @@ import java.util.ArrayList;
  */
 public class ClientController {
 
-    public static boolean save(String name, String cpf, String address, String mail) throws SQLException {
+    public static boolean create(String name, String cpf, String address, String mail) throws SQLException {
         Client client = new Client(name, cpf, address, mail);
-        return ClientDAO.save(client);
+        return ClientDAO.create(client);
 
     }
 

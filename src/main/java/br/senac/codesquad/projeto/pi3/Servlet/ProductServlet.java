@@ -25,13 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ProductServlet", urlPatterns = {"/product/*"})
 public class ProductServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,7 +44,7 @@ public class ProductServlet extends HttpServlet {
                 case "/new":
                     form(request, response);
                 case "/FormEdit":
-                    formEditProduct(request, response);
+                    formEdit(request, response);
                     break;
                 case "/menuProduct":
                     menu(request, response);
@@ -75,25 +69,13 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void read(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        try {
-            ArrayList<Product> productList = ProductController.read();
-            String path = "./ProductJSP/SearchProduct.jsp";
-            request.setAttribute("productList", productList);
-            request.setAttribute("path", path);
-            RequestDispatcher dispatcher
-                    = request.getRequestDispatcher(
-                            "/WEB-INF/IndexJSP.jsp");
-            dispatcher.forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-        }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
     
-    private void form(HttpServletRequest request, HttpServletResponse response)
+        private void form(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = "./ProductJSP/FormProduct.jsp";
         request.setAttribute("path", path);
@@ -103,7 +85,7 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
-    private void formEditProduct(HttpServletRequest request, HttpServletResponse response)
+    private void formEdit(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
         String idProductAttr = request.getParameter("idProduct");
@@ -126,6 +108,28 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+
+    private void read(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        try {
+            ArrayList<Product> productList = ProductController.read();
+            String path = "./ProductJSP/SearchProduct.jsp";
+            request.setAttribute("productList", productList);
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+        }
+    }
+    
+
+
     private void menu(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = "./ProductJSP/MenuProduct.jsp";
@@ -143,12 +147,12 @@ public class ProductServlet extends HttpServlet {
         String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
     
-        ProductController.create(
+    /*    ProductController.create(
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
                 details);
-        response.sendRedirect("product");
+        response.sendRedirect("product"); */
         
     }
     /* String nameProduct = request.getParameter("nameProduct");
