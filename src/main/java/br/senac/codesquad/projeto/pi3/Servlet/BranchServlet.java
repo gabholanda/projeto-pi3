@@ -35,7 +35,7 @@ public class BranchServlet extends HttpServlet {
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/branch":
@@ -75,6 +75,7 @@ public class BranchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Delegate all post responsabilities to doGet method
         doGet(request, response);
     }
 

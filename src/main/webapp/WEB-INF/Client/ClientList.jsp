@@ -42,5 +42,5 @@
     </table>
 </section>
 <div class="d-flex justify-content-center">
-    <a href="/client/new" class="btn btn-success">Novo cliente</a>
+    <a href="/client/new" class="btn btn-success"   >Novo cliente</a>
 </div>

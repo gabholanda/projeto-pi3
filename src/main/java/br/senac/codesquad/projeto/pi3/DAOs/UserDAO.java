@@ -84,6 +84,7 @@ public class UserDAO {
         return false;
     }
 
+// Method that helps to print SQL exceptions on consoles
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

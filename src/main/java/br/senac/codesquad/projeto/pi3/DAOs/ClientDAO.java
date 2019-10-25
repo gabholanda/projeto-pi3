@@ -81,7 +81,7 @@ public class ClientDAO {
         }
         return false;
     }
-
+// Method that helps to print SQL exceptions on console
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
