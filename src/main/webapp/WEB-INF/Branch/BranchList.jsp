@@ -34,7 +34,6 @@
                             <input type="hidden" name="id" value="${branchOffice.id}">
                             <button type="submit" class="btn btn-danger">Deletar</button> 
                         </form>
-
                     </td>
                 </tr>
             </c:forEach>
