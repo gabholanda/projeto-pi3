@@ -58,7 +58,7 @@ public class ClientDAO {
         }
 
     }
-    
+
     public static boolean create(Client client) {
         try {
 
@@ -82,8 +82,6 @@ public class ClientDAO {
         return false;
     }
 
-
-   
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
@@ -151,5 +149,4 @@ public class ClientDAO {
         return null;
     }
 
-    
 }

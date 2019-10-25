@@ -12,7 +12,7 @@
 <section class="p-5">
     <table class="table">
         <thead>
-            <tr>
+            <tr>    
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CNPJ</th>
