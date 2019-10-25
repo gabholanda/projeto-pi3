@@ -39,4 +39,4 @@
     </tbody>
 </table>
 
-<a href="/product/new">Add New User</a>
+<a href="/product/new">Novo produto</a>

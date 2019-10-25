@@ -13,7 +13,7 @@
         </a>
         <a class="py-2 d-none d-md-inline-block" href="/sale">Venda</a>
         <a class="py-2 d-none d-md-inline-block" href="/client">Cliente</a>
-        <a class="py-2 d-none d-md-inline-block" href="product/menuProduct">Produto</a>
+        <a class="py-2 d-none d-md-inline-block" href="/product">Produto</a>
         <a class="py-2 d-none d-md-inline-block" href="/report">Relatório</a>
         <a class="py-2 d-none d-md-inline-block" href="/employee">Funcionário</a>
         <a class="py-2 d-none d-md-inline-block" href="/branch">Filial</a>

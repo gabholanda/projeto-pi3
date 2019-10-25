@@ -146,7 +146,7 @@ public class BranchServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             BranchOfficeController.delete(Integer.parseInt(id));
-            response.sendRedirect("");
+            response.sendRedirect("branch");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
