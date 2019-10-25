@@ -44,12 +44,12 @@ public class ProductServlet extends HttpServlet {
 
         try {
             switch (action) {
-                case "/SearchProduct":
+                case "/product":
                     read(request, response);
                     break;
                 case "/new":
                     form(request, response);
-                case "/FormEdit":
+                case "/formEdit":
                     formEditProduct(request, response);
                     break;
                 case "/menuProduct":
@@ -65,7 +65,7 @@ public class ProductServlet extends HttpServlet {
                     update(request, response);
                     break;
                 default:
-                    read(request, response);   
+                    read(request, response);
                     break;
             }
         } catch (SQLException ex) {
@@ -92,7 +92,7 @@ public class ProductServlet extends HttpServlet {
 
         }
     }
-    
+
     private void form(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = "./ProductJSP/FormProduct.jsp";
@@ -102,11 +102,11 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     private void formEditProduct(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        String idProductAttr = request.getParameter("idProduct");
+        String idProductAttr = request.getParameter("id");
         int id = Integer.parseInt(idProductAttr);
 
         Product product = ProductController.findById(id);
@@ -116,7 +116,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("valuesAttr", product.getValues());
         request.setAttribute("valuesSaleAttr", product.getValuesSale());
         request.setAttribute("detailsAttr", product.getDetails());
-        request.setAttribute("idBranchOfficeAttr", product.getIdBranchOffice());
+        
 
         String path = "./ProductJSP/FormEdit.jsp";
         request.setAttribute("path", path);
@@ -137,40 +137,28 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws IOException ,SQLException{
-        String nameProduct = request.getParameter("nameProduct");
-        String values = request.getParameter("values");
-        String valuesSale = request.getParameter("valuesSale");
-        String details = request.getParameter("details");
-    
+            throws IOException, SQLException {
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("purchasePrice");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+
         ProductController.create(
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
                 details);
         response.sendRedirect("product");
-        
+
     }
-    /* String nameProduct = request.getParameter("nameProduct");
-        String values = request.getParameter("values");
-        String valuesSale = request.getParameter("valuesSale");
-        String details = request.getParameter("details");
-        String idBranchOffice = request.getParameter("idBranchOffice");
-    
-        ProductController.create(
-                nameProduct,
-                Double.parseDouble(values),
-                Double.parseDouble(valuesSale),
-                details, 1);
-        response.sendRedirect("product");*/
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
-        try{
-        String idStr = request.getParameter("id");
-        request.setAttribute("idAttr", idStr);
+        try {
+            String idStr = request.getParameter("id");
+            request.setAttribute("idAttr", idStr);
 
-        ProductController.delete(Integer.parseInt(idStr));
-        response.sendRedirect("");
+            ProductController.delete(Integer.parseInt(idStr));
+            response.sendRedirect("product");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,21 +166,21 @@ public class ProductServlet extends HttpServlet {
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
         String idAttr = request.getParameter("id");
-        
-        String nameProduct = request.getParameter("nameProduct");
-        String values = request.getParameter("values");
-        String valuesSale = request.getParameter("valuesSale");
-        String details = request.getParameter("details");
-        
-        int id= Integer.parseInt(idAttr);
-        
-        ProductController.update(id, 
+
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("purchasePrice");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+
+        int id = Integer.parseInt(idAttr);
+
+        ProductController.update(id,
                 nameProduct,
                 Double.parseDouble(values),
                 Double.parseDouble(valuesSale),
                 details);
-        
-        response.sendRedirect("product");
+
+        response.sendRedirect("/formEdit");
 
     }
 }

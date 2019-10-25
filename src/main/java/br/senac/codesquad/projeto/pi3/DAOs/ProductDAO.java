@@ -14,27 +14,27 @@ import java.util.ArrayList;
  */
 public class ProductDAO {
 
-    
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static final Connection con = ConnectionManager.getConnection(); 
+    private static final Connection con = ConnectionManager.getConnection();
 
     public static ArrayList<Product> getProduct() throws Exception {
-        ArrayList<Product> Product = new ArrayList<Product>();
+        ArrayList<Product> Product = new ArrayList<>();
         try {
             String query = "SELECT "
                     + "       *"
                     + "   FROM"
                     + "       PRODUCT";
-            ps=con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
                 while (rs.next()) {
                     Product product = new Product();
-                    product.setNameProduct(rs.getString("NAME"));
-                    product.setValues(rs.getDouble("VALUE"));
-                    product.setValuesSale(rs.getDouble("VALUESALE"));
+                    product.setId(rs.getInt("ID_PRODUCT"));
+                    product.setNameProduct(rs.getString("NAMEPRODUCT"));
+                    product.setValues(rs.getDouble("BUYVALUE"));
+                    product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
                     Product.add(product);
                 }
@@ -42,50 +42,47 @@ public class ProductDAO {
 
             return Product;
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             throw ex;
         }
 
     }
 
     public static boolean delete(int id) throws SQLException {
-
-        Connection con = ConnectionManager.getConnection();
         String query = "DELETE "
-                + "         * "
                 + "     FROM "
                 + "         PRODUCT"
                 + "     WHERE"
-                + "         ID=? ";
+                + "         ID_PRODUCT=? ";
         ps = con.prepareStatement(query);
-        ps.setInt(1,id);
+        ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
         return retorno;
     }
 
-    public static boolean update(Product product ) throws Exception {
+    public static boolean update(int id,String nameProduct,double values,double valueSale, String details) throws Exception {
 
         boolean returnn = false;
-
+        
         try {
             Connection con = ConnectionManager.getConnection();
             String query = "UPDATE"
-                    + "       BRANCH_OFFICE"
+                    + "       PRODUCT"
                     + "   SET"
-                    + "       NAME_PRODUCT='?',"
-                    + "       VALUE='?'"
-                    + "       VALUESALE='?'"
-                    + "       DETAILS='?',"
+                    + "       NAMEPRODUCT='?',"
+                    + "       BUYVALUE='?',"
+                    + "       SALEVALUE='?',"
+                    + "       DETAILS='?'"
                     + "   WHERE"
                     + "       ID_PRODUCT=?";
             ps = con.prepareStatement(query);
 
-            ps.setString(1, product.getNameProduct());
-            ps.setDouble(2, product.getValues());
-            ps.setDouble(3, product.getValuesSale());
-            ps.setString(4, product.getDetails());
-            ps.setInt(6, product.getId());
+            ps.setString(1, nameProduct);
+            ps.setDouble(2, values);
+            ps.setDouble(3, valueSale);
+            ps.setString(4,details );
+            ps.setInt(5, id);
 
             int updatedlines = ps.executeUpdate();
 
@@ -98,21 +95,21 @@ public class ProductDAO {
         }
     }
 
-    public static boolean save(Product product) {
+    public static boolean create(String nameProduct, double values, double valueSale, String details) {
         try {
 
             String query
                     = "INSERT"
                     + "       INTO"
                     + "   PRODUCT"
-                    + "       (NAME,BUYVALUE,SALEVALUE, DETAILS)"
+                    + "       (NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS)"
                     + "   VALUES"
                     + "        (?,?,?,?)  ";
             ps = con.prepareStatement(query);
-            ps.setString(1, product.getNameProduct());
-            ps.setDouble(2, product.getValues());
-            ps.setDouble(3, product.getValuesSale());
-            ps.setString(4, product.getDetails());
+            ps.setString(1, nameProduct);
+            ps.setDouble(2, values);
+            ps.setDouble(3, valueSale);
+            ps.setString(4, details);
 
             int updatedlines = ps.executeUpdate();
 
@@ -142,7 +139,7 @@ public class ProductDAO {
             }
         }
     }
-    
+
     public static Product findBydId(int id) {
 
         try {
@@ -166,4 +163,5 @@ public class ProductDAO {
         }
         return null;
     }
+
 }

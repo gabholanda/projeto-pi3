@@ -38,7 +38,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(String nameProduct, double values, double valueSale,String details, int idBranchOffice) {
+    public Product(String nameProduct, double values, double valueSale,String details) {
         this.nameProduct = nameProduct;
         this.values = values;
         this.valuesSale = valueSale;
