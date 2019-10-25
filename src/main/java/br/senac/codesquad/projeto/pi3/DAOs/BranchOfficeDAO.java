@@ -33,7 +33,7 @@ public class BranchOfficeDAO {
             ps.setString(1, name);
             ps.setString(2, cnpj);
             ps.setString(3, address);
-            
+
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
@@ -113,7 +113,7 @@ public class BranchOfficeDAO {
             rs = ps.executeQuery();
 
             BranchOffice branch = new BranchOffice();
-            if (rs != null) {
+            while (rs.next()) {
                 branch.setId(rs.getInt("ID_BRANCH_OFFICE"));
                 branch.setName(rs.getString("NAME"));
                 branch.setCnpj(rs.getString("CNPJ"));

@@ -41,4 +41,4 @@
     </tbody>
 </table>
 
-<a href="/client/new">Add New User</a>
+<a href="/client/new">Novo cliente</a>
