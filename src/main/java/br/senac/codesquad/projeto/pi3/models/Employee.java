@@ -13,6 +13,9 @@ public class Employee extends User {
 
     private static int permission = 1; //permission user
 
+    public Employee() {
+    }
+
     public Employee(String mail, String password, String name) {
         super(mail, password, name);
     }

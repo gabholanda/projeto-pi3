@@ -150,7 +150,6 @@ public class ProductServlet extends HttpServlet {
                 Double.parseDouble(valuesSale),
                 details);
         response.sendRedirect("product");
-
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {

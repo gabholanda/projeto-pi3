@@ -7,17 +7,19 @@ package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.Client;
+import br.senac.codesquad.projeto.pi3.models.Employee;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  *
- * @author gabriel.hsantos21
+ * @author patrick.ctavares1
  */
-public class ClientDAO {
+public class UserDAO {
 
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
@@ -25,7 +27,7 @@ public class ClientDAO {
     private static final Connection con = ConnectionManager.getConnection();
 
     public static boolean delete(int id) throws SQLException {
-        String query = "DELETE FROM client WHERE ID_CLIENT =?";
+        String query = "DELETE FROM user WHERE ID_USER =?";
 
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
@@ -34,18 +36,17 @@ public class ClientDAO {
         return retorno;
     }
 
-    public static boolean update(Client client) throws SQLException {
+    public static boolean update(User user, int id) throws SQLException {
 
         try {
-            String query = "UPDATE client SET NAME = ?,CPF= ?, ADDRESS =?, EMAIL =? WHERE ID_CLIENT = ?";
+            String query = "UPDATE user SET NAME = ?,EMAIL= ?, PASSWORD=? WHERE ID_USER = ?";
 
             ps = con.prepareStatement(query);
 
-            ps.setString(1, client.getName());
-            ps.setString(2, client.getCpf());
-            ps.setString(3, client.getAddress());
-            ps.setString(4, client.getMail());
-            ps.setInt(5, client.getId());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getMail());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, id);
 
             int updatedlines = ps.executeUpdate();
 
@@ -58,16 +59,17 @@ public class ClientDAO {
         }
 
     }
-    
-    public static boolean create(Client client) {
+
+    public static boolean create(User user, int permission) throws SQLException {
+
         try {
 
-            String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
+            String query = "INSERT INTO user (NAME,EMAIL,PASSWORD,PERMISSIONS) VALUES(?,?,?,?)";
             ps = con.prepareStatement(query);
-            ps.setString(1, client.getName());
-            ps.setString(2, client.getCpf());
-            ps.setString(3, client.getAddress());
-            ps.setString(4, client.getMail());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getMail());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, permission);
 
             int updatedlines = ps.executeUpdate();
 
@@ -82,8 +84,6 @@ public class ClientDAO {
         return false;
     }
 
-
-   
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
@@ -100,25 +100,25 @@ public class ClientDAO {
         }
     }
 
-    public static ArrayList<Client> read() {
-        ArrayList<Client> Clients = new ArrayList<>();
+    public static ArrayList<User> read() {
+        ArrayList<User> users = new ArrayList<>();
         try {
             String query = "SELECT * FROM client";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs != null) {
+                //adicionar condiçoes de permissões
                 while (rs.next()) {
-                    Client client = new Client();
-                    client.setId(rs.getInt("ID_CLIENT"));
-                    client.setName(rs.getString("NAME"));
-                    client.setCpf(rs.getString("CPF"));
-                    client.setAddress((rs.getString("ADDRESS")));
-                    client.setMail(rs.getString("EMAIL"));
-                    Clients.add(client);
+                    User user = new Employee();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    user.setPassword((rs.getString("PASSWORD")));
+                    users.add(user);
                 }
             }
-            return Clients;
+            return users;
         } catch (SQLException ex) {
             printSQLException(ex);
         }
@@ -150,6 +150,4 @@ public class ClientDAO {
         }
         return null;
     }
-
-    
 }
