@@ -143,12 +143,12 @@ public class ProductServlet extends HttpServlet {
         String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
     
-        ProductController.create(
-                nameProduct,
-                Double.parseDouble(values),
-                Double.parseDouble(valuesSale),
-                details);
-        response.sendRedirect("product");
+//        ProductController.create(
+//                nameProduct,
+//                Double.parseDouble(values),
+//                Double.parseDouble(valuesSale),
+//                details);
+//        response.sendRedirect("product");
         
     }
     /* String nameProduct = request.getParameter("nameProduct");

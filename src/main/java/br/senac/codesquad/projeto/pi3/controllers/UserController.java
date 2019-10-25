@@ -5,12 +5,10 @@
  */
 package br.senac.codesquad.projeto.pi3.controllers;
 
-import br.senac.codesquad.projeto.pi3.DAOs.EmployeeDAO;
-import br.senac.codesquad.projeto.pi3.DAOs.ManagementDAO;
-import br.senac.codesquad.projeto.pi3.DAOs.ManagerDAO;
 import br.senac.codesquad.projeto.pi3.models.Employee;
 import br.senac.codesquad.projeto.pi3.models.Management;
 import br.senac.codesquad.projeto.pi3.models.Manager;
+import java.util.ArrayList;
 
 /**
  *
@@ -51,6 +49,18 @@ public class UserController {
             return false;
         }
         return false;
+    }
+    
+    public static ArrayList<String[]> getUsers(String permission) {
+        ArrayList<String[]> User = null;
+       if (permission.equalsIgnoreCase("funcionario")){
+           return User;
+       }else if(permission.equalsIgnoreCase("gerencia")){
+           return ManagementDAO.getManagement();
+       }else if(permission.equalsIgnoreCase("gerente")){
+           return ManagerDAO.getManager();
+       }
+       return User;
     }
     
 }
