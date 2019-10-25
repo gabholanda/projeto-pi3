@@ -6,6 +6,7 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 //
+
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import br.senac.codesquad.projeto.pi3.models.Client;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class ClientServlet extends HttpServlet {
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/client":
@@ -78,6 +79,7 @@ public class ClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Delegate all post responsabilities to doGet method
         doGet(request, response);
 
     }
@@ -134,11 +136,6 @@ public class ClientServlet extends HttpServlet {
         String cpf = request.getParameter("cpf");
         String address = request.getParameter("address");
         String mail = request.getParameter("mail");
-
-        request.setAttribute("nameAttr", name);
-        request.setAttribute("cpfAttr", cpf);
-        request.setAttribute("addressAttr", address);
-        request.setAttribute("mailAttr", mail);
 
         ClientController.create(name, cpf, address, mail);
         response.sendRedirect("client");

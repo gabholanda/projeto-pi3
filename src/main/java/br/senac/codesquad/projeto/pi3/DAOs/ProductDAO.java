@@ -61,21 +61,19 @@ public class ProductDAO {
         return retorno;
     }
 
-    public static boolean update(int id,String nameProduct,double values,double valueSale, String details) throws SQLException {
-        
+    public static boolean update(int id, String nameProduct, double values, double valueSale, String details) throws SQLException {
+
         try {
             String query = "UPDATE PRODUCT SET NAMEPRODUCT = ?,BUYVALUE=?, SALEVALUE=?, DETAILS= ? WHERE ID_PRODUCT = ?";
-           
-                ps = con.prepareStatement(query);
-            
+
+            ps = con.prepareStatement(query);
+
             ps.setString(1, nameProduct);
             ps.setDouble(2, values);
             ps.setDouble(3, valueSale);
             ps.setString(4, details);
             ps.setInt(5, id);
-            
-            
-            
+
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
@@ -114,6 +112,7 @@ public class ProductDAO {
         }
         return false;
     }
+// Method that helps to print SQL exceptions on console
 
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

@@ -30,6 +30,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Delegate all post responsabilities to doGet method
         doGet(request, response);
     }
 
@@ -42,7 +43,7 @@ public class ProductServlet extends HttpServlet {
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/product":
@@ -72,6 +73,7 @@ public class ProductServlet extends HttpServlet {
             Logger.getLogger(ProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void read(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         try {
@@ -113,7 +115,6 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("valuesAttr", product.getValues());
         request.setAttribute("valuesSaleAttr", product.getValuesSale());
         request.setAttribute("detailsAttr", product.getDetails());
-        
 
         String path = "./Product/ProductEdit.jsp";
         request.setAttribute("path", path);
@@ -122,7 +123,6 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
-
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
@@ -153,8 +153,8 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
-        String idAttr = request.getParameter("id");
 
+        String idAttr = request.getParameter("id");
         String nameProduct = request.getParameter("name");
         String values = request.getParameter("buyValue");
         String valuesSale = request.getParameter("saleValue");
