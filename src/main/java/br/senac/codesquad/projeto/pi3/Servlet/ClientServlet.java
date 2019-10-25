@@ -140,7 +140,7 @@ public class ClientServlet extends HttpServlet {
         request.setAttribute("addressAttr", address);
         request.setAttribute("mailAttr", mail);
 
-        ClientController.save(name, cpf, address, mail);
+        ClientController.create(name, cpf, address, mail);
         response.sendRedirect("client");
 
     }
