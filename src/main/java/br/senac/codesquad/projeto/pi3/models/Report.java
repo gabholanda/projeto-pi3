@@ -7,7 +7,7 @@ package br.senac.codesquad.projeto.pi3.models;
 
 /**
  *
- * @author gabriel.hsantos21
+ * @author gabriel.hsantos213
  */
 public class Report {
    
