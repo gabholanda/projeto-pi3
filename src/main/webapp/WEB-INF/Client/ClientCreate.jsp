@@ -9,16 +9,16 @@
     <div id="formContent" class="p-3">
         <form  method="post" action="create">
             <div class="form-group">
-                <label>Nome do Cliente</label>
                 <input type="text" name="name" class="form-control" required maxlength="100" value="${nameAttr}" />
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CPF</label>
                 <input type="text" name="cpf" class="form-control" required maxlength="100" value="${cpfAttr}" />
+
             </div>
             <div class="form-group">
                 <label>Endereço</label>
-                <input type="text" name="address" class="form-control" />
+                <input type="text" name="address" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label>Email</label>

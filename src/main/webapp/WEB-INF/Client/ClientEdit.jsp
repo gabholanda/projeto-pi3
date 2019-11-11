@@ -16,10 +16,11 @@
             <div class="form-group">
                 <label>CPF do Cliente</label>
                 <input type="text" name="cpf" class="form-control" value="${cpfAttr}" placeholder= "Digite o CPF do Cliente:" required maxlength="100" value="${cpfAttr}"/>
+
             </div>
             <div class="form-group">
                 <label>Endereço do Cliente</label>
-                <input type="text" name="address" class="form-control" value="${addressAttr}" placeholder= "Digite o Endereco do Cliente:"/>
+                <input type="text" name="address" class="form-control" value="${addressAttr}" placeholder= "Digite o Endereco do Cliente:" required/>
             </div>
             <div class="form-group">
                 <label>Email do Cliente</label>
