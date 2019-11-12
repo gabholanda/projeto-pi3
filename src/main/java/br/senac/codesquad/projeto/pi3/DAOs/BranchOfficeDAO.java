@@ -24,15 +24,16 @@ public class BranchOfficeDAO {
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
 
-    public static boolean create(String name, String address, String cnpj) throws SQLException {
+    public static boolean create(BranchOffice branch) throws SQLException {
 
         try {
             String query = "INSERT INTO BRANCH_OFFICE(NAME,CNPJ,ADDRESS) VALUES(?,?,?)";
 
             ps = con.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setString(2, cnpj);
-            ps.setString(3, address);
+            ps.setString(1, branch.getName());
+            ps.setString(2, branch.getCnpj());
+            ps.setString(3, branch.getAddress());
+
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
@@ -103,7 +104,6 @@ public class BranchOfficeDAO {
     }
 
     public static BranchOffice findBydId(int id) {
-
         try {
             String query = "SELECT * FROM BRANCH_OFFICE WHERE ID_BRANCH_OFFICE = ?";
             ps = con.prepareStatement(query);
@@ -112,7 +112,7 @@ public class BranchOfficeDAO {
             rs = ps.executeQuery();
 
             BranchOffice branch = new BranchOffice();
-            if (rs != null) {
+            while (rs.next()) {
                 branch.setId(rs.getInt("ID_BRANCH_OFFICE"));
                 branch.setName(rs.getString("NAME"));
                 branch.setCnpj(rs.getString("CNPJ"));
@@ -125,6 +125,7 @@ public class BranchOfficeDAO {
         return null;
     }
 
+    // Method that helps to print SQL exceptions on console
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

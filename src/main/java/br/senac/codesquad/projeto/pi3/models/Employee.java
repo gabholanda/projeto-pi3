@@ -11,13 +11,17 @@ package br.senac.codesquad.projeto.pi3.models;
  */
 public class Employee extends User {
 
-    private int permission = 1; //permission user
+    private String permission; //permission user
+
+    public Employee() {
+    }
 
     public Employee(String mail, String password, String name) {
         super(mail, password, name);
     }
 
-    public int getPermission() {
+    @Override
+    public String getPermission() {
         return permission;
     }
 

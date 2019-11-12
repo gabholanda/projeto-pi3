@@ -1,0 +1,47 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22/10/2019, 20:52:03
+    Author     : lucas.mnpaiva
+*/
+
+.pb-1, .py-1 {
+    padding-bottom: .25rem!important;
+}
+
+.pt-1, .py-1 {
+    padding-top: .25rem!important;
+}
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+nav{
+    display: block;
+    box-sizing: border-box;
+}
+.container {
+
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+
+.site-header {
+    background-color: rgba(0, 0, 0, 85);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+.site-header a {
+    color: #999;
+    transition: ease-in-out color .15s;
+}
+.site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+

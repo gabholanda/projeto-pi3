@@ -35,7 +35,7 @@ public class BranchServlet extends HttpServlet {
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/branch":
@@ -75,6 +75,7 @@ public class BranchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Delegate all post responsabilities to doGet method
         doGet(request, response);
     }
 
@@ -100,7 +101,7 @@ public class BranchServlet extends HttpServlet {
         request.setAttribute("idAttr", branch.getId());
         request.setAttribute("nameAttr", branch.getName());
         request.setAttribute("cnpjAttr", branch.getCnpj());
-        request.setAttribute("addressAttr", branch.getCnpj());
+        request.setAttribute("addressAttr", branch.getAddress());
 
         String path = "./Branch/BranchEdit.jsp";
         request.setAttribute("path", path);
@@ -154,7 +155,6 @@ public class BranchServlet extends HttpServlet {
 
     public void read(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
         try {
             ArrayList<BranchOffice> branchList = BranchOfficeController.read();
             String path = "./Branch/BranchList.jsp";

@@ -1,9 +1,11 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
+//
 
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import br.senac.codesquad.projeto.pi3.models.Client;
@@ -31,13 +33,13 @@ public class ClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-String action;
+        String action;
         if (request.getPathInfo() == null) {
             action = request.getServletPath();
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/client":
@@ -53,7 +55,11 @@ String action;
                     break;
 
                 case "/delete":
+                    delete(request, response);
+                    break;
 
+                case "/edit":
+                    formEdit(request, response);
                     break;
 
                 case "/update":
@@ -73,25 +79,36 @@ String action;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String name = request.getParameter("name");
-        String cpf = request.getParameter("cpf");
-        String address = request.getParameter("address");
-        String mail = request.getParameter("mail");
-
-        
-        request.setAttribute("nameAttr", name);
-        request.setAttribute("cpfAttr", cpf);
-        request.setAttribute("addressAttr", address);
-        request.setAttribute("mailAttr", mail);
-
-        ClientController.save(name, cpf, address, mail);
+        //Delegate all post responsabilities to doGet method
+        doGet(request, response);
 
     }
-    
+
     private void form(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String path = "./Client/ClientJSP.jsp";
+        String path = "./Client/ClientCreate.jsp";
+        request.setAttribute("path", path);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void formEdit(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        String idAttr = request.getParameter("id");
+        int id = Integer.parseInt(idAttr);
+
+        Client client = ClientController.findById(id);
+
+        request.setAttribute("idAttr", client.getId());
+        request.setAttribute("nameAttr", client.getName());
+        request.setAttribute("cpfAttr", client.getCpf());
+        request.setAttribute("addressAttr", client.getAddress());
+        request.setAttribute("mailAttr", client.getMail());
+
+        String path = "./Client/ClientEdit.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
@@ -102,50 +119,51 @@ String action;
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, Exception {
         String idAttr = request.getParameter("id");
-        
+        String name = (request.getParameter("name"));
+        String cpf = (request.getParameter("cpf"));
+        String address = (request.getParameter("address"));
+        String mail = (request.getParameter("mail"));
         int id = Integer.parseInt(idAttr);
-        Client client = new Client();
-        client.setId(id);
-        client.setName(request.getParameter("name"));
-        client.setCpf(request.getParameter("cnpj"));
-        client.setAddress(request.getParameter("address"));
-        client.setMail(request.getParameter("address"));
 
-        ClientController.update(id, idAttr, idAttr, idAttr, idAttr);
+        ClientController.update(id, name, cpf, address, mail);
+        response.sendRedirect("client");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        
+
         String name = request.getParameter("name");
         String cpf = request.getParameter("cpf");
         String address = request.getParameter("address");
         String mail = request.getParameter("mail");
 
-        
-        request.setAttribute("nameAttr", name);
-        request.setAttribute("cpfAttr", cpf);
-        request.setAttribute("addressAttr", address);
-        request.setAttribute("mailAttr", mail);
-
-        ClientController.save(name, cpf, address, mail);
+        ClientController.create(name, cpf, address, mail);
+        response.sendRedirect("client");
 
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String id = request.getAttribute("id").toString();
-        request.setAttribute("id", id);
-        ClientController.delete(Integer.parseInt(id));
+
+        try {
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+
+            ClientController.delete(Integer.parseInt(id));
+            response.sendRedirect("client");
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public void read(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
 
         try {
-            ArrayList<String[]> clientList = ClientController.getClient(); 
-            request.setAttribute("ClientJSP", clientList);
+            ArrayList<Client> clientList = ClientController.read();
             String path = "./Client/ClientList.jsp";
+            request.setAttribute("clientList", clientList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(
