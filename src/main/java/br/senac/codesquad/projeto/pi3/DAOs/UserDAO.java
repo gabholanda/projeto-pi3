@@ -60,7 +60,7 @@ public class UserDAO {
 
     }
 
-    public static boolean create(User user, int permission) throws SQLException {
+    public static boolean create(User user, String permission) throws SQLException {
 
         try {
 
@@ -69,7 +69,7 @@ public class UserDAO {
             ps.setString(1, user.getName());
             ps.setString(2, user.getMail());
             ps.setString(3, user.getPassword());
-            ps.setInt(4, permission);
+            ps.setString(4, permission);
 
             int updatedlines = ps.executeUpdate();
 
@@ -104,7 +104,7 @@ public class UserDAO {
     public static ArrayList<User> read() {
         ArrayList<User> users = new ArrayList<>();
         try {
-            String query = "SELECT * FROM client";
+            String query = "SELECT * FROM user";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -115,7 +115,8 @@ public class UserDAO {
                     user.setId(rs.getInt("ID_USER"));
                     user.setName(rs.getString("NAME"));
                     user.setMail(rs.getString("EMAIL"));
-                    user.setPassword((rs.getString("PASSWORD")));
+                    user.setPassword(rs.getString("PASSWORD"));
+                    user.setPermission(rs.getString("PERMISSIONS"));
                     users.add(user);
                 }
             }
@@ -129,7 +130,7 @@ public class UserDAO {
     public static Client findBydId(int id) {
 
         try {
-            String query = "SELECT * FROM client WHERE ID_CLIENT = ?";
+            String query = "SELECT * FROM user WHERE ID_USER = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
