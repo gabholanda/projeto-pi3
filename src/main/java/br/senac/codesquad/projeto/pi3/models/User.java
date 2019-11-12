@@ -17,7 +17,7 @@ public abstract class User {
     private String mail;
     private String password;
     private String name;
-    private int permission = 0; //permission user
+    private String permission; //permission user
     private ArrayList<Sale> saleList;
 
     public User() {
@@ -61,7 +61,15 @@ public abstract class User {
     /**
      * @return the permission
      */
-    public int getPermission() {
+    public String getPermission() {
+        return permission;
+    }
+    
+    /**
+     * @param permission
+     * @return 
+     */
+    public String setPermission(String permission){
         return permission;
     }
 

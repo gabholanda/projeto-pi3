@@ -11,7 +11,7 @@ package br.senac.codesquad.projeto.pi3.models;
  */
 public class Manager extends User {
 
-    private int permission = 2; //permission user 
+    private String permission; //permission user 
 
     public Manager(String name, String mail, String password) {
         super(mail, password, name);
@@ -21,7 +21,7 @@ public class Manager extends User {
     /**
      * @return the permission
      */
-    public int getPermission() {
+    public String getPermission() {
         return permission;
     }
 

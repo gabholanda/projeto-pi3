@@ -5,7 +5,9 @@
  */
 package br.senac.codesquad.projeto.pi3.controllers;
 
+import br.senac.codesquad.projeto.pi3.DAOs.ClientDAO;
 import br.senac.codesquad.projeto.pi3.DAOs.UserDAO;
+import br.senac.codesquad.projeto.pi3.models.Client;
 import br.senac.codesquad.projeto.pi3.models.Management;
 import br.senac.codesquad.projeto.pi3.models.Manager;
 import br.senac.codesquad.projeto.pi3.models.User;
@@ -83,6 +85,10 @@ public class UserController {
             return UserDAO.read();
         }
         return user;
+    }
+    
+        public static Client findById(int id) {
+        return ClientDAO.findBydId(id);
     }
 
 }
