@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
-        <form  method="post" action="update">
+        <form  method="post" action="${pageContext.request.contextPath}/client/update">
             <input type="hidden" name="id" value="${idAttr}"/>
             <div class="form-group">
                 <label>Nome do Cliente</label>

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
-        <form  method="post" action="create">
+        <form  method="post" action="${pageContext.request.contextPath}/client/create">
             <div class="form-group">
                 <input type="text" name="name" class="form-control" required maxlength="100" value="${nameAttr}" />
             </div>
@@ -27,7 +27,7 @@
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>
                 <button type="reset" class="btn btn-warning">Resetar dados</button>
-                <a href="#" role="button" class="btn btn-danger">Cancelar</a>
+                <a href="${pageContext.request.contextPath}/client" role="button" class="btn btn-danger">Cancelar</a>
             </div>
         </form> 
     </div>
