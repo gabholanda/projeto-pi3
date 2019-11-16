@@ -51,14 +51,15 @@ public class ProductServlet extends HttpServlet {
                     break;
                 case "/new":
                     form(request, response);
-                case "/formEdit":
-                    formEditProduct(request, response);
                     break;
                 case "/create":
                     create(request, response);
                     break;
                 case "/delete":
                     delete(request, response);
+                    break;
+                case "/edit":
+                    formEdit(request, response);
                     break;
                 case "/update":
                     update(request, response);
@@ -102,15 +103,15 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void formEditProduct(HttpServletRequest request, HttpServletResponse response)
+    private void formEdit(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        String idProductAttr = request.getParameter("id");
-        int id = Integer.parseInt(idProductAttr);
+        String idAttr = request.getParameter("id");
+        int id = Integer.parseInt(idAttr);
 
         Product product = ProductController.findById(id);
 
-        request.setAttribute("idProductAttr", product.getId());
+        request.setAttribute("idAttr", product.getId());
         request.setAttribute("nameProductAttr", product.getNameProduct());
         request.setAttribute("valuesAttr", product.getValues());
         request.setAttribute("valuesSaleAttr", product.getValuesSale());
@@ -123,36 +124,8 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
-
-    private void create(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, SQLException {
-        String nameProduct = request.getParameter("name");
-        String values = request.getParameter("purchasePrice");
-        String valuesSale = request.getParameter("priceSale");
-        String details = request.getParameter("description");
-
-        ProductController.create(
-                nameProduct,
-                Double.parseDouble(values),
-                Double.parseDouble(valuesSale),
-                details);
-        response.sendRedirect("product");
-
-    }
-
-    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
-        try {
-            String idStr = request.getParameter("id");
-            request.setAttribute("idAttr", idStr);
-
-            ProductController.delete(Integer.parseInt(idStr));
-            response.sendRedirect("product");
-        } catch (SQLException ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+    
+     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
 
         String idAttr = request.getParameter("id");
         String nameProduct = request.getParameter("name");
@@ -162,13 +135,36 @@ public class ProductServlet extends HttpServlet {
 
         int id = Integer.parseInt(idAttr);
 
-        ProductController.update(id,
-                nameProduct,
-                Double.parseDouble(values),
-                Double.parseDouble(valuesSale),
-                details);
+        ProductController.update(id, nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details);
 
         response.sendRedirect("product");
 
     }
+    
+
+    private void create(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, SQLException {
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("purchasePrice");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+
+        ProductController.create( nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details);
+        response.sendRedirect("product");
+
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+        try {
+            String id = request.getParameter("id");
+            request.setAttribute("idAttr", id);
+
+            ProductController.delete(Integer.parseInt(id));
+            response.sendRedirect("product");
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+   
 }

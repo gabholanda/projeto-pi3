@@ -27,6 +27,8 @@
                 <input type="email" name="mail" class="form-control" value="${mailAttr}" placeholder= "Digite o Email do Cliente:" required maxlength="100" value="${mailAttr}"/>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="reset" class="btn btn-warning">Resetar dados</button>
+            <a href="${pageContext.request.contextPath}/client" role="button" class="btn btn-danger">Cancelar</a>
         </form>
     </div>
 </div>

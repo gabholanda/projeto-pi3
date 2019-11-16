@@ -27,7 +27,7 @@
                     <td><c:out value="${item.values}"/></td>
                     <td><c:out value="${item.valuesSale}"/></td>
                     <td>
-                        <a href="/product/formEdit?id=<c:out value='${item.id}' />" class="btn btn-secondary">Editar</a>
+                        <a href="${pageContext.request.contextPath}/product/formEdit?id=<c:out value='${item.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <form method="post" action="/product/delete?id=<c:out value='${item.id}' />">
                             <input type="hidden" name="id" value="${item.id}">
@@ -40,5 +40,5 @@
     </table>
 </section>
 <div class="d-flex justify-content-center">
-    <a href="/product/new" class="btn btn-success">Novo produto</a>
+    <a href="${pageContext.request.contextPath}/product/new" class="btn btn-success">Novo produto</a>
 </div>

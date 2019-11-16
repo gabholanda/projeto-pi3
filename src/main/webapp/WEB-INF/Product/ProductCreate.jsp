@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <section style="width: 70%; margin: 0 auto">
     <h1>Produtos</h1>
-    <form method="post" action="create">
+    <form method="post" action="${pageContext.request.contextPath}/product/create">
 
         <input type="hidden" name="id" value="123">
         <hr/>    
@@ -59,12 +59,10 @@
                 </div>
             </div>
 
-
-
             <div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <button type="reset">Resetar Dados</button>
-                <a href="/product" role="button">Cancelar</a>
+                <a href="${pageContext.request.contextPath}/product" role="button">Cancelar</a>
             </div>
     </form>
 </section>
