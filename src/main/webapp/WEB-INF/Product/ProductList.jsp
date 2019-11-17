@@ -13,25 +13,27 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Detalhe</th>
-                <th scope="col">Preço Venda</th>
+                <th scope="col">Detalhes</th>
                 <th scope="col">Preço Compra</th>
+                <th scope="col">Preço Venda</th>
+                <th scope="col">Quantidade</th>
                 <th scope="col">Opções</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="item" items="${productList}">
+            <c:forEach var="product" items="${productList}">
                 <tr>
-                    <th scope="row"><c:out value="${item.id}" /></th>
-                    <td><c:out value="${item.nameProduct}"/></td>
-                    <td><c:out value="${item.details}"/></td>
-                    <td><c:out value="${item.values}"/></td>
-                    <td><c:out value="${item.valuesSale}"/></td>
+                    <th scope="row"><c:out value="${product.id}" /></th>
+                    <td><c:out value="${product.nameProduct}"/></td>
+                    <td><c:out value="${product.details}"/></td>
+                    <td><c:out value="${product.values}"/></td>
+                    <td><c:out value="${product.valuesSale}"/></td>
+                    <td><c:out value="${product.quantidade}"/></td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/product/formEdit?id=<c:out value='${item.id}' />" class="btn btn-secondary">Editar</a>
+                        <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <form method="post" action="/product/delete?id=<c:out value='${item.id}' />">
-                            <input type="hidden" name="id" value="${item.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/product/delete?id=<c:out value='${product.id}' />">
+                            <input type="hidden" name="id" value="${product.id}">
                             <button type="submit" class="btn btn-danger">Deletar</button> 
                         </form>
                     </td>

@@ -8,7 +8,7 @@
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
         <form  method="post" action="${pageContext.request.contextPath}/product/update">
-            <input type="hidden" name="id" value="${idProductAttr}"/>
+            <input type="hidden" name="id" value="${idAttr}"/>
             <div class="form-group">
                 <label>Nome Produto</label>
                 <input type="text" name="name" class="form-control" value="${nameProductAttr}"  />
@@ -25,6 +25,10 @@
             <div class="form-group">
                 <label>Preço Compra</label>
                 <input type="text" name="buyValue" class="form-control" value="${valuesSaleAttr}" />
+            </div>
+            <div class="form-group">
+                <label>Quantidade</label>
+                <input type="text" name="buyValue" class="form-control" value="${quantidadeAttr}" />
             </div>
 
             <button type="submit" class="btn btn-primary">Alterar</button>

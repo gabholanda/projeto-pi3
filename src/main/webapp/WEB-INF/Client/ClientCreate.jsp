@@ -10,21 +10,21 @@
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
         <form  method="post" action="${pageContext.request.contextPath}/client/create">
-            <div class="form-group">
-                <input type="text" name="name" class="form-control" required maxlength="100" value="${nameAttr}" />
+            <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                <label>Nome</label>
+                <input type="text" name="name" class="form-control" value="${nameAttr}" required/>
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CPF</label>
-                <input type="text" name="cpf" class="form-control" onkeypress="$(this).mask('000.000.000/00');" required maxlength="100" value="${cpfAttr}" />
-
+                <input type="text" name="cpf" class="form-control" onkeypress="$(this).mask('000.000.000/00');" value="${cpfAttr}" required/>
             </div>
             <div class="form-group">
                 <label>Endereço</label>
-                <input type="text" name="address" class="form-control" required/>
+                <input type="text" name="address" class="form-control" value="${addressAttr}" required/>
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="mail" class="form-control" required maxlength="100" value="${mailAttr}"/>
+                <input type="email" name="mail" class="form-control" value="${mailAttr}" required/>
             </div>
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>

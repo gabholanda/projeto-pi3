@@ -28,14 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Delegate all post responsabilities to doGet method
-        request.setCharacterEncoding("UTF-8");
-        doGet(request, response);
-    }
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action;
@@ -50,21 +42,27 @@ public class ProductServlet extends HttpServlet {
                 case "/product":
                     read(request, response);
                     break;
+
                 case "/new":
                     form(request, response);
                     break;
+
                 case "/create":
                     create(request, response);
                     break;
+
                 case "/delete":
                     delete(request, response);
                     break;
+
                 case "/edit":
                     formEdit(request, response);
                     break;
+
                 case "/update":
                     update(request, response);
                     break;
+
                 default:
                     read(request, response);
                     break;
@@ -76,22 +74,12 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void read(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        try {
-            ArrayList<Product> productList = ProductController.read();
-            String path = "./Product/ProductList.jsp";
-            request.setAttribute("productList", productList);
-            request.setAttribute("path", path);
-            RequestDispatcher dispatcher
-                    = request.getRequestDispatcher(
-                            "/WEB-INF/IndexJSP.jsp");
-            dispatcher.forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-        }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
+        doGet(request, response);
     }
 
     private void form(HttpServletRequest request, HttpServletResponse response)
@@ -114,9 +102,9 @@ public class ProductServlet extends HttpServlet {
 
         request.setAttribute("idAttr", product.getId());
         request.setAttribute("nameProductAttr", product.getNameProduct());
+        request.setAttribute("detailsAttr", product.getDetails());
         request.setAttribute("valuesAttr", product.getValues());
         request.setAttribute("valuesSaleAttr", product.getValuesSale());
-        request.setAttribute("detailsAttr", product.getDetails());
         request.setAttribute("quantidadeAttr", product.getQuantidade());
 
         String path = "./Product/ProductEdit.jsp";
@@ -126,41 +114,40 @@ public class ProductServlet extends HttpServlet {
                         "/WEB-INF/IndexJSP.jsp");
         dispatcher.forward(request, response);
     }
-    
-     private void update(HttpServletRequest request, HttpServletResponse response) 
-             throws IOException, Exception {
+
+    private void update(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, Exception {
 
         String idAttr = request.getParameter("id");
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
-        String quantidade = request.getParameter("quantidade"); 
+        String quantidade = request.getParameter("quantidade");
 
         int id = Integer.parseInt(idAttr);
 
-        ProductController.update(id, nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details, Integer.parseInt(quantidade));
+        ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
 
         response.sendRedirect("product");
 
     }
-    
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
-        
+
         String nameProduct = request.getParameter("nameProduct");
         String values = request.getParameter("values");
         String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
-        String quantidade = request.getParameter("quantidade"); 
+        String quantidade = request.getParameter("quantidade");
 
-        ProductController.create( nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details, Integer.parseInt(quantidade));
+        ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
         response.sendRedirect("product");
 
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) 
+    private void delete(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, SQLException {
         try {
             String id = request.getParameter("id");
@@ -173,5 +160,22 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-   
+    private void read(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        try {
+            ArrayList<Product> productList = ProductController.read();
+            String path = "./Product/ProductList.jsp";
+            request.setAttribute("productList", productList);
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+        }
+    }
+
 }
