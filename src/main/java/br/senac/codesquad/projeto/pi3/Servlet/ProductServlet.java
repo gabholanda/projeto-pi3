@@ -131,9 +131,9 @@ public class ProductServlet extends HttpServlet {
              throws IOException, Exception {
 
         String idAttr = request.getParameter("id");
-        String nameProduct = request.getParameter("name");
-        String values = request.getParameter("buyValue");
-        String valuesSale = request.getParameter("saleValue");
+        String nameProduct = request.getParameter("nameProduct");
+        String values = request.getParameter("values");
+        String valuesSale = request.getParameter("valuesSale");
         String details = request.getParameter("details");
         String quantidade = request.getParameter("quantidade"); 
 
@@ -148,10 +148,11 @@ public class ProductServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
-        String nameProduct = request.getParameter("name");
-        String values = request.getParameter("purchasePrice");
-        String valuesSale = request.getParameter("priceSale");
-        String details = request.getParameter("description");
+        
+        String nameProduct = request.getParameter("nameProduct");
+        String values = request.getParameter("values");
+        String valuesSale = request.getParameter("valuesSale");
+        String details = request.getParameter("details");
         String quantidade = request.getParameter("quantidade"); 
 
         ProductController.create( nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details, Integer.parseInt(quantidade));
@@ -163,7 +164,7 @@ public class ProductServlet extends HttpServlet {
             throws IOException, ServletException, SQLException {
         try {
             String id = request.getParameter("id");
-            request.setAttribute("idAttr", id);
+            request.setAttribute("id", id);
 
             ProductController.delete(Integer.parseInt(id));
             response.sendRedirect("product");
