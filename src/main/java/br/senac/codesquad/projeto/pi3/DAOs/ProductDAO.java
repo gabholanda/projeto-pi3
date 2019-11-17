@@ -19,7 +19,8 @@ public class ProductDAO {
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
 
-    public static ArrayList<Product> getProduct() throws Exception {
+    public static ArrayList<Product> getProduct() 
+            throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         try {
             String query = "SELECT "
@@ -48,7 +49,8 @@ public class ProductDAO {
 
     }
 
-    public static boolean delete(int id) throws SQLException {
+    public static boolean delete(int id) 
+            throws SQLException {
         String query = "DELETE "
                 + "     FROM "
                 + "         PRODUCT"
@@ -61,10 +63,11 @@ public class ProductDAO {
         return retorno;
     }
 
-    public static boolean update(int id, String nameProduct, double values, double valueSale, String details) throws SQLException {
+    public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int quantidade) 
+            throws SQLException {
 
         try {
-            String query = "UPDATE PRODUCT SET NAMEPRODUCT = ?,BUYVALUE=?, SALEVALUE=?, DETAILS= ? WHERE ID_PRODUCT = ?";
+            String query = "UPDATE PRODUCT SET NAMEPRODUCT = ?,BUYVALUE=?, SALEVALUE=?, DETAILS= ?, QUANTIDADE= ?, WHERE ID_PRODUCT = ?";
 
             ps = con.prepareStatement(query);
 
@@ -72,7 +75,8 @@ public class ProductDAO {
             ps.setDouble(2, values);
             ps.setDouble(3, valueSale);
             ps.setString(4, details);
-            ps.setInt(5, id);
+            ps.setInt(5, quantidade);
+            ps.setInt(6, id);
 
             int updatedlines = ps.executeUpdate();
 
@@ -84,21 +88,18 @@ public class ProductDAO {
         }
     }
 
-    public static boolean create(String nameProduct, double values, double valueSale, String details) {
+    public static boolean create(String nameProduct, double values, double valueSale, String details, int quantidade) {
         try {
 
-            String query
-                    = "INSERT"
-                    + "       INTO"
-                    + "   PRODUCT"
-                    + "       (NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS)"
-                    + "   VALUES"
-                    + "        (?,?,?,?)  ";
+            String query = 
+                    
+           "INSERT INTO PRODUCT (NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, QUANTIDADE) VALUES (?,?,?,?,?)"; 
             ps = con.prepareStatement(query);
             ps.setString(1, nameProduct);
             ps.setDouble(2, values);
             ps.setDouble(3, valueSale);
             ps.setString(4, details);
+            ps.setInt(5, quantidade);
 
             int updatedlines = ps.executeUpdate();
 

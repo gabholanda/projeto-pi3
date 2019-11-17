@@ -31,6 +31,7 @@ public class ProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
         doGet(request, response);
     }
 
@@ -116,6 +117,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("valuesAttr", product.getValues());
         request.setAttribute("valuesSaleAttr", product.getValuesSale());
         request.setAttribute("detailsAttr", product.getDetails());
+        request.setAttribute("quantidadeAttr", product.getQuantidade());
 
         String path = "./Product/ProductEdit.jsp";
         request.setAttribute("path", path);
@@ -125,17 +127,19 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
-     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+     private void update(HttpServletRequest request, HttpServletResponse response) 
+             throws IOException, Exception {
 
         String idAttr = request.getParameter("id");
         String nameProduct = request.getParameter("name");
         String values = request.getParameter("buyValue");
         String valuesSale = request.getParameter("saleValue");
         String details = request.getParameter("details");
+        String quantidade = request.getParameter("quantidade"); 
 
         int id = Integer.parseInt(idAttr);
 
-        ProductController.update(id, nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details);
+        ProductController.update(id, nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details, Integer.parseInt(quantidade));
 
         response.sendRedirect("product");
 
@@ -148,13 +152,15 @@ public class ProductServlet extends HttpServlet {
         String values = request.getParameter("purchasePrice");
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
+        String quantidade = request.getParameter("quantidade"); 
 
-        ProductController.create( nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details);
+        ProductController.create( nameProduct, Double.parseDouble(values),Double.parseDouble(valuesSale),details, Integer.parseInt(quantidade));
         response.sendRedirect("product");
 
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    private void delete(HttpServletRequest request, HttpServletResponse response) 
+            throws IOException, ServletException, SQLException {
         try {
             String id = request.getParameter("id");
             request.setAttribute("idAttr", id);

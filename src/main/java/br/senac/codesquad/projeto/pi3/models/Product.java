@@ -13,42 +13,35 @@ public class Product {
 
     private int id;
     private String nameProduct;
+    private int quantidade;
+    private String details;
     private double values;
     private double valuesSale;
-    private String details;
     private int idBranchOffice;
+    
 
-    public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice) {
+    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice, int quantidade) {
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.details = details;
+        this.idBranchOffice = idBranchOffice;
+        this.quantidade = quantidade;  
+    }
+
+    public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice, int quantidade) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.values = values;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
         this.valuesSale = valuesSale;
-    }
-   
-    public Product(int id, String nameProduct, double values, double valueSale, String details) {
-        this.id = id;
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.details = details;
-        this.idBranchOffice = idBranchOffice;
+        this.quantidade = quantidade; 
     }
 
     public Product() {
-        
-    }
 
-    public Product(String nameProduct, double values, double valueSale,String details) {
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.details = details;
-        this.idBranchOffice = idBranchOffice;
     }
-
-    
 
     public double getValuesSale() {
         return valuesSale;
@@ -56,7 +49,7 @@ public class Product {
 
     public void setValuesSale(double valuesSale) {
         this.valuesSale = valuesSale;
-        
+
     }
 
     /**
@@ -65,13 +58,13 @@ public class Product {
     public int getId() {
         return id;
     }
+
     /**
      * @param id the nameProduct to set
      */
-     public void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
-
 
     /**
      * @return the nameProduct
@@ -101,7 +94,6 @@ public class Product {
         this.values = values;
     }
 
-
     /**
      * @return the details
      */
@@ -121,6 +113,20 @@ public class Product {
      */
     public int getIdBranchOffice() {
         return idBranchOffice;
+    }
+
+    /**
+     * @return the quantidade
+     */
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    /**
+     * @param quantidade the quantidade to set
+     */
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
 }

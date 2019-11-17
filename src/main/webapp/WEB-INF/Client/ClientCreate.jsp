@@ -4,6 +4,8 @@
     Author     : marcelo.moraes
 --%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
@@ -13,7 +15,7 @@
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CPF</label>
-                <input type="text" name="cpf" class="form-control" required maxlength="100" value="${cpfAttr}" />
+                <input type="text" name="cpf" class="form-control" onkeypress="$(this).mask('000.000.000/00');" required maxlength="100" value="${cpfAttr}" />
 
             </div>
             <div class="form-group">

@@ -16,6 +16,7 @@
                 <th scope="col">Detalhe</th>
                 <th scope="col">Preço Venda</th>
                 <th scope="col">Preço Compra</th>
+                <th scope="col">Opções</th>
             </tr>
         </thead>
         <tbody>

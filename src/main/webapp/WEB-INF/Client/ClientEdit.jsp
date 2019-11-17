@@ -3,7 +3,7 @@
     Created on : 21/10/2019, 15:13:30
     Author     : marcelo.moraes
 --%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label>CPF do Cliente</label>
-                <input type="text" name="cpf" class="form-control" value="${cpfAttr}" placeholder= "Digite o CPF do Cliente:" required maxlength="100" value="${cpfAttr}"/>
+                <input type="text" name="cpf" class="form-control" value="${cpfAttr}" placeholder= "Digite o CPF do Cliente:" onkeypress="$(this).mask('000.000.000/00');" required maxlength="100" value="${cpfAttr}"/>
 
             </div>
             <div class="form-group">
