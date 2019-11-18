@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
 
 <div class="wrapper fadeInDown bg-image">
     <div id="formContent">

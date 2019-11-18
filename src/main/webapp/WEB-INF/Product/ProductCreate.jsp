@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
         <form method="post" action="${pageContext.request.contextPath}/product/create">
@@ -27,7 +28,7 @@
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtPriceSale">Quantidade</label>
-                <input type="number" name="quantidade" class="form-control" value="${quantidadeAttr}" placeholder="Quantidade" step="0.01" required/>            
+                <input type="number" name="quantity" class="form-control" value="${quantidadeAttr}" placeholder="Quantidade" step="0.01" required/>            
             </div>
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>

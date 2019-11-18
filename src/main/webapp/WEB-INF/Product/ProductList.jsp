@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
 <h2>Lista de Produtos</h2>
 <section class="p-5">
     <table class="table">
@@ -29,7 +30,7 @@
                     <td><c:out value="${product.values}"/></td>
                     <td><c:out value="${product.valuesSale}"/></td>
                     <td><c:out value="${product.quantidade}"/></td>
-                    <td>
+                    <td class="d-flex">
                         <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <form method="post" action="${pageContext.request.contextPath}/product/delete?id=<c:out value='${product.id}' />">
