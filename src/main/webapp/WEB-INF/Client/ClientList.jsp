@@ -29,7 +29,7 @@
                     <td><c:out value="${client.cpf}"/></td>
                     <td><c:out value="${client.address}"/></td>
                     <td><c:out value="${client.mail}"/></td>
-                    <td>
+                    <td class="d-flex">
                         <a href="${pageContext.request.contextPath}/client/edit?id=<c:out value='${client.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <form method="post" action="${pageContext.request.contextPath}/client/delete?id=<c:out value='${client.id}' />">

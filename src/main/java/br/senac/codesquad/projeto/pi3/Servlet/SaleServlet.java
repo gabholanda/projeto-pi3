@@ -28,7 +28,7 @@ public class SaleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        String path = "./SaleJSPs/SaleJSP.jsp";
+        String path = "./Sale/SaleJSP.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
@@ -37,4 +37,10 @@ public class SaleServlet extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
