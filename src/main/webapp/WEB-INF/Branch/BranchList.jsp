@@ -15,8 +15,8 @@
             <tr>    
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <th scope="col">CNPJ</th>
                 <th scope="col">Endereço</th>
+                <th scope="col">CNPJ</th>             
                 <th scope="col">Opções</th>
             </tr>
         </thead>

@@ -13,14 +13,14 @@
                 <label>Nome da Filial</label>
                 <input type="text" name="name" class="form-control" value="${nameAttr}" required />
             </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label>Endereço</label>
                 <input type="text" name="address" class="form-control" value="${addressAttr}" required/>
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CNPJ</label>
                 <input type="text" name="cnpj" class="form-control" value="${cnpjAttr}" onkeypress="$(this).mask('00.000.000/0000-00');" required/>
-            </div>
+            </div>                   
             <button type="submit" class="btn btn-primary">Enviar</button>
             <button class="btn btn-warning" type="reset">Resetar Dados</button>
             <a href="${pageContext.request.contextPath}/branch" role="button" class="btn btn-danger">Cancelar</a>
