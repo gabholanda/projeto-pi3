@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
 <h2>Lista de Produtos</h2>
 <section class="p-5">
     <table class="table">
@@ -13,24 +14,27 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Detalhe</th>
-                <th scope="col">Preço Venda</th>
+                <th scope="col">Detalhes</th>
                 <th scope="col">Preço Compra</th>
+                <th scope="col">Preço Venda</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Opções</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="item" items="${productList}">
+            <c:forEach var="product" items="${productList}">
                 <tr>
-                    <th scope="row"><c:out value="${item.id}" /></th>
-                    <td><c:out value="${item.nameProduct}"/></td>
-                    <td><c:out value="${item.details}"/></td>
-                    <td><c:out value="${item.values}"/></td>
-                    <td><c:out value="${item.valuesSale}"/></td>
-                    <td>
-                        <a href="/product/formEdit?id=<c:out value='${item.id}' />" class="btn btn-secondary">Editar</a>
+                    <th scope="row"><c:out value="${product.id}" /></th>
+                    <td><c:out value="${product.nameProduct}"/></td>
+                    <td><c:out value="${product.details}"/></td>
+                    <td><c:out value="${product.values}"/></td>
+                    <td><c:out value="${product.valuesSale}"/></td>
+                    <td><c:out value="${product.quantidade}"/></td>
+                    <td class="d-flex">
+                        <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <form method="post" action="/product/delete?id=<c:out value='${item.id}' />">
-                            <input type="hidden" name="id" value="${item.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/product/delete?id=<c:out value='${product.id}' />">
+                            <input type="hidden" name="id" value="${product.id}">
                             <button type="submit" class="btn btn-danger">Deletar</button> 
                         </form>
                     </td>
@@ -40,5 +44,5 @@
     </table>
 </section>
 <div class="d-flex justify-content-center">
-    <a href="/product/new" class="btn btn-success">Novo produto</a>
+    <a href="${pageContext.request.contextPath}/product/new" class="btn btn-success">Novo produto</a>
 </div>

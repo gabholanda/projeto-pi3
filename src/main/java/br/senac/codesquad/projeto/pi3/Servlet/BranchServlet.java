@@ -76,7 +76,9 @@ public class BranchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
         doGet(request, response);
+
     }
 
 //Pages
@@ -120,7 +122,7 @@ public class BranchServlet extends HttpServlet {
             String address = request.getParameter("address");
             String cnpj = request.getParameter("cnpj");
 
-            BranchOfficeController.create(name, address, cnpj);
+            BranchOfficeController.create(name, cnpj, address);
 
             response.sendRedirect("branch");
         } catch (SQLException ex) {

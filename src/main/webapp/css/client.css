@@ -4,13 +4,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 21/10/2019, 22:10:31
-    Author     : gabriel.hsantos21
+    Created on : 25/10/2019, 18:13:50
+    Author     : lucas.paiva
 */
 
-.bbg-image {
-    background-image: url("https://images.wallpaperscraft.com/image/office_work_interior_walls_80538_1920x1080.jpg");
-    background-repeat: no-repeat;
+.cbg-image{
+    background-image: url("http://www.elephantmediasd.com/wp-content/uploads/ktz/backgrounds-full-hd-wallpaper-cave-original-background-hd-wallpapers-fabulous-8-38sb027r6g4hfjl6ccf4e8.jpg");
+   background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     background-attachment: fixed;

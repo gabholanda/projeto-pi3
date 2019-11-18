@@ -18,6 +18,7 @@
                 <th scope="col">CPF</th>
                 <th scope="col">Endereço</th>
                 <th scope="col">Email</th>
+                <th scope="col">Opções</th>
             </tr>
         </thead>
         <tbody>
@@ -29,9 +30,9 @@
                     <td><c:out value="${client.address}"/></td>
                     <td><c:out value="${client.mail}"/></td>
                     <td>
-                        <a href="/client/edit?id=<c:out value='${client.id}' />" class="btn btn-secondary">Editar</a>
+                        <a href="${pageContext.request.contextPath}/client/edit?id=<c:out value='${client.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <form method="post" action="/client/delete?id=<c:out value='${client.id}' />">
+                        <form method="post" action="${pageContext.request.contextPath}/client/delete?id=<c:out value='${client.id}' />">
                             <input type="hidden" name="id" value="${client.id}">
                             <button type="submit" class="btn btn-danger">Deletar</button> 
                         </form>
@@ -42,5 +43,5 @@
     </table>
 </section>
 <div class="d-flex justify-content-center">
-    <a href="/client/new" class="btn btn-success"   >Novo cliente</a>
+    <a href="${pageContext.request.contextPath}/client/new" class="btn btn-success"   >Novo cliente</a>
 </div>

@@ -23,6 +23,30 @@ public class ClientDAO {
     private static ResultSet rs = null;
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
+    
+    public static boolean create(Client client) {
+        try {
+
+            String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
+            ps = con.prepareStatement(query);
+            ps.setString(1, client.getName());
+            ps.setString(2, client.getCpf());
+            ps.setString(3, client.getAddress());
+            ps.setString(4, client.getMail());
+
+            int updatedlines = ps.executeUpdate();
+
+            retorno = updatedlines > 0;
+
+            return retorno;
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+
+        }
+        return false;
+    }
+    
 
     public static boolean delete(int id) throws SQLException {
         String query = "DELETE FROM client WHERE ID_CLIENT =?";
@@ -59,28 +83,7 @@ public class ClientDAO {
 
     }
 
-    public static boolean create(Client client) {
-        try {
-
-            String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
-            ps = con.prepareStatement(query);
-            ps.setString(1, client.getName());
-            ps.setString(2, client.getCpf());
-            ps.setString(3, client.getAddress());
-            ps.setString(4, client.getMail());
-
-            int updatedlines = ps.executeUpdate();
-
-            retorno = updatedlines > 0;
-
-            return retorno;
-
-        } catch (SQLException ex) {
-            printSQLException(ex);
-
-        }
-        return false;
-    }
+    
 // Method that helps to print SQL exceptions on console
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

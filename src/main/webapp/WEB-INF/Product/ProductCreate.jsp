@@ -5,66 +5,37 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<section style="width: 70%; margin: 0 auto">
-    <h1>Produtos</h1>
-    <form method="post" action="create">
+<link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
+<div class="wrapper fadeInDown cbg-image">
+    <div id="formContent" class="p-3">
+        <form method="post" action="${pageContext.request.contextPath}/product/create">
 
-        <input type="hidden" name="id" value="123">
-        <hr/>    
-        <div class="form-groupProduct">
-            <label for="txtName"> Nome</label>
-            <div class="form-groupProduct">
-                <input type="text" name="name" id="txtName" 
-                       placeholder="Digite um nome..." 
-                       required maxlength="100"/>
-                <div class="erro-input">
-                    Digite um nome.
-                </div>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtName">Nome</label>
+                <input type="text" name="name" class="form-control" value="${nameProductAttr}" placeholder="Digite o nome do produto" required/>
             </div>
-        </div>
-
-        <div class="form-groupProduct">
-            <label for="txtDescription">
-                Descrição
-            </label>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtDescription">Descrição</label>
+                <input type="text" name="description" class="form-control" value="${detailsAttr}" placeholder="Digite a descrição" required/>
+            </div>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtPriceBuy">Preço de Compra</label>
+                <input type="number" name="priceBuy" class="form-control" value="${valuesAttr}" placeholder="Preço Venda" step="0.01" required/>
+            </div>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtPriceSale">Preço de Venda</label>
+                <input type="number" name="priceSale" class="form-control" value="${valuesSaleAttr}" placeholder="Preço Compra" step="0.01" required/>            
+            </div>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtPriceSale">Quantidade</label>
+                <input type="number" name="quantity" class="form-control" value="${quantidadeAttr}" placeholder="Quantidade" step="0.01" required/>            
+            </div>
             <div>
-                <textarea name="description" id="txtDescription" placeholder="Descrição..." required>
-                </textarea>
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="reset"class="btn btn-warning">Resetar Dados</button>
+                <a href="${pageContext.request.contextPath}/product" role="button" class="btn btn-danger">Cancelar</a>
             </div>
-        </div>
+        </form>
+    </div>
+</div>
 
-        <div class="form-groupProduct">
-            <label for="txtPriceSale">
-                Preço Venda
-            </label>
-            <div>
-                <input type="number" name="priceSale" id="txtPriceSale" 
-                       placeholder="Preço Venda" step="0.01"
-                       required />
-                <div class="erro-input">
-                    Digite um preço.
-                </div>
-            </div>
-        </div>
-        <div class="form-groupProduct">
-            <label for="txt">
-                Preço Compra
-            </label>
-            <div>
-                <input type="number" name="purchasePrice" id="txtPurchasePrice" 
-                       placeholder="Preço Compra" step="0.01"
-                       required/>
-                <div class="erro-input">
-                    Digite um preço.    
-                </div>
-            </div>
-
-
-
-            <div>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <button type="reset">Resetar Dados</button>
-                <a href="/product" role="button">Cancelar</a>
-            </div>
-    </form>
-</section>
