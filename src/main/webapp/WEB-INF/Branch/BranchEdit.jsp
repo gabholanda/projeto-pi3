@@ -3,7 +3,7 @@
     Created on : Oct 19, 2019, 6:29:04 PM
     Author     : HOLANDAS
 --%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
@@ -19,9 +19,11 @@
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CNPJ</label>
-                <input type="text" name="cnpj" class="form-control" value="${cnpjAttr}" required/>
+                <input type="text" name="cnpj" class="form-control" value="${cnpjAttr}" onkeypress="$(this).mask('00.000.000/0000-00');" required/>
             </div>
-            <button type="submit" class="btn btn-primary">Editar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button class="btn btn-warning" type="reset">Resetar Dados</button>
+            <a href="${pageContext.request.contextPath}/branch" role="button" class="btn btn-danger">Cancelar</a>
         </form>
     </div>
 </div>

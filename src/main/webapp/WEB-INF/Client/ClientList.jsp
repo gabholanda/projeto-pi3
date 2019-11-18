@@ -18,6 +18,7 @@
                 <th scope="col">CPF</th>
                 <th scope="col">Endereço</th>
                 <th scope="col">Email</th>
+                <th scope="col">Opções</th>
             </tr>
         </thead>
         <tbody>

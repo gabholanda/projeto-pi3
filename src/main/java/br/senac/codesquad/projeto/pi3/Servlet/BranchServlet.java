@@ -76,7 +76,9 @@ public class BranchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
         doGet(request, response);
+        
     }
 
 //Pages

@@ -11,12 +11,12 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean create(String nameProduct, double values, double valueSale, String details) {
-        return ProductDAO.create(nameProduct, values, valueSale, details);
+    public static boolean create(String nameProduct, double values, double valueSale, String details, int quantidade) {
+        return ProductDAO.create(nameProduct, values, valueSale, details, quantidade);
     }
 
-    public static boolean update(int id, String nameProduct, double values, double valueSale, String details) throws Exception {
-        return ProductDAO.update(id, nameProduct, values, valueSale, details);
+    public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int quantidade) throws Exception {
+        return ProductDAO.update(id, nameProduct, values, valueSale, details, quantidade);
 
     }
 
