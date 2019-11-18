@@ -102,10 +102,10 @@ public class ProductServlet extends HttpServlet {
 
         request.setAttribute("idAttr", product.getId());
         request.setAttribute("nameProductAttr", product.getNameProduct());
-        request.setAttribute("detailsAttr", product.getDetails());
-        request.setAttribute("valuesAttr", product.getValues());
-        request.setAttribute("valuesSaleAttr", product.getValuesSale());
-        request.setAttribute("quantidadeAttr", product.getQuantidade());
+        request.setAttribute("descriptionAttr", product.getDetails());
+        request.setAttribute("priceSaleAttr", product.getValuesSale());
+        request.setAttribute("priceBuyAttr", product.getValues());
+        request.setAttribute("quantityAttr", product.getQuantidade());
 
         String path = "./Product/ProductEdit.jsp";
         request.setAttribute("path", path);
@@ -119,11 +119,11 @@ public class ProductServlet extends HttpServlet {
             throws IOException, Exception {
 
         String idAttr = request.getParameter("id");
-        String nameProduct = request.getParameter("nameProduct");
-        String values = request.getParameter("values");
-        String valuesSale = request.getParameter("valuesSale");
-        String details = request.getParameter("details");
-        String quantidade = request.getParameter("quantidade");
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("priceBuy");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+        String quantidade = request.getParameter("quantity");
 
         int id = Integer.parseInt(idAttr);
 
@@ -136,11 +136,11 @@ public class ProductServlet extends HttpServlet {
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
 
-        String nameProduct = request.getParameter("nameProduct");
-        String values = request.getParameter("values");
-        String valuesSale = request.getParameter("valuesSale");
-        String details = request.getParameter("details");
-        String quantidade = request.getParameter("quantidade");
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("priceBuy");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+        String quantidade = request.getParameter("quantity");
 
         ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
         response.sendRedirect("product");

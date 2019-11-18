@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<link href="${pageContext.request.contextPath}/css/branch.css" rel="stylesheet">
 <h2>Lista de Filiais</h2>
 <section class="p-5">
     <table class="table">

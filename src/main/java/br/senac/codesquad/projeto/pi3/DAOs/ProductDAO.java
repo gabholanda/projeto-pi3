@@ -49,8 +49,8 @@ public class ProductDAO {
 
     public static boolean delete(int id)
             throws SQLException {
-        
-        String query = "DELETE FROM product WHERE ID_PRODUCT=? "; 
+
+        String query = "DELETE FROM product WHERE ID_PRODUCT=? ";
 
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
@@ -63,7 +63,7 @@ public class ProductDAO {
             throws SQLException {
 
         try {
-            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, QUANTIDADE =?, WHERE ID_PRODUCT = ?";
+            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, QUANTIDADE =? WHERE ID_PRODUCT = ?";
 
             ps = con.prepareStatement(query);
 
@@ -127,16 +127,15 @@ public class ProductDAO {
     }
 
     public static Product findBydId(int id) {
-
         try {
-            String query = "SELECT * FROM PRODUCT WHERE ID_PRODUCT = ?";
+            String query = "SELECT * FROM product WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
             rs = ps.executeQuery();
 
             Product product = new Product();
-            if (rs.next()) {
+            while (rs.next()) {
                 product.setId(rs.getInt("ID_PRODUCT"));
                 product.setNameProduct(rs.getString("NAMEPRODUCT"));
                 product.setValues(rs.getDouble("BUYVALUE"));

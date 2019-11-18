@@ -19,7 +19,7 @@ public class ConnectionManager {
     private static final String username = "admin";
     private static final String password = "adminadmin";
     private static Connection con;
-    private static String urlString = "jdbc:mysql://teste.ctqsrvfmxptn.us-east-1.rds.amazonaws.com:3306/codesquad?useTimezone=true&serverTimezone=UTC";
+    private static final String urlString = "jdbc:mysql://teste.ctqsrvfmxptn.us-east-1.rds.amazonaws.com:3306/codesquad?useTimezone=true&serverTimezone=UTC";
 
     public static Connection getConnection() {
         try {
