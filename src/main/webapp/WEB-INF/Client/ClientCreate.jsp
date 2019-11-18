@@ -16,7 +16,7 @@
             </div>
             <div class="form-group d-flex flex-column justify-content-center align-items-center">
                 <label>CPF</label>
-                <input type="text" name="cpf" class="form-control" onkeypress="$(this).mask('000.000.000/00');" value="${cpfAttr}" required/>
+                <input type="text" name="cpf" class="form-control" value="${cpfAttr}" onkeypress="$(this).mask('000.000.000/00');"  required/>
             </div>
             <div class="form-group">
                 <label>Endereço</label>

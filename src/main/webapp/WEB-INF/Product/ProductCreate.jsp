@@ -30,7 +30,6 @@
                 <label for="txtPriceSale">Quantidade</label>
                 <input type="number" name="quantity" class="form-control" value="${quantidadeAttr}" placeholder="Quantidade" step="0.01" required/>            
             </div>
-
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>
                 <button type="reset"class="btn btn-warning">Resetar Dados</button>
