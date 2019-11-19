@@ -5,7 +5,9 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+
 import java.util.ArrayList;
+
 
 /**
  *
@@ -19,6 +21,7 @@ public abstract class User {
     private String name;
     private String permission; //permission user
     private ArrayList<Sale> saleList;
+    
 
     public User() {
     }
@@ -105,7 +108,14 @@ public abstract class User {
         this.id = id;
     }
 
+    public boolean verificarPapel(String peao) {
+       return true; 
+    }
+
     /**
      * @param id the id to set
      */
+    
+    
+    
 }
