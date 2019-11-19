@@ -18,15 +18,17 @@ public class Product {
     private double values;
     private double valuesSale;
     private int idBranchOffice;
+    private int idCategory;
     
 
-    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice, int quantidade) {
+    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice, int quantidade, int idCategory) {
         this.nameProduct = nameProduct;
         this.values = values;
         this.valuesSale = valueSale;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
-        this.quantidade = quantidade;  
+        this.quantidade = quantidade;
+        this.idCategory=idCategory;
     }
 
     public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice, int quantidade) {
@@ -127,6 +129,16 @@ public class Product {
      */
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+    public int getCategory() {
+        return idCategory;
+    }
+
+    /**
+     * @param quantidade the quantidade to set
+     */
+    public void setCategory(int idCategory) {
+        this.idCategory = idCategory;
     }
 
 }

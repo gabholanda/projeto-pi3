@@ -1,4 +1,4 @@
-package br.senac.codesquad.projeto.pi3.DAOs;
+ package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.Product;
@@ -23,7 +23,9 @@ public class ProductDAO {
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         try {
-            String query = "SELECT * FROM product";
+            String query = "SELECT A.ID_PRODUCT, A. NAMEPRODUCT, A.BUYVALUE,A.SALEVALUE, A.DETAILS, A.CATEGORY_ID, "
+                    + "B.AMOUNT FROM product AS A INNER JOIN relation_product_and_branch_office as B"
+                    + "ON A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
@@ -35,7 +37,8 @@ public class ProductDAO {
                     product.setValues(rs.getDouble("BUYVALUE"));
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
-                    product.setQuantidade(rs.getInt("QUANTIDADE"));
+                    product.setCategory(rs.getInt("CATEGORY_ID"));
+                    product.setQuantidade(rs.getInt("AMOUNT"));
                     Product.add(product);
                 }
             }
@@ -63,7 +66,7 @@ public class ProductDAO {
             throws SQLException {
 
         try {
-            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, QUANTIDADE =? WHERE ID_PRODUCT = ?";
+            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, AMOUNT =? WHERE ID_PRODUCT = ?";
 
             ps = con.prepareStatement(query);
 
@@ -84,17 +87,17 @@ public class ProductDAO {
         }
     }
 
-    public static boolean create(String nameProduct, double values, double valueSale, String details, int quantidade) {
+    public static boolean create(String nameProduct, double values, double valueSale, String details, int category) {
         try {
 
             String query
-                    = "INSERT INTO product (NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, QUANTIDADE) VALUES (?,?,?,?,?)";
+                    = "INSERT INTO product (NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, CATEGORY_ID) VALUES (?,?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, nameProduct);
             ps.setDouble(2, values);
             ps.setDouble(3, valueSale);
             ps.setString(4, details);
-            ps.setInt(5, quantidade);
+            ps.setInt(5, category);
 
             int updatedlines = ps.executeUpdate();
 

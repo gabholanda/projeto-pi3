@@ -30,6 +30,10 @@
                 <label for="txtPriceSale">Quantidade</label>
                 <input type="number" name="quantity" class="form-control" value="${quantidadeAttr}" placeholder="Quantidade" step="0.01" required/>            
             </div>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtCategory">Categoria</label>
+                <input type="checkbox" name="category" class="form-control" value="${categoryAttr}">
+            </div>
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>
                 <button type="reset"class="btn btn-warning">Resetar Dados</button>

@@ -106,6 +106,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("priceSaleAttr", product.getValuesSale());
         request.setAttribute("priceBuyAttr", product.getValues());
         request.setAttribute("quantityAttr", product.getQuantidade());
+        request.setAttribute("categoryAttr", product.getCategory());
 
         String path = "./Product/ProductEdit.jsp";
         request.setAttribute("path", path);
@@ -124,6 +125,7 @@ public class ProductServlet extends HttpServlet {
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
         String quantidade = request.getParameter("quantity");
+        String category = request.getParameter("category");
 
         int id = Integer.parseInt(idAttr);
 
@@ -141,8 +143,8 @@ public class ProductServlet extends HttpServlet {
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
         String quantidade = request.getParameter("quantity");
-
-        ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
+        String category = request.getParameter("category");
+        ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade), category);
         response.sendRedirect("product");
 
     }

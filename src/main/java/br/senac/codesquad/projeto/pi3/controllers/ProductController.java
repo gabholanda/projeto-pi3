@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean create(String nameProduct, double values, double valueSale, String details, int quantidade) {
-        return ProductDAO.create(nameProduct, values, valueSale, details, quantidade);
+    public static boolean create(String nameProduct, double values, double valueSale, String details, int quantidade , String category) {
+        return ProductDAO.create(nameProduct, values, valueSale, details, quantidade, category);
     }
 
     public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int quantidade) throws Exception {
