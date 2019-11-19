@@ -122,7 +122,7 @@ public class BranchServlet extends HttpServlet {
             String address = request.getParameter("address");
             String cnpj = request.getParameter("cnpj");
 
-            BranchOfficeController.create(name, cnpj, address);
+            BranchOfficeController.create(name, address, cnpj);
 
             response.sendRedirect("branch");
         } catch (SQLException ex) {

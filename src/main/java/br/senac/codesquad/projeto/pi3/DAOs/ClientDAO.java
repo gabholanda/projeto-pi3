@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,7 +24,7 @@ public class ClientDAO {
     private static ResultSet rs = null;
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
-    
+
     public static boolean create(Client client) {
         try {
 
@@ -46,7 +47,6 @@ public class ClientDAO {
         }
         return false;
     }
-    
 
     public static boolean delete(int id) throws SQLException {
         String query = "DELETE FROM client WHERE ID_CLIENT =?";
@@ -83,7 +83,6 @@ public class ClientDAO {
 
     }
 
-    
 // Method that helps to print SQL exceptions on console
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
@@ -146,6 +145,33 @@ public class ClientDAO {
 
             return client;
 
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
+    }
+
+    public static List<Client> findByName(String name) {
+        try {
+            String query = "SELECT * FROM client WHERE NAME LIKE ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + name + "%");
+
+            rs = ps.executeQuery();
+
+            List<Client> clientList = new ArrayList<>();
+            if (rs != null) {
+                while (rs.next()) {
+                    Client client = new Client();
+                    client.setId(rs.getInt("ID_CLIENT"));
+                    client.setName(rs.getString("NAME"));
+                    client.setCpf(rs.getString("CPF"));
+                    client.setAddress((rs.getString("ADDRESS")));
+                    client.setMail(rs.getString("EMAIL"));
+                    clientList.add(client);
+                }
+            }
+            return clientList;
         } catch (SQLException ex) {
             printSQLException(ex);
         }
