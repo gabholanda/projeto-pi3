@@ -5,7 +5,7 @@
     <div class="d-flex">
         <div class="mr-5">
             <h2>Lista de clientes</h2>
-            <form>
+            <form method="post" action="${pageContext.request.contextPath}/sale/client">
                 <input type="text" placeholder="Pesquise pelo nome ...">
             </form>
             <div class="table-responsive-sm table-w mt-2">
@@ -43,7 +43,7 @@
         </div>
         <div class="ml-5">
             <h2>Lista de produtos</h2>
-            <form>
+            <form method="post" action="${pageContext.request.contextPath}/sale/product">
                 <input type="text" placeholder="Pesquise pelo nome ...">
             </form>
             <div class="table-responsive-sm table-w mt-2">
@@ -77,6 +77,28 @@
         </div>
     </div>
     <div>
-        <h2>Produtos da Venda</h2>
+        <h2>Lista de produtos</h2>
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col">Id</div>
+                <div class="col">Preço</div>
+                <div class="col">Nome</div>
+                <div class="col">Quantidade</div>
+            </div>
+
+
+
+
+
+            <div class="row">
+                <div class="col">
+                    <label for="valorTotal">Valor Total:</label>
+                    <input type="number" step="0.01" disabled value="2" name="valorTotal">
+                    <form method="post" action="${pageContext.request.contextPath}/sale/create">
+                        <input type="submit" value="Realizar compra" class="btn btn-success">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
