@@ -4,6 +4,7 @@ import br.senac.codesquad.projeto.pi3.DAOs.ProductDAO;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -11,12 +12,16 @@ import java.util.ArrayList;
  */
 public class ProductController {
 
-    public static boolean create(String nameProduct, double values, double valueSale, String details, int quantidade , String category) {
-        return ProductDAO.create(nameProduct, values, valueSale, details, quantidade, category);
+    public static boolean create(String nameProduct, double values, double valueSale,
+            String details, int idBranchoffice, int categoryId, int quantidade) {
+        Product p = new Product(nameProduct, values, valueSale, details, idBranchoffice);
+        return ProductDAO.create(p, categoryId, quantidade);
     }
 
-    public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int quantidade) throws Exception {
-        return ProductDAO.update(id, nameProduct, values, valueSale, details, quantidade);
+    public static boolean update(int id, String nameProduct, double values,
+            double valueSale, String details, int idBranchoffice) throws Exception {
+        Product p = new Product(id, nameProduct, values, valueSale, details, idBranchoffice);
+        return ProductDAO.update(p);
 
     }
 
@@ -24,11 +29,20 @@ public class ProductController {
         return ProductDAO.delete(id);
     }
 
-     public static ArrayList<Product> read() throws Exception {
+    public static ArrayList<Product> read() throws Exception {
         return ProductDAO.getProduct();
     }
 
     public static Product findById(int id) {
         return ProductDAO.findBydId(id);
+    }
+
+    public static List<Product> findByName(String name) {
+        List<Product> productList = ProductDAO.findByName(name);
+        if (productList == null) {
+            productList = new ArrayList<>();
+            return productList;
+        }
+        return productList;
     }
 }

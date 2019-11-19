@@ -13,32 +13,28 @@ public class Product {
 
     private int id;
     private String nameProduct;
-    private int quantidade;
     private String details;
     private double values;
     private double valuesSale;
     private int idBranchOffice;
     private int idCategory;
-    
 
-    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice, int quantidade, int idCategory) {
+    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice) {
         this.nameProduct = nameProduct;
         this.values = values;
         this.valuesSale = valueSale;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
-        this.quantidade = quantidade;
-        this.idCategory=idCategory;
+        this.idCategory = idCategory;
     }
 
-    public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice, int quantidade) {
+    public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.values = values;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
         this.valuesSale = valuesSale;
-        this.quantidade = quantidade; 
     }
 
     public Product() {
@@ -117,19 +113,10 @@ public class Product {
         return idBranchOffice;
     }
 
-    /**
-     * @return the quantidade
-     */
-    public int getQuantidade() {
-        return quantidade;
+    public void setIdBranchOffice(int idBranchOffice) {
+        this.idBranchOffice = idBranchOffice;
     }
 
-    /**
-     * @param quantidade the quantidade to set
-     */
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
     public int getCategory() {
         return idCategory;
     }
@@ -140,5 +127,4 @@ public class Product {
     public void setCategory(int idCategory) {
         this.idCategory = idCategory;
     }
-
 }

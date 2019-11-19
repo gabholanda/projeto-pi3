@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,7 +39,6 @@ public class ProductDAO {
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
                     product.setCategory(rs.getInt("CATEGORY_ID"));
-                    product.setQuantidade(rs.getInt("AMOUNT"));
                     Product.add(product);
                 }
             }
@@ -62,20 +62,18 @@ public class ProductDAO {
         return retorno;
     }
 
-    public static boolean update(int id, String nameProduct, double values, double valueSale, String details, int quantidade)
+    public static boolean update(Product p)
             throws SQLException {
 
         try {
-            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, AMOUNT =? WHERE ID_PRODUCT = ?";
-
+            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =? WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
 
-            ps.setString(1, nameProduct);
-            ps.setDouble(2, values);
-            ps.setDouble(3, valueSale);
-            ps.setString(4, details);
-            ps.setInt(5, quantidade);
-            ps.setInt(6, id);
+            ps.setString(1, p.getNameProduct());
+            ps.setDouble(2, p.getValues());
+            ps.setDouble(3, p.getValuesSale());
+            ps.setString(4, p.getDetails());
+            ps.setInt(5, p.getId());
 
             int updatedlines = ps.executeUpdate();
 
@@ -87,24 +85,32 @@ public class ProductDAO {
         }
     }
 
-    public static boolean create(String nameProduct, double values, double valueSale, String details, int category) {
+    public static boolean create(Product p, int categoryId, int quantidade) {
         try {
 
             String query
-                    = "INSERT INTO product (NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, CATEGORY_ID) VALUES (?,?,?,?,?)";
+                    = "INSERT INTO product"
+                    + "(NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, CATEGORY_ID)"
+                    + "VALUES (?,?,?,?,?);";
             ps = con.prepareStatement(query);
-            ps.setString(1, nameProduct);
-            ps.setDouble(2, values);
-            ps.setDouble(3, valueSale);
-            ps.setString(4, details);
-            ps.setInt(5, category);
-
+            ps.setString(1, p.getNameProduct());
+            ps.setDouble(2, p.getValues());
+            ps.setDouble(3, p.getValuesSale());
+            ps.setString(4, p.getDetails());
+            ps.setInt(5, categoryId);
             int updatedlines = ps.executeUpdate();
 
+            String queryBranch
+                    = "INSERT INTO relation_product_and_branch_office"
+                    + "(BRANCH_OFFICE_ID_BRANCH_OFFICE, PRODUCT_ID_PRODUCT, AMOUNT)"
+                    + "VALUES (?,(select last_insert_id() as product),?);";
+
+            ps.setInt(1, p.getIdBranchOffice());
+            ps.setInt(2, quantidade);
+            ps = con.prepareStatement(queryBranch);
+            updatedlines = ps.executeUpdate();
             retorno = updatedlines > 0;
-
             return retorno;
-
         } catch (SQLException ex) {
             printSQLException(ex);
 
@@ -144,9 +150,36 @@ public class ProductDAO {
                 product.setValues(rs.getDouble("BUYVALUE"));
                 product.setValuesSale((rs.getDouble("SALEVALUE")));
                 product.setDetails(rs.getString("DETAILS"));
-                product.setQuantidade(rs.getInt("QUANTIDADE"));
             }
             return product;
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
+    }
+
+    public static List<Product> findByName(String name) {
+        try {
+            String query = "SELECT * FROM product WHERE NAMEPRODUCT LIKE ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + name + "%");
+
+            rs = ps.executeQuery();
+
+            List<Product> productList = new ArrayList<>();
+            if (rs != null) {
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setId(rs.getInt("ID_PRODUCT"));
+                    product.setNameProduct(rs.getString("NAMEPRODUCT"));
+                    product.setValues(rs.getDouble("BUYVALUE"));
+                    product.setValuesSale(rs.getDouble("SALEVALUE"));
+                    product.setDetails(rs.getString("DETAILS"));
+                    //product.setIdBranchOffice("ID_BRANCH_OFFICE");
+                    productList.add(product);
+                }
+            }
+            return productList;
         } catch (SQLException ex) {
             printSQLException(ex);
         }

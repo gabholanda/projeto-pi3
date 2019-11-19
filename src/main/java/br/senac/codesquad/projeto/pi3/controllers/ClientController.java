@@ -9,6 +9,7 @@ import br.senac.codesquad.projeto.pi3.DAOs.ClientDAO;
 import br.senac.codesquad.projeto.pi3.models.Client;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,6 +39,15 @@ public class ClientController {
 
     public static Client findById(int id) {
         return ClientDAO.findBydId(id);
+    }
+
+    public static List<Client> findByName(String name) {
+        List<Client> clientList = ClientDAO.findByName(name);
+        if (clientList == null) {
+            clientList = new ArrayList<>();
+            return clientList;
+        }
+        return clientList;
     }
 
 }
