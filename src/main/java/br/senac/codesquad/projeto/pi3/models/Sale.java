@@ -15,26 +15,22 @@ import java.util.Date;
 public class Sale {
 
     private int id;
-    private double totalValue;
     private int clientId;
-    private ArrayList<Product> products;
+    private double totalValue;
+    private double discount;
+    private ArrayList<ItemOrdered> items;
+
     private Date date;
 
     public Sale() {
     }
 
-    public Sale(int id, double totalValue, int clientId, Date date, ArrayList<Product> products) {
+    public Sale(int id, int clientId, double totalValue, double discount, Date date) {
         this.id = id;
-        this.totalValue = totalValue;
         this.clientId = clientId;
+        this.totalValue = totalValue;
+        this.discount = discount;
         this.date = date;
-        this.products = products;
-    }
-
-    public Sale(double totalValue, int clientId, ArrayList<Product> products) {
-        this.totalValue = totalValue;
-        this.clientId = clientId;
-        this.products = products;
     }
 
     public double getTotalValue() {
@@ -45,8 +41,8 @@ public class Sale {
         this.totalValue = totalValue;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public ArrayList<ItemOrdered> getItems() {
+        return items;
     }
 
     public Date getDate() {

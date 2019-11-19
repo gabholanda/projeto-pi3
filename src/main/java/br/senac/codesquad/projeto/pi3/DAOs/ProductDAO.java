@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,122 +15,107 @@ import java.util.ArrayList;
  */
 public class ProductDAO {
 
-    
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static final Connection con = ConnectionManager.getConnection(); 
+    private static final Connection con = ConnectionManager.getConnection();
 
-    public static ArrayList<Product> getProduct() throws Exception {
-        ArrayList<Product> Product = new ArrayList<Product>();
+    public static ArrayList<Product> getProduct()
+            throws Exception {
+        ArrayList<Product> Product = new ArrayList<>();
         try {
-            String query = "SELECT "
-                    + "       *"
-                    + "   FROM"
-                    + "       PRODUCT";
-            ps=con.prepareStatement(query);
+            String query = "SELECT * FROM product";
+
+            ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
                 while (rs.next()) {
                     Product product = new Product();
-                    product.setNameProduct(rs.getString("NAME"));
-                    product.setValues(rs.getDouble("VALUE"));
-                    product.setValuesSale(rs.getDouble("VALUESALE"));
-                    product.setAmount(rs.getInt("AMOUNT"));
+                    product.setId(rs.getInt("ID_PRODUCT"));
+                    product.setNameProduct(rs.getString("NAMEPRODUCT"));
+                    product.setValues(rs.getDouble("BUYVALUE"));
+                    product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
                     Product.add(product);
                 }
             }
-
             return Product;
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             throw ex;
         }
 
     }
 
-    public static boolean delete(int id) throws SQLException {
+    public static boolean delete(int id)
+            throws SQLException {
 
-        Connection con = ConnectionManager.getConnection();
-        String query = "DELETE "
-                + "         * "
-                + "     FROM "
-                + "         PRODUCT"
-                + "     WHERE"
-                + "         ID=? ";
+        String query = "DELETE FROM product WHERE ID_PRODUCT=? ";
+
         ps = con.prepareStatement(query);
-        ps.setInt(1,id);
+        ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
         return retorno;
     }
 
-    public static boolean update(Product product ) throws Exception {
-
-        boolean returnn = false;
+    public static boolean update(Product p)
+            throws SQLException {
 
         try {
-            Connection con = ConnectionManager.getConnection();
-            String query = "UPDATE"
-                    + "       BRANCH_OFFICE"
-                    + "   SET"
-                    + "       NAME_PRODUCT='?',"
-                    + "       VALUE='?'"
-                    + "       VALUESALE='?'"
-                    + "       DETAILS='?',"
-                    + "       AMOUNT='?',"
-                    + "   WHERE"
-                    + "       ID_PRODUCT=?";
+            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =? WHERE ID_PRODUCT = ?";
+
             ps = con.prepareStatement(query);
 
-            ps.setString(1, product.getNameProduct());
-            ps.setDouble(2, product.getValues());
-            ps.setDouble(3, product.getValuesSale());
-            ps.setString(4, product.getDetails());
-            ps.setInt(5, product.getAmount());
-            ps.setInt(6, product.getId());
-
-            int updatedlines = ps.executeUpdate();
-
-            retorno = updatedlines > 0 ? true : false;
-
-            return retorno;
-
-        } catch (Exception ex) {
-            throw ex;
-        }
-    }
-
-    public static boolean save(Product product) {
-        try {
-
-            String query
-                    = "INSERT"
-                    + "       INTO"
-                    + "   PRODUCT"
-                    + "       (NAME,BUYVALUE,SALEVALUE, DETAILS, AMOUNT)"
-                    + "   VALUES"
-                    + "        (?,?,?,?)  ";
-            ps = con.prepareStatement(query);
-            ps.setString(1, product.getNameProduct());
-            ps.setDouble(2, product.getValues());
-            ps.setDouble(3, product.getValuesSale());
-            ps.setString(4, product.getDetails());
-            ps.setInt(5, product.getAmount());
+            ps.setString(1, p.getNameProduct());
+            ps.setDouble(2, p.getValues());
+            ps.setDouble(3, p.getValuesSale());
+            ps.setString(4, p.getDetails());
+            ps.setInt(5, p.getId());
 
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
 
             return retorno;
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
 
+    public static boolean create(Product p, int categoryId, int quantidade) {
+        try {
+
+            String query
+                    = "INSERT INTO product"
+                    + "(NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, CATEGORY_ID)"
+                    + "VALUES (?,?,?,?,?);";
+            ps = con.prepareStatement(query);
+            ps.setString(1, p.getNameProduct());
+            ps.setDouble(2, p.getValues());
+            ps.setDouble(3, p.getValuesSale());
+            ps.setString(4, p.getDetails());
+            ps.setInt(5, categoryId);
+            int updatedlines = ps.executeUpdate();
+
+            String queryBranch
+                    = "INSERT INTO relation_product_and_branch_office"
+                    + "(BRANCH_OFFICE_ID_BRANCH_OFFICE, PRODUCT_ID_PRODUCT, AMOUNT)"
+                    + "VALUES (?,(select last_insert_id() as product),?);";
+
+            ps.setInt(1, p.getIdBranchOffice());
+            ps.setInt(2, quantidade);
+            ps = con.prepareStatement(queryBranch);
+            updatedlines = ps.executeUpdate();
+            retorno = updatedlines > 0;
+            return retorno;
         } catch (SQLException ex) {
             printSQLException(ex);
 
         }
         return false;
     }
+// Method that helps to print SQL exceptions on console
 
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
@@ -146,26 +132,52 @@ public class ProductDAO {
             }
         }
     }
-    
-    public static Product findBydId(int id) {
 
+    public static Product findBydId(int id) {
         try {
-            String query = "SELECT * FROM PRODUCT WHERE ID_PRODUCT = ?";
+            String query = "SELECT * FROM product WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
             rs = ps.executeQuery();
 
             Product product = new Product();
-            if (rs != null) {
+            while (rs.next()) {
                 product.setId(rs.getInt("ID_PRODUCT"));
-                product.setNameProduct(rs.getString("NAME_PRODUCT"));
+                product.setNameProduct(rs.getString("NAMEPRODUCT"));
                 product.setValues(rs.getDouble("BUYVALUE"));
                 product.setValuesSale((rs.getDouble("SALEVALUE")));
                 product.setDetails(rs.getString("DETAILS"));
-                product.setAmount(rs.getInt("AMOUNT"));
             }
             return product;
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
+    }
+
+    public static List<Product> findByName(String name) {
+        try {
+            String query = "SELECT * FROM product WHERE NAMEPRODUCT LIKE ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + name + "%");
+
+            rs = ps.executeQuery();
+
+            List<Product> productList = new ArrayList<>();
+            if (rs != null) {
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setId(rs.getInt("ID_PRODUCT"));
+                    product.setNameProduct(rs.getString("NAMEPRODUCT"));
+                    product.setValues(rs.getDouble("BUYVALUE"));
+                    product.setValuesSale(rs.getDouble("SALEVALUE"));
+                    product.setDetails(rs.getString("DETAILS"));
+                    //product.setIdBranchOffice("ID_BRANCH_OFFICE");
+                    productList.add(product);
+                }
+            }
+            return productList;
         } catch (SQLException ex) {
             printSQLException(ex);
         }

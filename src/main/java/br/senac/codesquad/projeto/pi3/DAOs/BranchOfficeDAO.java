@@ -24,16 +24,16 @@ public class BranchOfficeDAO {
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
 
-    public static boolean create(String name, String address, String cnpj) throws SQLException {
+    public static boolean create(BranchOffice branch) throws SQLException {
 
         try {
-            String query = "INSERT INTO BRANCH_OFFICE(NAME,CNPJ,ADDRESS) VALUES(?,?,?)";
+            String query = "INSERT INTO branch_office(NAME,CNPJ,ADDRESS) VALUES(?,?,?)";
 
             ps = con.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setString(2, cnpj);
-            ps.setString(3, address);
-            
+            ps.setString(1, branch.getName());
+            ps.setString(2, branch.getCnpj());
+            ps.setString(3, branch.getAddress());
+
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
@@ -47,7 +47,7 @@ public class BranchOfficeDAO {
     }
 
     public static boolean delete(int id) throws SQLException {
-        String query = "DELETE FROM BRANCH_OFFICE WHERE ID_BRANCH_OFFICE=?";
+        String query = "DELETE FROM branch_office WHERE ID=?";
 
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
@@ -58,7 +58,7 @@ public class BranchOfficeDAO {
 
     public static boolean update(BranchOffice branch) throws Exception {
         try {
-            String query = "UPDATE BRANCH_OFFICE SET NAME = ?,CNPJ= ?, ADDRESS =? WHERE ID_BRANCH_OFFICE = ?";
+            String query = "UPDATE branch_office SET NAME = ?,CNPJ= ?, ADDRESS =? WHERE ID = ?";
 
             ps = con.prepareStatement(query);
 
@@ -82,14 +82,14 @@ public class BranchOfficeDAO {
     public static ArrayList<BranchOffice> read() throws Exception {
         ArrayList<BranchOffice> Branchs = new ArrayList<>();
         try {
-            String query = "SELECT * FROM BRANCH_OFFICE";
+            String query = "SELECT * FROM branch_office";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs != null) {
                 while (rs.next()) {
                     BranchOffice branch = new BranchOffice();
-                    branch.setId(rs.getInt("ID_BRANCH_OFFICE"));
+                    branch.setId(rs.getInt("ID"));
                     branch.setName(rs.getString("NAME"));
                     branch.setCnpj(rs.getString("CNPJ"));
                     branch.setAddress((rs.getString("ADDRESS")));
@@ -104,17 +104,16 @@ public class BranchOfficeDAO {
     }
 
     public static BranchOffice findBydId(int id) {
-
         try {
-            String query = "SELECT * FROM BRANCH_OFFICE WHERE ID_BRANCH_OFFICE = ?";
+            String query = "SELECT * FROM branch_office WHERE ID = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
             rs = ps.executeQuery();
 
             BranchOffice branch = new BranchOffice();
-            if (rs != null) {
-                branch.setId(rs.getInt("ID_BRANCH_OFFICE"));
+            while (rs.next()) {
+                branch.setId(rs.getInt("ID"));
                 branch.setName(rs.getString("NAME"));
                 branch.setCnpj(rs.getString("CNPJ"));
                 branch.setAddress((rs.getString("ADDRESS")));
@@ -126,6 +125,7 @@ public class BranchOfficeDAO {
         return null;
     }
 
+    // Method that helps to print SQL exceptions on console
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

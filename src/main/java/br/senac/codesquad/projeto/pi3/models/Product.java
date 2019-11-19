@@ -13,62 +13,31 @@ public class Product {
 
     private int id;
     private String nameProduct;
+    private String details;
     private double values;
     private double valuesSale;
-    private int amount;
-    private String details;
     private int idBranchOffice;
 
-    public Product(int id, String nameProduct, double values, double valuesSale, int amount, String details, int idBranchOffice) {
+    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice) {
+        this.nameProduct = nameProduct;
+        this.values = values;
+        this.valuesSale = valueSale;
+        this.details = details;
+        this.idBranchOffice = idBranchOffice;
+    }
+
+    public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.values = values;
-        this.amount = amount;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
         this.valuesSale = valuesSale;
     }
-   
-    public Product(int id, String nameProduct, double values, double valueSale, int amount, String details) {
-        this.id = id;
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.amount = amount;
-        this.details = details;
-        this.idBranchOffice = idBranchOffice;
+
+    public Product() {
+
     }
-
-    public Product() {}
-
-    public Product(String nameProduct, double values, double valueSale, int amount, int stock, String details, int idBranchOffice) {
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.amount = amount;
-        this.details = details;
-        this.idBranchOffice = idBranchOffice;
-    }
-
-    public Product(String nameProduct, double values, double valueSale, String details, int amount, int idBranchOffice) {
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.amount = amount;
-        this.details = details;
-        this.idBranchOffice = idBranchOffice;
-    }
-
-    public Product(int id, String nameProduct, double values, double valueSale, String details) {
-        this.id = id;
-        this.nameProduct = nameProduct;
-        this.values = values;
-        this.valuesSale = valueSale;
-        this.amount = amount;
-        this.details = details;
-    }
-
-    
 
     public double getValuesSale() {
         return valuesSale;
@@ -76,7 +45,7 @@ public class Product {
 
     public void setValuesSale(double valuesSale) {
         this.valuesSale = valuesSale;
-        
+
     }
 
     /**
@@ -85,13 +54,13 @@ public class Product {
     public int getId() {
         return id;
     }
+
     /**
      * @param id the nameProduct to set
      */
-     public void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
-
 
     /**
      * @return the nameProduct
@@ -122,21 +91,6 @@ public class Product {
     }
 
     /**
-     * @return the amount
-     */
-    public int getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-
-    /**
      * @return the details
      */
     public String getDetails() {
@@ -157,4 +111,8 @@ public class Product {
         return idBranchOffice;
     }
 
+    public void setIdBranchOffice(int idBranchOffice) {
+        this.idBranchOffice = idBranchOffice;
+    }
+    
 }

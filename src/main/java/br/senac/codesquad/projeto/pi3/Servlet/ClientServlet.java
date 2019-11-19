@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
+//
 
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import br.senac.codesquad.projeto.pi3.models.Client;
@@ -38,7 +39,7 @@ public class ClientServlet extends HttpServlet {
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/client":
@@ -78,7 +79,10 @@ public class ClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
         doGet(request, response);
+        
 
     }
 
@@ -118,9 +122,9 @@ public class ClientServlet extends HttpServlet {
             throws SQLException, IOException, Exception {
         String idAttr = request.getParameter("id");
         String name = (request.getParameter("name"));
-        String cpf = (request.getParameter("cnpj"));
+        String cpf = (request.getParameter("cpf"));
         String address = (request.getParameter("address"));
-        String mail = (request.getParameter("address"));
+        String mail = (request.getParameter("mail"));
         int id = Integer.parseInt(idAttr);
 
         ClientController.update(id, name, cpf, address, mail);
@@ -135,12 +139,7 @@ public class ClientServlet extends HttpServlet {
         String address = request.getParameter("address");
         String mail = request.getParameter("mail");
 
-        request.setAttribute("nameAttr", name);
-        request.setAttribute("cpfAttr", cpf);
-        request.setAttribute("addressAttr", address);
-        request.setAttribute("mailAttr", mail);
-
-        ClientController.save(name, cpf, address, mail);
+        ClientController.create(name, cpf, address, mail);
         response.sendRedirect("client");
 
     }

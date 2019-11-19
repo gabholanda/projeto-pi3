@@ -35,7 +35,7 @@ public class BranchServlet extends HttpServlet {
         } else {
             action = request.getPathInfo();
         }
-
+// Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
                 case "/branch":
@@ -75,7 +75,10 @@ public class BranchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
         doGet(request, response);
+
     }
 
 //Pages
@@ -146,7 +149,7 @@ public class BranchServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             BranchOfficeController.delete(Integer.parseInt(id));
-            response.sendRedirect("");
+            response.sendRedirect("branch");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

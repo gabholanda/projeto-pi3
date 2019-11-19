@@ -5,7 +5,9 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+
 import java.util.ArrayList;
+
 
 /**
  *
@@ -13,12 +15,16 @@ import java.util.ArrayList;
  */
 public abstract class User {
 
-    private int id; 
+    private int id;
     private String mail;
     private String password;
     private String name;
-    private int permission = 0; //permission user
+    private String permission; //permission user
     private ArrayList<Sale> saleList;
+    
+
+    public User() {
+    }
 
     public User(String mail, String password, String name) {
         this.mail = mail;
@@ -58,7 +64,15 @@ public abstract class User {
     /**
      * @return the permission
      */
-    public int getPermission() {
+    public String getPermission() {
+        return permission;
+    }
+    
+    /**
+     * @param permission
+     * @return 
+     */
+    public String setPermission(String permission){
         return permission;
     }
 
@@ -90,9 +104,18 @@ public abstract class User {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean verificarPapel(String peao) {
+       return true; 
+    }
+
     /**
      * @param id the id to set
      */
     
-
+    
+    
 }
