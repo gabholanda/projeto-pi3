@@ -25,26 +25,26 @@ public class ProductDAO {
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         try {
-            String query = "SELECT"
-                    + "product.ID_PRODUCT,"
-                    + "product.NAMEPRODUCT,"
-                    + "product.BUYVALUE,"
-                    + "product.SALEVALUE,"
-                    + "product.DETAILS,"
-                    + "C.NAME,"
-                    + "B.AMOUNT"
-                    + "FROM product"
-                    + "INNER JOIN relation_product_and_branch_office AS B"
-                    + "ON product.ID_PRODUCT = B.PRODUCT_ID_PRODUCT"
-                    + "INNER JOIN category as C"
-                    + "ON product.CATEGORY_ID = C.ID_CATEGORY;";
+            String query = "SELECT "
+                    + "A.ID_PRODUCT, "
+                    + "A.NAMEPRODUCT, "
+                    + "A.BUYVALUE, "
+                    + "A.SALEVALUE, "
+                    + "A.DETAILS, "
+                    + "C.NAME, "
+                    + "B.AMOUNT "
+                    + "FROM product AS A "
+                    + "INNER JOIN relation_product_and_branch_office AS B "
+                    + "ON A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT "
+                    + "INNER JOIN category as C "
+                    + "ON A.CATEGORY_ID = C.ID_CATEGORY ";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
                 while (rs.next()) {
                     Product product = new Product();
-                    product.setId(rs.getInt("A.ID_PRODUCT"));
+                    product.setId(rs.getInt("ID_PRODUCT"));
                     product.setNameProduct(rs.getString("NAMEPRODUCT"));
                     product.setValues(rs.getDouble("BUYVALUE"));
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
