@@ -5,9 +5,8 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
-
+import br.senac.codesquad.projeto.pi3.enums.Roles;
 import java.util.ArrayList;
-
 
 /**
  *
@@ -19,9 +18,8 @@ public abstract class User {
     private String mail;
     private String password;
     private String name;
-    private String permission; //permission user
+    Roles permission; // permission user
     private ArrayList<Sale> saleList;
-    
 
     public User() {
     }
@@ -64,15 +62,15 @@ public abstract class User {
     /**
      * @return the permission
      */
-    public String getPermission() {
+    public Roles getPermission() {
         return permission;
     }
-    
+
     /**
      * @param permission
-     * @return 
+     * @return
      */
-    public String setPermission(String permission){
+    public String setPermission(String permission) {
         return permission;
     }
 
@@ -108,14 +106,7 @@ public abstract class User {
         this.id = id;
     }
 
-    public boolean verificarPapel(String peao) {
-       return true; 
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
-
-    /**
-     * @param id the id to set
-     */
-    
-    
-    
 }

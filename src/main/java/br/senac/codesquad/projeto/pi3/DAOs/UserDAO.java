@@ -6,7 +6,7 @@
 package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
-import br.senac.codesquad.projeto.pi3.models.Client;
+import br.senac.codesquad.projeto.pi3.enums.Roles;
 import br.senac.codesquad.projeto.pi3.models.Employee;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.sql.Connection;
@@ -60,7 +60,7 @@ public class UserDAO {
 
     }
 
-    public static boolean create(User user, String permission) throws SQLException {
+    public static boolean create(User user, Roles permission) throws SQLException {
 
         try {
 
@@ -69,7 +69,7 @@ public class UserDAO {
             ps.setString(1, user.getName());
             ps.setString(2, user.getMail());
             ps.setString(3, user.getPassword());
-            ps.setString(4, permission);
+            ps.setString(4, permission.getPermission());
 
             int updatedlines = ps.executeUpdate();
 
@@ -104,7 +104,7 @@ public class UserDAO {
     public static ArrayList<User> read() {
         ArrayList<User> users = new ArrayList<>();
         try {
-            String query = "SELECT * FROM user";
+            String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS FROM user";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -115,7 +115,6 @@ public class UserDAO {
                     user.setId(rs.getInt("ID_USER"));
                     user.setName(rs.getString("NAME"));
                     user.setMail(rs.getString("EMAIL"));
-                    user.setPassword(rs.getString("PASSWORD"));
                     user.setPermission(rs.getString("PERMISSIONS"));
                     users.add(user);
                 }
@@ -127,25 +126,24 @@ public class UserDAO {
         return null;
     }
 
-    public static Client findBydId(int id) {
+    public static User findBydId(int id) {
 
         try {
-            String query = "SELECT * FROM user WHERE ID_USER = ?";
+            String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS  FROM user WHERE ID_USER = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
             rs = ps.executeQuery();
 
-            Client client = new Client();
+            User user = new User() {};
             while (rs.next()) {
-                client.setId(rs.getInt("ID_CLIENT"));
-                client.setName(rs.getString("NAME"));
-                client.setCpf(rs.getString("CPF"));
-                client.setAddress((rs.getString("ADDRESS")));
-                client.setMail(rs.getString("EMAIL"));
+                user.setId(rs.getInt("ID_USER"));
+                user.setName(rs.getString("NAME"));
+                user.setMail(rs.getString("EMAIL"));
+                user.setPermission((rs.getString("PERMISSIONS")));
             }
 
-            return client;
+            return user;
 
         } catch (SQLException ex) {
             printSQLException(ex);
