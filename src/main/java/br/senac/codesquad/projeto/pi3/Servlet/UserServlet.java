@@ -7,6 +7,10 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,69 +24,155 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "UserServlet", urlPatterns = {"/user"})
 public class UserServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action;
+        if (request.getPathInfo() == null) {
+            action = request.getServletPath();
+        } else {
+            action = request.getPathInfo();
+        }
+// Give url paths by servletPath or getPathInfo depending on situation
+        try {
+            switch (action) {
+                case "/user":
+                    read(request, response);
+                    break;
+
+                case "/new":
+                    form(request, response);
+                    break;
+
+                case "/create":
+                    create(request, response);
+                    break;
+
+                case "/delete":
+                    delete(request, response);
+                    break;
+
+                case "/edit":
+                    formEdit(request, response);
+                    break;
+
+                case "/update":
+                    update(request, response);
+                    break;
+
+                default:
+                    read(request, response);
+                    break;
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // Delegate all post responsabilities to doGet method
+        request.setCharacterEncoding("UTF-8");
+        doGet(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void form(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String path = "./User/UserCreate.jsp";
+        request.setAttribute("path", path);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void formEdit(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        String idAttr = request.getParameter("id");
+        int id = Integer.parseInt(idAttr);
+
+        Product product = ProductController.findById(id);
+
+        request.setAttribute("idAttr", product.getId());
+        request.setAttribute("nameProductAttr", product.getNameProduct());
+        request.setAttribute("descriptionAttr", product.getDetails());
+        request.setAttribute("priceSaleAttr", product.getValuesSale());
+        request.setAttribute("priceBuyAttr", product.getValues());
+        request.setAttribute("quantityAttr", product.getQuantidade());
+
+        String path = "./Product/ProductEdit.jsp";
+        request.setAttribute("path", path);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void update(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, Exception {
+
+        String idAttr = request.getParameter("id");
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("priceBuy");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+        String quantidade = request.getParameter("quantity");
+
+        int id = Integer.parseInt(idAttr);
+
+        ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
+
+        response.sendRedirect("product");
+
+    }
+
+    private void create(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, SQLException {
+
+        String nameProduct = request.getParameter("name");
+        String values = request.getParameter("priceBuy");
+        String valuesSale = request.getParameter("priceSale");
+        String details = request.getParameter("description");
+        String quantidade = request.getParameter("quantity");
+
+        ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
+        response.sendRedirect("product");
+
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException, SQLException {
+        try {
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+
+            ProductController.delete(Integer.parseInt(id));
+            response.sendRedirect("product");
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void read(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        try {
+            ArrayList<Product> productList = ProductController.read();
+            String path = "./Product/ProductList.jsp";
+            request.setAttribute("productList", productList);
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+        }
+    }
 
 }

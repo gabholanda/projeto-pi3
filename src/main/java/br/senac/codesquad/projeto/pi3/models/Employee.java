@@ -5,13 +5,17 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import br.senac.codesquad.projeto.pi3.Interfaces.Authenticable;
+import br.senac.codesquad.projeto.pi3.enums.Roles;
+import javax.websocket.Session;
+
 /**
  *
  * @author gabriel.hsantos21
  */
-public class Employee extends User {
+public class Employee extends User implements Authenticable {
 
-    private String permission; //permission user
+    private final Roles permission = Roles.VENDAS ; //permission user
 
     public Employee() {
     }
@@ -20,9 +24,19 @@ public class Employee extends User {
         super(mail, password, name);
     }
 
-    @Override
-    public String getPermission() {
+    
+    public Roles getPermission() {
         return permission;
+    }
+    
+    @Override
+    public Session login() {
+        return null;
+    }
+
+    @Override
+    public Session Logout() {
+        return null;
     }
 
 }

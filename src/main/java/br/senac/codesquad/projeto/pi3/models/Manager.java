@@ -5,13 +5,17 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import br.senac.codesquad.projeto.pi3.Interfaces.Authenticable;
+import br.senac.codesquad.projeto.pi3.enums.Roles;
+import javax.websocket.Session;
+
 /**
  *
  * @author marcelo.moraes
  */
-public class Manager extends User {
+public class Manager extends User implements Authenticable {
 
-    private String permission; //permission user 
+    private final Roles permission = Roles.GERENTE; //permission user 
 
     public Manager(String name, String mail, String password) {
         super(mail, password, name);
@@ -21,8 +25,18 @@ public class Manager extends User {
     /**
      * @return the permission
      */
-    public String getPermission() {
+    public Roles getPermission() {
         return permission;
+    }
+    
+    @Override
+    public Session login() {
+        return null;
+    }
+
+    @Override
+    public Session Logout() {
+        return null;
     }
 
 }
