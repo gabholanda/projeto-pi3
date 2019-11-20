@@ -20,7 +20,7 @@ public class BranchOffice {
     private ArrayList<Product> productList;
     private ArrayList<Employee> employeeList;
 
-    public BranchOffice(String name, String cnpj, String address) {
+    public BranchOffice(String name, String address, String cnpj) {
         this.name = name;
         this.cnpj = cnpj;
         this.address = address;
@@ -78,4 +78,3 @@ public class BranchOffice {
     }
 
 }
-    
