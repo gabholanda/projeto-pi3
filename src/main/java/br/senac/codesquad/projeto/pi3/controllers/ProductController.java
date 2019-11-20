@@ -1,5 +1,5 @@
 package br.senac.codesquad.projeto.pi3.controllers;
-import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
+
 import br.senac.codesquad.projeto.pi3.DAOs.ProductDAO;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import java.sql.SQLException;
@@ -13,9 +13,9 @@ import java.util.List;
 public class ProductController {
 
     public static boolean create(String nameProduct, double values, double valueSale,
-            String details, int categoryId) {
-        Product p = new Product(nameProduct, values, valueSale, details, categoryId);
-        return ProductDAO.create(p);
+            String details, int idBranchoffice, int categoryId, int quantity) {
+        Product p = new Product(nameProduct, values, valueSale, details, idBranchoffice, categoryId);
+        return ProductDAO.create(p, quantity);
     }
 
     public static boolean update(int id, String nameProduct, double values,

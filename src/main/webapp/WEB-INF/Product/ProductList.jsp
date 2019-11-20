@@ -15,9 +15,10 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Detalhes</th>
-                <th scope="col">Preço Compra</th>
-                <th scope="col">Preço Venda</th>
+                <th scope="col">Preço Compra(R$)</th>
+                <th scope="col">Preço Venda(R$)</th>
                 <th scope="col">Categoria</th>
+                <th scope="col">Quantidade</th>
             </tr>
         </thead>
         <tbody>
@@ -27,10 +28,10 @@
                     <td><c:out value="${product.nameProduct}"/></td>
                     <td><c:out value="${product.details}"/></td>
                     <td><c:out value="${product.values}"/></td>
-                    <td><c:out value="${product.valuesSale}"/></td>
-                    
-                    <td><c:out value="${product.category}"/></td>
-                    
+                    <td><c:out value="${product.valuesSale}"/></td>    
+                    <td><c:out value="${product.categoryName}"/></td>
+                    <td><c:out value="${product.quantity}"/></td>
+
                     <td class="d-flex">
                         <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
