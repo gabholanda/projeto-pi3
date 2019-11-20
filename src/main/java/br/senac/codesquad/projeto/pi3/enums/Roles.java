@@ -10,22 +10,22 @@ package br.senac.codesquad.projeto.pi3.enums;
  * @author gabriel.hsantos21
  */
 public enum Roles {
-    
+
     VENDAS("VENDAS"),
     TI("TI"),
     RH("RH"),
     GERENTE("GERENTE"),
     DIRETORIA("DIRETORIA"),
     BACKOFFICE("BACKOFFICE");
-    
+
     private String permission;
- 
+
     Roles(String permission) {
         this.permission = permission;
     }
- 
+
     public String getPermission() {
         return permission;
     }
-    
+
 }

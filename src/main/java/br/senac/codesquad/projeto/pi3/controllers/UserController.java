@@ -84,9 +84,13 @@ public class UserController {
         }
         return user;
     }
-    
-        public static User findById(int id) {
+
+    public static User findById(int id) {
         return UserDAO.findBydId(id);
+    }
+
+    public static ArrayList<User> read() throws Exception {
+        return UserDAO.read();
     }
 
 }

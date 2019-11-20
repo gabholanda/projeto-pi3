@@ -106,7 +106,7 @@ public abstract class User {
         this.id = id;
     }
 
-    /**
-     * @param id the id to set
-     */
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
 }

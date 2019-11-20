@@ -5,9 +5,12 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
+import br.senac.codesquad.projeto.pi3.controllers.UserController;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -21,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author marcelo.moraes
  */
-@WebServlet(name = "UserServlet", urlPatterns = {"/user"})
+@WebServlet(name = "UserServlet", urlPatterns = {"/user/*"})
 public class UserServlet extends HttpServlet {
 
     @Override
@@ -95,16 +98,14 @@ public class UserServlet extends HttpServlet {
         String idAttr = request.getParameter("id");
         int id = Integer.parseInt(idAttr);
 
-        Product product = ProductController.findById(id);
+        User user = UserController.findById(id);
 
-        request.setAttribute("idAttr", product.getId());
-        request.setAttribute("nameProductAttr", product.getNameProduct());
-        request.setAttribute("descriptionAttr", product.getDetails());
-        request.setAttribute("priceSaleAttr", product.getValuesSale());
-        request.setAttribute("priceBuyAttr", product.getValues());
-        request.setAttribute("quantityAttr", product.getQuantidade());
+        request.setAttribute("idAttr", user.getId());
+        request.setAttribute("nameAttr", user.getName());
+        request.setAttribute("mailAttr", user.getMail());
+        request.setAttribute("passwordAttr", user.getPassword());
 
-        String path = "./Product/ProductEdit.jsp";
+        String path = "./User/UserEdit.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
@@ -113,56 +114,48 @@ public class UserServlet extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, Exception {
-
+            throws SQLException, IOException, Exception {
         String idAttr = request.getParameter("id");
-        String nameProduct = request.getParameter("name");
-        String values = request.getParameter("priceBuy");
-        String valuesSale = request.getParameter("priceSale");
-        String details = request.getParameter("description");
-        String quantidade = request.getParameter("quantity");
-
+        String name = (request.getParameter("name"));
+        String mail = (request.getParameter("mail"));
+        String password = (request.getParameter("password"));
+        String permission = (request.getParameter("permission"));
         int id = Integer.parseInt(idAttr);
 
-        ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
-
-        response.sendRedirect("product");
-
+        UserController.update(id, name, mail, password, permission);
+        response.sendRedirect("user");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, SQLException {
+            throws SQLException, IOException {
 
-        String nameProduct = request.getParameter("name");
-        String values = request.getParameter("priceBuy");
-        String valuesSale = request.getParameter("priceSale");
-        String details = request.getParameter("description");
-        String quantidade = request.getParameter("quantity");
+        String name = (request.getParameter("name"));
+        String mail = (request.getParameter("mail"));
+        String password = (request.getParameter("password"));
+        String permission = (request.getParameter("permission"));
 
-        ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
-        response.sendRedirect("product");
+        UserController.create(name, mail, password, permission);
+        response.sendRedirect("user");
 
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException, SQLException {
-        try {
-            String id = request.getParameter("id");
-            request.setAttribute("id", id);
+    public void delete(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
 
-            ProductController.delete(Integer.parseInt(id));
-            response.sendRedirect("product");
-        } catch (SQLException ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String id = request.getParameter("id");
+        String permission = request.getParameter("permission");
+        UserController.delete(Integer.parseInt(id),permission);
+        response.sendRedirect("client");
+
     }
 
-    private void read(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+    public void read(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+
         try {
-            ArrayList<Product> productList = ProductController.read();
-            String path = "./Product/ProductList.jsp";
-            request.setAttribute("productList", productList);
+            ArrayList<User> userList = UserController.read();
+            String path = "./User/UserList.jsp";
+            request.setAttribute("clientList", userList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(

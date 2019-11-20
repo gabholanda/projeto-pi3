@@ -69,7 +69,7 @@ public class UserDAO {
             ps.setString(1, user.getName());
             ps.setString(2, user.getMail());
             ps.setString(3, user.getPassword());
-            ps.setString(4, permission);
+            ps.setString(4, permission.getPermission());
 
             int updatedlines = ps.executeUpdate();
 
