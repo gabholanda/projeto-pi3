@@ -103,16 +103,13 @@ public class ProductDAO {
             ps.setString(4, p.getDetails());
             ps.setInt(5, p.getCategoryId());
             int updatedlines = ps.executeUpdate();
-            ItemOrdered i=new ItemOrdered();
             String queryBranch
                     = "INSERT INTO relation_product_and_branch_office"
                     + "(BRANCH_OFFICE_ID_BRANCH_OFFICE, PRODUCT_ID_PRODUCT, AMOUNT)"
                     + "VALUES (?,(select last_insert_id() as product),?);";
-
-            ps.setInt(1, p.getIdBranchOffice());
-            ps.setInt(2, p.getId());
-            ps.setInt(3, i.getQuantidadeItem());
             ps = con.prepareStatement(queryBranch);
+            ps.setInt(1, p.getIdBranchOffice());
+            ps.setInt(2, quantidade);
             updatedlines = ps.executeUpdate();
             retorno = updatedlines > 0;
             return retorno;

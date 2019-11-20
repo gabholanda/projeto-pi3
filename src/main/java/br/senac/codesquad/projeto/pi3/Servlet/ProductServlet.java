@@ -146,7 +146,9 @@ public class ProductServlet extends HttpServlet {
         
 
         ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                details,Integer.parseInt(category));
+                details, 3, 5, Integer.parseInt(quantidade));
+               // details,Integer.parseInt(category));
+
         response.sendRedirect("product");
 
     }

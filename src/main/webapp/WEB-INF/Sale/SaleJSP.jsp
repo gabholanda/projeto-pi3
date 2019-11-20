@@ -11,7 +11,7 @@
                 <input type="text" placeholder="Pesquise pelo nome ..." name="name">
                 <button type="submit">pesquisar</button>
             </form>
-            <div class="table-responsive-sm table-w mt-2">
+            <div class="table-responsive-sm table-w mt-2 top-body">
                 <table class="table">
                     <thead>
                         <tr>
@@ -46,13 +46,13 @@
                 <input type="text" placeholder="Pesquise pelo nome ..." name="productName">
                 <button type="submit">pesquisar</button>
             </form>
-            <div class="table-responsive-sm table-w mt-2">
+            <div class="table-responsive-sm table-w mt-2 top-body">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Preço</th>
+                            <th scope="col">Preço(R$)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,8 +77,8 @@
         <div class="container mt-2">
             <div class="row">
                 <div class="col">Id</div>
-                <div class="col">Preço</div>
                 <div class="col">Nome</div>
+                <div class="col">preço</div>
                 <div class="col">Quantidade</div>
             </div>
 
