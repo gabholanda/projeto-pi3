@@ -13,30 +13,28 @@ public class Product {
 
     private int id;
     private String nameProduct;
-    private int quantidade;
     private String details;
     private double values;
     private double valuesSale;
     private int idBranchOffice;
-    
+    private int categoryId;
 
-    public Product(String nameProduct, double values, double valueSale, String details, int idBranchOffice, int quantidade) {
+    public Product(String nameProduct, double values, double valueSale, String details,int categoryId) {
         this.nameProduct = nameProduct;
         this.values = values;
         this.valuesSale = valueSale;
         this.details = details;
         this.idBranchOffice = idBranchOffice;
-        this.quantidade = quantidade;  
+        this.categoryId = categoryId;
     }
 
-    public Product(int id, String nameProduct, double values, double valuesSale, String details, int idBranchOffice, int quantidade) {
+    public Product(int id, String nameProduct, double values, double valuesSale, String details, int categoryId) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.values = values;
         this.details = details;
-        this.idBranchOffice = idBranchOffice;
+        this.categoryId = categoryId;
         this.valuesSale = valuesSale;
-        this.quantidade = quantidade; 
     }
 
     public Product() {
@@ -115,18 +113,18 @@ public class Product {
         return idBranchOffice;
     }
 
-    /**
-     * @return the quantidade
-     */
-    public int getQuantidade() {
-        return quantidade;
+    public void setIdBranchOffice(int idBranchOffice) {
+        this.idBranchOffice = idBranchOffice;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
     }
 
     /**
      * @param quantidade the quantidade to set
      */
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
-
 }

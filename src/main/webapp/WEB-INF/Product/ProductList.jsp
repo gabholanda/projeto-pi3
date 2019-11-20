@@ -17,8 +17,7 @@
                 <th scope="col">Detalhes</th>
                 <th scope="col">Preço Compra</th>
                 <th scope="col">Preço Venda</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Opções</th>
+                <th scope="col">Categoria</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +28,9 @@
                     <td><c:out value="${product.details}"/></td>
                     <td><c:out value="${product.values}"/></td>
                     <td><c:out value="${product.valuesSale}"/></td>
-                    <td><c:out value="${product.quantidade}"/></td>
+                    
+                    <td><c:out value="${product.category}"/></td>
+                    
                     <td class="d-flex">
                         <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
