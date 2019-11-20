@@ -14,6 +14,7 @@ public class Product {
     private int id;
     private String nameProduct;
     private String details;
+    private String categoryName;
     private double values;
     private double valuesSale;
     private int idBranchOffice;
@@ -135,6 +136,14 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
 }
