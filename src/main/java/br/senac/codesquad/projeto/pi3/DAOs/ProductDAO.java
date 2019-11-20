@@ -2,6 +2,7 @@
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.Product;
+import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,21 +25,23 @@ public class ProductDAO {
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         try {
-            String query = "SELECT A.ID_PRODUCT, A. NAMEPRODUCT, A.BUYVALUE,A.SALEVALUE, A.DETAILS, A.CATEGORY_ID, "
-                    + "B.AMOUNT FROM product AS A INNER JOIN relation_product_and_branch_office as B"
-                    + "ON A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT";
+            String query = "SELECT A.ID_PRODUCT, A. NAMEPRODUCT,"
+                    + "     A.BUYVALUE,A.SALEVALUE, A.DETAILS, A.CATEGORY_ID, B.AMOUNT FROM product \n" +
+                            "AS A INNER JOIN relation_product_and_branch_office AS B ON A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT";
 
             ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
                 while (rs.next()) {
                     Product product = new Product();
+                    ItemOrdered itemOrdered= new ItemOrdered();
                     product.setId(rs.getInt("ID_PRODUCT"));
                     product.setNameProduct(rs.getString("NAMEPRODUCT"));
                     product.setValues(rs.getDouble("BUYVALUE"));
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
-                    product.setCategory(rs.getInt("CATEGORY_ID"));
+                    product.setCategoryId(rs.getInt("CATEGORY_ID"));
+                    itemOrdered.setQuantidadeItem(rs.getInt("AMOUNT"));
                     Product.add(product);
                 }
             }
@@ -66,13 +69,14 @@ public class ProductDAO {
             throws SQLException {
 
         try {
-            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =? WHERE ID_PRODUCT = ?";
+            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, CATEGORY_ID WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
 
             ps.setString(1, p.getNameProduct());
             ps.setDouble(2, p.getValues());
             ps.setDouble(3, p.getValuesSale());
             ps.setString(4, p.getDetails());
+            ps.setInt(5,p.getCategoryId());
             ps.setInt(5, p.getId());
 
             int updatedlines = ps.executeUpdate();
@@ -85,7 +89,7 @@ public class ProductDAO {
         }
     }
 
-    public static boolean create(Product p, int categoryId, int quantidade) {
+    public static boolean create(Product p) {
         try {
 
             String query
@@ -97,16 +101,17 @@ public class ProductDAO {
             ps.setDouble(2, p.getValues());
             ps.setDouble(3, p.getValuesSale());
             ps.setString(4, p.getDetails());
-            ps.setInt(5, categoryId);
+            ps.setInt(5, p.getCategoryId());
             int updatedlines = ps.executeUpdate();
-
+            ItemOrdered i=new ItemOrdered();
             String queryBranch
                     = "INSERT INTO relation_product_and_branch_office"
                     + "(BRANCH_OFFICE_ID_BRANCH_OFFICE, PRODUCT_ID_PRODUCT, AMOUNT)"
                     + "VALUES (?,(select last_insert_id() as product),?);";
 
             ps.setInt(1, p.getIdBranchOffice());
-            ps.setInt(2, quantidade);
+            ps.setInt(2, p.getId());
+            ps.setInt(3, i.getQuantidadeItem());
             ps = con.prepareStatement(queryBranch);
             updatedlines = ps.executeUpdate();
             retorno = updatedlines > 0;
