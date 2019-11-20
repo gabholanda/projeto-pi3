@@ -145,7 +145,7 @@ public class ProductServlet extends HttpServlet {
         //String categoria = request.getParameter("category");
 
         ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                details, 1, 5, Integer.parseInt(quantidade));
+                details, 3, 5, Integer.parseInt(quantidade));
         response.sendRedirect("product");
 
     }

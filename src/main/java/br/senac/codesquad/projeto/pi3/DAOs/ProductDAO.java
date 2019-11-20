@@ -102,10 +102,9 @@ public class ProductDAO {
                     = "INSERT INTO relation_product_and_branch_office"
                     + "(BRANCH_OFFICE_ID_BRANCH_OFFICE, PRODUCT_ID_PRODUCT, AMOUNT)"
                     + "VALUES (?,(select last_insert_id() as product),?);";
-
+            ps = con.prepareStatement(queryBranch);
             ps.setInt(1, p.getIdBranchOffice());
             ps.setInt(2, quantidade);
-            ps = con.prepareStatement(queryBranch);
             updatedlines = ps.executeUpdate();
             retorno = updatedlines > 0;
             return retorno;

@@ -12,3 +12,8 @@ and open the template in the editor.
     width: 100%;
 }
 
+.top-body {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
