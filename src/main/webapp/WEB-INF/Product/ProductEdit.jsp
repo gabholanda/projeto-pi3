@@ -28,8 +28,10 @@
                 <input type="text" name="priceBuy" class="form-control" value="${priceBuyAttr}" />
             </div>
             <div class="form-group">
-                <label>Quantidade</label>
-                <input type="text" name="quantity" class="form-control" value="${quantityAttr}" />
+                <c:forEach var="category" items="${categoryList}">
+                <label for="txtCategory">Categoria</label>
+                <input type="checkbox" name="category" class="form-control" value="${categoryAttr}">
+                </c:forEach>
             </div>
 
             <button type="submit" class="btn btn-success">Alterar</button>
