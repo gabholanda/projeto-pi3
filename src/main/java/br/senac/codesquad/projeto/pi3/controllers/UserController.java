@@ -39,7 +39,7 @@ public class UserController {
     public static boolean update(int id, String name, String password, String permission) {
         if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
             try {
-                User user = new User(name, password){};
+                User user = new User(name, "", password){};
                 return UserDAO.update(user, id);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
