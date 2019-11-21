@@ -22,7 +22,7 @@ public class Management extends User implements Authenticable {
     }
 
     public Management() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 

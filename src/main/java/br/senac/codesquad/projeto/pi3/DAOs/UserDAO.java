@@ -161,7 +161,7 @@ public class UserDAO {
     
     public static User findbyMail(String mail) throws SQLException {
         try {
-            String query = "";
+            String query = "SELECT u.email, u.senha u.permission user WHERE EMAIL LIKE = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, mail);
             rs = ps.executeQuery();
