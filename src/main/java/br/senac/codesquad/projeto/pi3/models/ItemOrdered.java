@@ -11,6 +11,7 @@ import java.util.Objects;
  *
  * @author gabriel.santos
  */
+// Implemento a interface Comparable
 public class ItemOrdered implements Comparable<ItemOrdered> {
 
     private Integer id, quantityItem;
@@ -26,6 +27,8 @@ public class ItemOrdered implements Comparable<ItemOrdered> {
         this.value = value;
     }
 
+    // Defino a forma de comparação entre dois ItemOrdered
+    @Override
     public int compareTo(ItemOrdered t) {
         return name.compareTo(t.getName());
     }
@@ -61,8 +64,8 @@ public class ItemOrdered implements Comparable<ItemOrdered> {
     public void setName(String name) {
         this.name = name;
     }
-// Verifica se ja existe
 
+// Verifica se ja existe atraves do hashCode
     @Override
     public int hashCode() {
         int hash = 7;
