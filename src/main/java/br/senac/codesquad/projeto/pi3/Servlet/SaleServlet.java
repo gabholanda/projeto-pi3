@@ -55,6 +55,18 @@ public class SaleServlet extends HttpServlet {
 // Give url paths by servletPath or getPathInfo depending on situation
         try {
             switch (action) {
+                case "/sale":
+                    //read(request, response); Aqui é com vc Patrick
+                    break;
+                case "/delete":
+                    //delete(request,response); aqui tbm
+                    break;
+                case "/update":
+                    //update(request, response); aqui tbm
+                    break;
+                case "/edit":
+                    // formEdit(request, response); aqui tbm
+                    break;
                 case "/new":
                     form(request, response);
                     break;
@@ -77,7 +89,7 @@ public class SaleServlet extends HttpServlet {
                     changeQuantity(request, response);
                     break;
                 default:
-                    form(request, response);
+                    //read(request, response);
                     break;
             }
         } catch (Exception ex) {
@@ -102,7 +114,7 @@ public class SaleServlet extends HttpServlet {
             }
             Sale sale = (Sale) session.getAttribute("sale");
             session.setAttribute("sale", sale);
-            String path = "./Sale/SaleJSP.jsp";
+            String path = "./Sale/SaleCreateJSP.jsp";
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(
@@ -119,12 +131,12 @@ public class SaleServlet extends HttpServlet {
 
             if (session.getAttribute("sale") == null) {
                 session.setAttribute("errorSale", "Erro ao tentar realizar venda");
-                response.sendRedirect(request.getContextPath() + "/sale");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             } else {
                 Sale sale = (Sale) session.getAttribute("sale");
                 if (sale.getClient() == null || sale.getItems() == null || sale.getItems().size() <= 0) {
                     session.setAttribute("errorSale", "É necessário ter um cliente selecionado e pelo menos um item na lista");
-                    response.sendRedirect(request.getContextPath() + "/sale");
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
                 } else {
                     session.setAttribute("errorSale", "");
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -133,9 +145,9 @@ public class SaleServlet extends HttpServlet {
                     sale.setDate(date);
                     if (SaleController.create(sale)) {
                         clean(request, response);
-                        response.sendRedirect(request.getContextPath() + "/sale");
+                        response.sendRedirect(request.getContextPath() + "/sale/new");
                     } else {
-                        response.sendRedirect(request.getContextPath() + "/sale");
+                        response.sendRedirect(request.getContextPath() + "/sale/new");
                     }
                 }
             }
@@ -157,7 +169,7 @@ public class SaleServlet extends HttpServlet {
             List<Client> clientList = ClientController.findByName(name);
             session.setAttribute("clientList",
                     clientList);
-            response.sendRedirect(request.getContextPath() + "/sale");
+            response.sendRedirect(request.getContextPath() + "/sale/new");
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,13 +190,13 @@ public class SaleServlet extends HttpServlet {
             if (c == null) {
                 // Se o Cliente nao for encontrando, envio uma mensagem para o usuário
                 session.setAttribute("errorClient", "Cliente não encontrado");
-                response.sendRedirect(request.getContextPath() + "/sale");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             } else {
                 session.setAttribute("errorClient", "");
                 session.setAttribute("errorSale", "");
                 sale.setClient(c);
                 session.setAttribute("selectedClient", sale.getClient());
-                response.sendRedirect(request.getContextPath() + "/sale");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             }
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,7 +214,7 @@ public class SaleServlet extends HttpServlet {
             List<Product> productList = ProductController.findByName(name);
             session.setAttribute("productList",
                     productList);
-            response.sendRedirect(request.getContextPath() + "/sale");
+            response.sendRedirect(request.getContextPath() + "/sale/new");
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -224,7 +236,7 @@ public class SaleServlet extends HttpServlet {
             if (p == null) {
                 // Mando uma mensagem informando o erro
                 session.setAttribute("errorProduct", "Produto não encontrado");
-                response.sendRedirect(request.getContextPath() + "/sale");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             } else {
                 ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
                 item.setName(p.getNameProduct());
@@ -232,9 +244,9 @@ public class SaleServlet extends HttpServlet {
                     sale.getItems().add(item);
                     sumTotalValue(sale);
                     session.setAttribute("errorProduct", "");
-                    response.sendRedirect(request.getContextPath() + "/sale");
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/sale");
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
                 }
             }
         } catch (IOException ex) {
@@ -257,7 +269,7 @@ public class SaleServlet extends HttpServlet {
             if (Integer.parseInt(quantity) <= 0) {
                 // Verifiso se a quantidade foi mudada para 0 e mando msg de erro
                 session.setAttribute("errorQuantity", "Quantidade não pode ser menor do que 1");
-                response.sendRedirect(request.getContextPath() + "/sale");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             } else {
                 // Verifico qual o item que vai ter a quantidade aumentada pelo ID e depois recalculo o total
                 for (ItemOrdered item : sale.getItems()) {
@@ -266,7 +278,7 @@ public class SaleServlet extends HttpServlet {
                         sumTotalValue(sale);
                     }
                 }
-                response.sendRedirect(request.getContextPath() + "/sale");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             }
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
