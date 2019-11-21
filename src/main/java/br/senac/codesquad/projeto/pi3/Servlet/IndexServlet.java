@@ -24,7 +24,7 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        String path = "./Auth/LoginJSP.jsp";
+        String path = "./InfoScreens/Home.jsp";
         request.setAttribute("path", path);
 
         RequestDispatcher dispatcher
