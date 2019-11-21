@@ -1,10 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//package br.senac.codesquad.projeto.pi3.Filter;
+///*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
+////package br.senac.codesquad.projeto.pi3.Filter;
 //
+//import br.senac.codesquad.projeto.pi3.enums.Roles;
 //import br.senac.codesquad.projeto.pi3.models.User;
 //import java.io.IOException;
 //import javax.servlet.Filter;
@@ -18,17 +19,11 @@
 //import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpSession;
 //
-///**
+///*
 // *
 // * @author marcelo.smoraes2
 // */
-//@WebFilter(filterName = "FilterAuth",
-//        urlPatterns = {"/branch/*",
-//            "/client/*",
-//            "/product/*",
-//            "/user/*",
-//            "/sale/*",
-//            "/report/*",})
+//@WebFilter(filterName = "FilterAuth", urlPatterns = {"/branch/", "/client/", "/product/", "/user/", "/sale/", "/report/",})
 //
 //public class FilterAuth implements Filter {
 //
@@ -48,36 +43,46 @@
 //        User usuario = (User) session.getAttribute("usuario");
 //
 //        if (checkAuth(usuario, httpRequest)) {
-//            // Usuario pode acessar a URL
+//
 //            chain.doFilter(request, response);
 //        } else {
-//            // Usuario não tem permissao necessaria -> Mostra msg de erro.
+//
 //            httpResponse.sendRedirect(httpRequest.getContextPath()
-//                    + "/NoAuth.jsp");
+//                    + "/erro-nao-autorizado.jsp");
 //        }
 //
 //    }
 //
-//    private boolean checkAuth(User usuario, HttpServletRequest httpRequest) {
+//    private boolean checkAuth(User user, HttpServletRequest httpRequest) {
 //
 //        String urlAcessada = httpRequest.getRequestURI();
 //
-//        if (urlAcessada.endsWith("/home")) {
+//        if (urlAcessada.contains("/Home")) {
 //            return true;
 //
-//        } else if (urlAcessada.endsWith("/branch") && usuario.verificarPapel("PEAO")) {
+//        } else if (urlAcessada.contains("/branch") && user.verificarPapel(Roles.DIRETORIA)) {
 //            return true;
 //
-//        } else if (urlAcessada.endsWith("/client") && usuario.verificarPapel("FODON")) {
+//        } else if (urlAcessada.contains("/report") && user.verificarPapel(Roles.DIRETORIA)) {
 //            return true;
 //
-//        } else if (urlAcessada.endsWith("/product") && usuario.verificarPapel("GOD")) {
+//        } else if (urlAcessada.contains("/branch") && user.verificarPapel(Roles.GERENTE)) {
+//            return true;
+//        } else if (urlAcessada.contains("/report") && user.verificarPapel(Roles.GERENTE)) {
 //            return true;
 //
-//        } else if (urlAcessada.endsWith("/user") && usuario.verificarPapel("GOD")) {
+//        } else if (urlAcessada.contains("/product") && user.verificarPapel(Roles.BACKOFFICE)) {
 //            return true;
 //
-//        } else if (urlAcessada.endsWith("/sale") && usuario.verificarPapel("GOD")) {
+//        } else if (urlAcessada.contains("/user") && user.verificarPapel(Roles.RH)) {
+//            return true;
+//
+//        } else if (urlAcessada.contains("/user") && user.verificarPapel(Roles.TI)) {
+//            return true;
+//
+//        } else if (urlAcessada.contains("/sale") && user.verificarPapel(Roles.VENDAS)) {
+//            return true;
+//        } else if (urlAcessada.contains("/client") && user.verificarPapel(Roles.VENDAS)) {
 //            return true;
 //        }
 //        return false;

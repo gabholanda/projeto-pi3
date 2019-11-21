@@ -21,6 +21,10 @@ public class BackOffice extends User implements Authenticable {
         super(mail, password, name);
     }
 
+    public BackOffice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 //   
     /**
      * @return the permission
