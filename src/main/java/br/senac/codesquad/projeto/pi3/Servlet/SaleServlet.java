@@ -18,10 +18,9 @@ import br.senac.codesquad.projeto.pi3.models.Product;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -104,7 +103,7 @@ public class SaleServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    public static void form(HttpServletRequest request, HttpServletResponse response) {
+    private static void form(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -125,7 +124,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void create(HttpServletRequest request, HttpServletResponse response) {
+    private static void create(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -158,7 +157,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void searchClient(HttpServletRequest request, HttpServletResponse response) {
+    private static void searchClient(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -175,7 +174,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void addClient(HttpServletRequest request, HttpServletResponse response) {
+    private static void addClient(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -203,7 +202,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void searchProduct(HttpServletRequest request, HttpServletResponse response) {
+    private static void searchProduct(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -220,7 +219,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void addSaleList(HttpServletRequest request, HttpServletResponse response) {
+    private static void addSaleList(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -254,7 +253,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void changeQuantity(HttpServletRequest request, HttpServletResponse response) {
+    private static void changeQuantity(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -271,10 +270,13 @@ public class SaleServlet extends HttpServlet {
                 session.setAttribute("errorQuantity", "Quantidade não pode ser menor do que 1");
                 response.sendRedirect(request.getContextPath() + "/sale/new");
             } else {
+                ItemOrdered i = new ItemOrdered();
+                i.setId(Integer.parseInt(id));
+                i.setQuantityItem(Integer.parseInt(quantity));
                 // Verifico qual o item que vai ter a quantidade aumentada pelo ID e depois recalculo o total
                 for (ItemOrdered item : sale.getItems()) {
-                    if (item.getId() == Integer.parseInt(id)) {
-                        item.setQuantityItem(Integer.parseInt(quantity));
+                    if (item.equals(i)) {
+                        item.setQuantityItem(i.getQuantityItem());
                         sumTotalValue(sale);
                     }
                 }
@@ -285,7 +287,7 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void sumTotalValue(Sale sale) {
+    private static void sumTotalValue(Sale sale) {
         double soma = 0;
         for (ItemOrdered item : sale.getItems()) {
             soma += item.getValue() * item.getQuantityItem();
@@ -293,7 +295,7 @@ public class SaleServlet extends HttpServlet {
         sale.setTotalValue(soma);
     }
 
-    public static void clean(HttpServletRequest request, HttpServletResponse response) {
+    private static void clean(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.setAttribute("sale", new Sale());
         session.setAttribute("clientList", new ArrayList<>());
