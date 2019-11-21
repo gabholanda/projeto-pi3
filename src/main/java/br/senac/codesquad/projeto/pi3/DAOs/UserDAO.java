@@ -9,6 +9,10 @@ import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
 import static br.senac.codesquad.projeto.pi3.enums.Roles.RH;
 import static br.senac.codesquad.projeto.pi3.enums.Roles.TI;
+import static br.senac.codesquad.projeto.pi3.enums.Roles.BACKOFFICE;
+import static br.senac.codesquad.projeto.pi3.enums.Roles.DIRETORIA;
+import static br.senac.codesquad.projeto.pi3.enums.Roles.GERENTE;
+import static br.senac.codesquad.projeto.pi3.enums.Roles.VENDAS;
 import br.senac.codesquad.projeto.pi3.models.BackOffice;
 import br.senac.codesquad.projeto.pi3.models.Employee;
 import br.senac.codesquad.projeto.pi3.models.Management;
@@ -118,7 +122,8 @@ public class UserDAO {
             if (rs != null) {
                 //adicionar condiçoes de permissões
                 while (rs.next()) {
-                    User user = new User() {};
+                    User user = new User() {
+                    };
                     user.setId(rs.getInt("ID_USER"));
                     user.setName(rs.getString("NAME"));
                     user.setMail(rs.getString("EMAIL"));
@@ -143,7 +148,8 @@ public class UserDAO {
 
             rs = ps.executeQuery();
 
-            User user = new User() {};
+            User user = new User() {
+            };
             while (rs.next()) {
                 user.setId(rs.getInt("ID_USER"));
                 user.setName(rs.getString("NAME"));
@@ -158,26 +164,25 @@ public class UserDAO {
         }
         return null;
     }
-    
-    public static User findbyMail(String mail) throws SQLException {
+
+    public static User findbyMail(User user) throws SQLException {
         try {
-            String query = "SELECT u.email, u.senha u.permission user WHERE EMAIL LIKE = ?";
+            String query = "SELECT PERMISSIONS FROM codesquad.user WHERE EMAIL = ? and PASSWORD = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, mail);
+            ps.setString(1, user.getMail());
+            ps.setString(2, user.getPassword());
             rs = ps.executeQuery();
 
-            User user = null;
-
             while (rs.next()) {
-                if (rs.getString("permission").equals("TI")) {
+                if (rs.getString("permissions").equals("TI")) {
                     user = new TI();
-                } else if (rs.getString("permission").equals("RH")) {
+                } else if (rs.getString("permissions").equals("RH")) {
                     user = new RH();
-                } else if (rs.getString("permission").equals("BackOffice")) {
+                } else if (rs.getString("permissions").equals("BACKOFFICE")) {
                     user = new BackOffice();
-                } else if (rs.getString("permission").equals("Employee")) {
+                } else if (rs.getString("permissions").equals("VENDAS")) {
                     user = new Employee();
-                } else if (rs.getString("permission").equals("Manager")) {
+                } else if (rs.getString("permissions").equals("MANAGER")) {
                     user = new Manager();
                 } else {
 
