@@ -82,7 +82,6 @@ public class ClientServlet extends HttpServlet {
         //Delegate all post responsabilities to doGet method
         request.setCharacterEncoding("UTF-8");
         doGet(request, response);
-        
 
     }
 
@@ -128,7 +127,7 @@ public class ClientServlet extends HttpServlet {
         int id = Integer.parseInt(idAttr);
 
         ClientController.update(id, name, cpf, address, mail);
-        response.sendRedirect("client");
+        response.sendRedirect(request.getContextPath() + "/client");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
@@ -140,7 +139,7 @@ public class ClientServlet extends HttpServlet {
         String mail = request.getParameter("mail");
 
         ClientController.create(name, cpf, address, mail);
-        response.sendRedirect("client");
+        response.sendRedirect(request.getContextPath() + "/client");
 
     }
 
@@ -152,7 +151,7 @@ public class ClientServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             ClientController.delete(Integer.parseInt(id));
-            response.sendRedirect("client");
+            response.sendRedirect(request.getContextPath() + "/client");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
