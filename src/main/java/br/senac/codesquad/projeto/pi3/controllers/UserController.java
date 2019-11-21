@@ -39,7 +39,8 @@ public class UserController {
     public static boolean update(int id, String name, String password, String permission) {
         if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
             try {
-                User user = new User(name, "", password){};
+                User user = new User(name, "", password) {
+                };
                 return UserDAO.update(user, id);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,7 +54,7 @@ public class UserController {
 
     public static boolean delete(int id, String permission) {
         if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
-           try {
+            try {
                 return UserDAO.delete(id);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,7 +69,8 @@ public class UserController {
         ArrayList<User> user = null;
         if (permission.equalsIgnoreCase("VENDAS") || permission.equalsIgnoreCase("BACKOFFICE")) {
             return user;
-        } else if (permission.equalsIgnoreCase("DIRETORIA") || permission.equalsIgnoreCase("GERENTE") || permission.equalsIgnoreCase("RH") || permission.equalsIgnoreCase("TI")) {
+        } else if (permission.equalsIgnoreCase("DIRETORIA") || permission.equalsIgnoreCase("GERENTE")
+                || permission.equalsIgnoreCase("RH") || permission.equalsIgnoreCase("TI")) {
             return UserDAO.read();
         }
         return user;
@@ -76,6 +78,18 @@ public class UserController {
 
     public static User findById(int id) {
         return UserDAO.findBydId(id);
+    }
+
+    public static User login(String mail, String password) {
+
+        try {
+            User user = new User(mail, password) {
+            };
+            return UserDAO.findbyMail(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

@@ -9,13 +9,10 @@ import br.senac.codesquad.projeto.pi3.enums.Roles;
 import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
 
-
 /**
  *
  * @author marcelo.moraes and Patrick
  */
-
-
 public abstract class User {
 
     private int id;
@@ -29,8 +26,8 @@ public abstract class User {
     public User() {
     }
 
-    public User(String name, String password) {
-        this.name = name;
+    public User(String mail, String password) {
+        this.mail = mail;
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 //        BCrypt.hashpw(senhaAberta, BCrypt.gensalt());
     }
@@ -126,6 +123,6 @@ public abstract class User {
     }
 
     public boolean verificarPapel(Roles roles) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getClass().getSimpleName().equals(roles);
     }
 }
