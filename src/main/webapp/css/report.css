@@ -4,20 +4,11 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 18/11/2019, 18:10:51
+    Created on : 21/11/2019, 17:32:46
     Author     : gabriel.santos
 */
 
-.table-w {
-    width: 100%;
-}
-
-.top-body {
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-input[type=number] {
-    width: 70%;
+h4, h5, h6 {
+    margin: 0 auto;
 }
 
