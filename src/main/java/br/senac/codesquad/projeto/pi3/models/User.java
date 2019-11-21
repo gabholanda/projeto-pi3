@@ -124,4 +124,8 @@ public abstract class User {
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
+
+    public boolean verificarPapel(Roles roles) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
