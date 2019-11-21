@@ -183,7 +183,7 @@ public class ProductDAO {
                     product.setValues(rs.getDouble("BUYVALUE"));
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
-                    //product.setIdBranchOffice("ID_BRANCH_OFFICE");
+                    //product.setIdBranchOffice(rs.getInt("ID_BRANCH_OFFICE"));
                     productList.add(product);
                 }
             }

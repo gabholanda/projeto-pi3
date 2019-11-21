@@ -6,12 +6,16 @@
 package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
+import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -27,10 +31,7 @@ public class SaleDAO {
         ArrayList<Sale> listaRetorno = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
         try {
-            String query
-                    = "SELECT * FROM PRODUCT";
-            //Carrego o driver para acesso ao banco
-            //Monto a URL
+            String query = "SELECT * FROM SALE";
             PreparedStatement comando = con.prepareStatement(query);
 
             ResultSet rs = comando.getResultSet();
@@ -39,8 +40,7 @@ public class SaleDAO {
                 while (rs.next()) {
                     Sale s = new Sale();
                     s.setId(rs.getInt("id"));
-                    s.setClientId(rs.getInt("clientId"));
-                    s.setDate(rs.getDate("createDate"));
+                    s.setDate((Date) rs.getObject("createDate"));
                     s.setTotalValue(rs.getDouble("totalValue"));
                     listaRetorno.add(s);
                 }
@@ -65,16 +65,12 @@ public class SaleDAO {
         Connection con = ConnectionManager.getConnection();
         try {
             String query
-                    = "DELETE"
-                    + "       FROM"
-                    + "   SALES"
-                    + "       WHERE"
-                    + "   salesId =(?)";
+                    = "DELETE FROM SALES WHERE salesID= ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
             int updatedlines = ps.executeUpdate();
 
-            retorno = updatedlines > 0 ? true : false;
+            retorno = updatedlines > 0;
         } catch (SQLException ex) {
             throw ex;
         } finally {
@@ -99,10 +95,9 @@ public class SaleDAO {
                     + "        (?,?)  ";
             ps = con.prepareStatement(query);
             ps.setDouble(1, sale.getTotalValue());
-            ps.setInt(2, sale.getClientId());
             int updatedlines = ps.executeUpdate();
 
-            retorno = updatedlines > 0 ? true : false;
+            retorno = updatedlines > 0;
         } catch (SQLException ex) {
             throw ex;
         } finally {
@@ -119,18 +114,53 @@ public class SaleDAO {
         Connection con = ConnectionManager.getConnection();
         try {
             String query
-                    = "INSERT"
-                    + "       INTO"
-                    + "   SALES"
-                    + "       (TOTALVALUE, CLIENTID)"
-                    + "   VALUES"
-                    + "        (?,?)  ";
+                    = "insert into sales "
+                    + "(VALUE_FULL, "
+                    + "USER_ID_USER, "
+                    + "CLIENT_ID_CLIENT, "
+                    + "BRANCH_OFFICE_ID_BRANCH_OFFICE) "
+                    + "values "
+                    + "(?, ?, ?, ?);";
             ps = con.prepareStatement(query);
+            java.sql.Date dateDB = new java.sql.Date(0);
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//            sdf.format(dateDB);
+//            dateDB = new java.sql.Date(sale.getDate().getTime());
+//            sdf.format(dateDB);
+//            ps.setString(1, dateDB.toString());
             ps.setDouble(1, sale.getTotalValue());
-            ps.setInt(2, sale.getClientId());
+            ps.setInt(2, 4);
+            ps.setInt(3, sale.getClient().getId());
+            ps.setInt(4, 2);
             int updatedlines = ps.executeUpdate();
 
-            retorno = updatedlines > 0 ? true : false;
+            if (updatedlines > 0) {
+                String queryIdSales = "select last_insert_id() as ID_SALES;";
+                ps = con.prepareStatement(queryIdSales);
+                rs = ps.executeQuery();
+                int idSalves = 0;
+                while (rs.next()) {
+                    idSalves = rs.getInt("ID_SALES");
+                }
+                for (ItemOrdered item : sale.getItems()) {
+                    String queryItems
+                            = "INSERT INTO item_ordered "
+                            + "(AMOUNT_ITEM, "
+                            + "VALUE, "
+                            + "SALES_ID_SALES, "
+                            + "PRODUCT_ID_PRODUCT) "
+                            + "values "
+                            + "(?, ?, ?, ?);";
+                    ps = con.prepareStatement(queryItems);
+                    ps.setInt(1, item.getQuantityItem());
+                    ps.setDouble(2, item.getValue());
+                    ps.setInt(3, idSalves);
+                    ps.setInt(4, item.getId());
+                    updatedlines = ps.executeUpdate();
+                }
+            }
+
+            retorno = updatedlines > 0;
         } catch (SQLException ex) {
             throw ex;
         } finally {

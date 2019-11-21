@@ -5,22 +5,29 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import java.util.Objects;
+
 /**
  *
  * @author gabriel.santos
  */
-public class ItemOrdered {
+public class ItemOrdered implements Comparable<ItemOrdered> {
 
-    int id, quantidadeItem;
-    double valor;
+    private Integer id, quantityItem;
+    private double value;
+    private String name;
 
     public ItemOrdered() {
     }
 
-    public ItemOrdered(int id, int quantidadeItem, double valor) {
+    public ItemOrdered(int id, int quantityItem, double value) {
         this.id = id;
-        this.quantidadeItem = quantidadeItem;
-        this.valor = valor;
+        this.quantityItem = quantityItem;
+        this.value = value;
+    }
+
+    public int compareTo(ItemOrdered t) {
+        return name.compareTo(t.getName());
     }
 
     public int getId() {
@@ -31,20 +38,36 @@ public class ItemOrdered {
         this.id = id;
     }
 
-    public int getQuantidadeItem() {
-        return quantidadeItem;
+    public int getQuantityItem() {
+        return quantityItem;
     }
 
-    public void setQuantidadeItem(int quantidadeItem) {
-        this.quantidadeItem = quantidadeItem;
+    public void setQuantityItem(int quantityItem) {
+        this.quantityItem = quantityItem;
     }
 
-    public double getValor() {
-        return valor;
+    public double getValue() {
+        return value;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+// Verifica se ja existe
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
 }
