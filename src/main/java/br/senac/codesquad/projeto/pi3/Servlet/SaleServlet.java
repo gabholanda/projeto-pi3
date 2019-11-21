@@ -84,6 +84,9 @@ public class SaleServlet extends HttpServlet {
                 case "/addSaleList":
                     addSaleList(request, response);
                     break;
+                case "/removeSaleList":
+                    removeSaleList(request, response);
+                    break;
                 case "/changeQuantity":
                     changeQuantity(request, response);
                     break;
@@ -241,6 +244,40 @@ public class SaleServlet extends HttpServlet {
                 item.setName(p.getNameProduct());
                 if (!sale.getItems().contains(item)) {
                     sale.getItems().add(item);
+                    sumTotalValue(sale);
+                    session.setAttribute("errorProduct", "");
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void removeSaleList(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("orderedItemList") == null) {
+                session.setAttribute("orderedItemList", new TreeSet<>());
+            }
+            // Seto a sale e a lista de items da Sale
+            Sale sale = (Sale) session.getAttribute("sale");
+            sale.setItems((Set<ItemOrdered>) session.getAttribute("orderedItemList"));
+            // Busco o produto pelo ID e adiciono a lista, verificando se ela ja nao esta nela
+            String productId = request.getParameter("orderedItemId");
+            Product p = ProductController.findById(Integer.parseInt(productId));
+            if (p == null) {
+                // Mando uma mensagem informando o erro
+                session.setAttribute("errorProduct", "Produto não encontrado");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
+            } else {
+                ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
+                item.setName(p.getNameProduct());
+                if (sale.getItems().contains(item)) {
+                    sale.getItems().remove(item);
                     sumTotalValue(sale);
                     session.setAttribute("errorProduct", "");
                     response.sendRedirect(request.getContextPath() + "/sale/new");

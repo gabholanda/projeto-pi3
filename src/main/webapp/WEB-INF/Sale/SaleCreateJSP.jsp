@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
 <link href="${pageContext.request.contextPath}/css/sale.css" rel="stylesheet">
 <section class="p-5">
     <div class="d-flex">
@@ -104,10 +102,16 @@
                             <div class="col"><c:out value="${orderedItem.name}"/></div>
                             <div class="col"><c:out value="${orderedItem.value}"/></div>
                             <div class="col">
-                                <form method="post" action="${pageContext.request.contextPath}/sale/changeQuantity">
-                                    <input type="hidden"  name="orderedItemId" value="${orderedItem.id}">
-                                    <input type="number" value="${orderedItem.quantityItem}" name="itemQuantity">
-                                </form>
+                                <div class="d-flex">
+                                    <form method="post" action="${pageContext.request.contextPath}/sale/changeQuantity" class="mr-2">
+                                        <input type="hidden"  name="orderedItemId" value="${orderedItem.id}">
+                                        <input type="number" value="${orderedItem.quantityItem}" max="99999" name="itemQuantity" class="quantity">
+                                    </form>
+                                    <form method="post" action="${pageContext.request.contextPath}/sale/removeSaleList">
+                                        <input type="hidden"  name="orderedItemId" value="${orderedItem.id}">
+                                        <input type="submit" value="Remover" name="itemQuantity">
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </c:forEach>
