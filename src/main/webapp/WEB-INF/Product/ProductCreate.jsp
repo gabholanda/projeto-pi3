@@ -27,10 +27,14 @@
                 <input type="number" name="priceSale" class="form-control" value="${valuesSaleAttr}" placeholder="Preço Compra" step="0.01" required/>            
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                <label for="txtQuantity">Quantidade</label>
+                <input type="number" name="quantity" class="form-control" value="${quantityAttr}" placeholder="Quantiydade .." step="1" required/>            
+            </div>
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <c:forEach var="category" items="${categoryList}">
-                <label for="txtCategory">Categoria</label>
-                <input type="checkbox" name="category" class="form-control">
-                <label for="checkCatgory">${categoryAttr}</label>
+                    <label for="txtCategory">Categoria</label>
+                    <input type="checkbox" name="category" class="form-control">
+                    <label for="checkCatgory">${categoryAttr}</label>
                 </c:forEach>
             </div>
             <div>

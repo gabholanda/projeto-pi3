@@ -130,7 +130,7 @@ public class ProductServlet extends HttpServlet {
 
         ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
 
-        response.sendRedirect("product");
+        response.sendRedirect(request.getContextPath() + "/product");
 
     }
 
@@ -148,7 +148,7 @@ public class ProductServlet extends HttpServlet {
                 details, 3, 5, Integer.parseInt(quantity));
         // details,Integer.parseInt(category));
 
-        response.sendRedirect("product");
+        response.sendRedirect(request.getContextPath() + "/product");
 
     }
 
@@ -159,7 +159,7 @@ public class ProductServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             ProductController.delete(Integer.parseInt(id));
-            response.sendRedirect("product");
+            response.sendRedirect(request.getContextPath() + "/product");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

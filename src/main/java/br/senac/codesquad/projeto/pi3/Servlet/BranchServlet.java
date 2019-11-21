@@ -124,7 +124,7 @@ public class BranchServlet extends HttpServlet {
 
             BranchOfficeController.create(name, address, cnpj);
 
-            response.sendRedirect("branch");
+            response.sendRedirect(request.getContextPath() + "/branch");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,7 +139,7 @@ public class BranchServlet extends HttpServlet {
         int id = Integer.parseInt(idAttr);
 
         BranchOfficeController.update(id, name, cnpj, address);
-        response.sendRedirect("branch");
+        response.sendRedirect(request.getContextPath() + "/branch");
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
@@ -149,7 +149,7 @@ public class BranchServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             BranchOfficeController.delete(Integer.parseInt(id));
-            response.sendRedirect("branch");
+            response.sendRedirect(request.getContextPath() + "/branch");
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

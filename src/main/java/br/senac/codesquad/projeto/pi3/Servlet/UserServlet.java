@@ -123,7 +123,7 @@ public class UserServlet extends HttpServlet {
         int id = Integer.parseInt(idAttr);
 
         UserController.update(id, name, password, "TI");
-        response.sendRedirect("user");
+        response.sendRedirect(request.getContextPath() + "/user");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
@@ -135,7 +135,7 @@ public class UserServlet extends HttpServlet {
         String permission = (request.getParameter("permission"));
 
         UserController.create(name, mail, password, permission, "TI");
-        response.sendRedirect("user");
+        response.sendRedirect(request.getContextPath() + "/user");
 
     }
 
@@ -144,8 +144,8 @@ public class UserServlet extends HttpServlet {
 
         String id = request.getParameter("id");
 //        String permission = request.getParameter("permission");
-        UserController.delete(Integer.parseInt(id),"TI");
-        response.sendRedirect("user");
+        UserController.delete(Integer.parseInt(id), "TI");
+        response.sendRedirect(request.getContextPath() + "/user");
 
     }
 
