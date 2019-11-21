@@ -25,14 +25,7 @@ public class ProductDAO {
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         try {
-            String query = "SELECT"
-                    + "product.ID_PRODUCT,"
-                    + "product.NAMEPRODUCT,"
-                    + "product.BUYVALUE,"
-                    + "product.SALEVALUE,"
-                    + "product.DETAILS,"
-                    + "C.NAME,"
-                    + "B.AMOUNT"
+            String query = "SELECT *"
                     + "FROM product"
                     + "INNER JOIN relation_product_and_branch_office AS B"
                     + "ON product.ID_PRODUCT = B.PRODUCT_ID_PRODUCT"
