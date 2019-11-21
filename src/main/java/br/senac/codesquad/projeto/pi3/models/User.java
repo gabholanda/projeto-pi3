@@ -5,31 +5,40 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
-
+import br.senac.codesquad.projeto.pi3.enums.Roles;
 import java.util.ArrayList;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 /**
  *
- * @author marcelo.moraes
+ * @author marcelo.moraes and Patrick
  */
+
+
 public abstract class User {
 
     private int id;
     private String mail;
     private String password;
     private String name;
-    private String permission; //permission user
+    Roles permission; // permission user
     private ArrayList<Sale> saleList;
-    
+    private ArrayList<User> userList;
 
     public User() {
     }
 
-    public User(String mail, String password, String name) {
-        this.mail = mail;
-        this.password = password;
+    public User(String name, String password) {
         this.name = name;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+//        BCrypt.hashpw(senhaAberta, BCrypt.gensalt());
+    }
+
+    public User(String name, String mail, String password) {
+        this.name = name;
+        this.mail = mail;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 
     }
 
@@ -44,7 +53,7 @@ public abstract class User {
      * @param password the password to set
      */
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     /**
@@ -64,15 +73,15 @@ public abstract class User {
     /**
      * @return the permission
      */
-    public String getPermission() {
+    public Roles getPermission() {
         return permission;
     }
-    
+
     /**
      * @param permission
-     * @return 
+     * @return
      */
-    public String setPermission(String permission){
+    public Roles setPermission(Roles permission) {
         return permission;
     }
 
@@ -97,6 +106,10 @@ public abstract class User {
         return saleList;
     }
 
+    public ArrayList<User> getUserList() {
+        return userList;
+    }
+
     /**
      * @return the id
      */
@@ -108,14 +121,11 @@ public abstract class User {
         this.id = id;
     }
 
-    public boolean verificarPapel(String peao) {
-       return true; 
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 
-    /**
-     * @param id the id to set
-     */
-    
-    
-    
+    public boolean verificarPapel(Roles roles) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -5,110 +5,75 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import java.util.Set;
+
 /**
  *
  * @author gabriel.hsantos21
  */
 public class Report {
-   
+
     //valor total de todas as filiais solicitado pela diretoria. 
-    private String valorTotal; 
+    private double totalValue;
     //10 produtos mais vendidos solicitado pela diretoria. 
-    private String produtosVendidos;
+    private Set<Sale> salesList;
     //valor total por filial solicitado pela diretoria. 
-    private String valorFilial; 
+    private double totalBranchValue;
     //data inicial do relatorio
-    private String dataInicialReport; 
+    private String dataInicialReport;
     //data final do relatorio
-    private String dataFinalReport; 
-    
-    
+    private String dataFinalReport;
+
     //
-    public Report () { 
-        
-    }
-    
-    public Report (String valorTotal, String produtosVendidos, String valorFilial, String dataInicialReport, String dataFinalReport){
-        this.valorTotal = valorTotal; 
-        this.produtosVendidos = produtosVendidos; 
-        this.valorFilial = valorFilial; 
-        this.dataInicialReport = dataInicialReport; 
-        this.dataFinalReport = dataFinalReport; 
-    }
-    
+    public Report() {
 
-    /**
-     * @return the valorTotal
-     */
-    public String getValorTotal() {
-        return valorTotal;
     }
 
-    /**
-     * @param valorTotal the valorTotal to set
-     */
-    public void setValorTotal(String valorTotal) {
-        this.valorTotal = valorTotal;
+    public Report(double totalValue, double totalBranchValue, String dataInicialReport, String dataFinalReport) {
+        this.totalValue = totalValue;
+        this.totalBranchValue = totalBranchValue;
+        this.dataInicialReport = dataInicialReport;
+        this.dataFinalReport = dataFinalReport;
     }
 
-    /**
-     * @return the produtosVendidos
-     */
-    public String getProdutosVendidos() {
-        return produtosVendidos;
+    public double getTotalValue() {
+        return totalValue;
     }
 
-    /**
-     * @param produtosVendidos the produtosVendidos to set
-     */
-    public void setProdutosVendidos(String produtosVendidos) {
-        this.produtosVendidos = produtosVendidos;
+    public void setTotalValue(double totalValue) {
+        this.totalValue = totalValue;
     }
 
-    /**
-     * @return the valorFilial
-     */
-    public String getValorFilial() {
-        return valorFilial;
+    public double getTotalBranchValue() {
+        return totalBranchValue;
     }
 
-    /**
-     * @param valorFilial the valorFilial to set
-     */
-    public void setValorFilial(String valorFilial) {
-        this.valorFilial = valorFilial;
+    public void setTotalBranchValue(double totalBranchValue) {
+        this.totalBranchValue = totalBranchValue;
     }
 
-    /**
-     * @return the dataInicialReport
-     */
     public String getDataInicialReport() {
         return dataInicialReport;
     }
 
-    /**
-     * @param dataInicialReport the dataInicialReport to set
-     */
     public void setDataInicialReport(String dataInicialReport) {
         this.dataInicialReport = dataInicialReport;
     }
 
-    /**
-     * @return the dataFinalReport
-     */
     public String getDataFinalReport() {
         return dataFinalReport;
     }
 
-    /**
-     * @param dataFinalReport the dataFinalReport to set
-     */
     public void setDataFinalReport(String dataFinalReport) {
         this.dataFinalReport = dataFinalReport;
     }
-    
-    
-    
-    
-    
+
+    public Set<Sale> getSalesList() {
+        return salesList;
+    }
+
+    public void setSalesList(Set<Sale> salesList) {
+        this.salesList = salesList;
+    }
+
 }

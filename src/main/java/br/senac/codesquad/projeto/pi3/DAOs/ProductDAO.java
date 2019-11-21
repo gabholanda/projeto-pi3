@@ -15,85 +15,88 @@ import java.util.List;
  * @author gabriel.hsantos21
  */
 public class ProductDAO {
-
+    
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
-
+    
     public static ArrayList<Product> getProduct()
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         try {
-            String query = "SELECT *"
-                    + "FROM product"
-                    + "INNER JOIN relation_product_and_branch_office AS B"
-                    + "ON product.ID_PRODUCT = B.PRODUCT_ID_PRODUCT"
-                    + "INNER JOIN category as C"
-                    + "ON product.CATEGORY_ID = C.ID_CATEGORY;";
-
+            String query = "SELECT "
+                    + "A.ID_PRODUCT, "
+                    + "A.NAMEPRODUCT, "
+                    + "A.BUYVALUE, "
+                    + "A.SALEVALUE, "
+                    + "A.DETAILS, "
+                    + "C.NAME, "
+                    + "B.AMOUNT "
+                    + "FROM (product AS A INNER JOIN relation_product_and_branch_office AS B ON (A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT)) "
+                    + "INNER JOIN category as C ON (A.CATEGORY_ID = C.ID_CATEGORY) ORDER BY A.NAMEPRODUCT";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
                 while (rs.next()) {
                     Product product = new Product();
-                    product.setId(rs.getInt("A.ID_PRODUCT"));
-                    product.setNameProduct(rs.getString("NAMEPRODUCT"));
-                    product.setValues(rs.getDouble("BUYVALUE"));
-                    product.setValuesSale(rs.getDouble("SALEVALUE"));
-                    product.setDetails(rs.getString("DETAILS"));
-                    product.setCategoryId(rs.getInt("CATEGORY_ID"));
-                    product.setQuantity(rs.getInt("AMOUNT"));
+                    product.setId(rs.getInt(1));
+                    product.setNameProduct(rs.getString(2));
+                    product.setValues(rs.getDouble(3));
+                    product.setValuesSale(rs.getDouble(4));
+                    product.setDetails(rs.getString(5));
+                    product.setCategoryName(rs.getString(6));
+                    product.setQuantity(rs.getInt(7));
                     Product.add(product);
                 }
             }
             return Product;
-
+            
         } catch (SQLException ex) {
             throw ex;
         }
-
+        
     }
-
+    
     public static boolean delete(int id)
             throws SQLException {
-
+        
         String query = "DELETE FROM product WHERE ID_PRODUCT=? ";
-
+        
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
         return retorno;
     }
-
+    
     public static boolean update(Product p)
             throws SQLException {
-
+        
         try {
             String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, CATEGORY_ID WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
-
+            
             ps.setString(1, p.getNameProduct());
             ps.setDouble(2, p.getValues());
             ps.setDouble(3, p.getValuesSale());
             ps.setString(4, p.getDetails());
             ps.setInt(5, p.getCategoryId());
             ps.setInt(5, p.getId());
-
+            
             int updatedlines = ps.executeUpdate();
-
+            
             retorno = updatedlines > 0;
-
+            
             return retorno;
         } catch (SQLException ex) {
             throw ex;
         }
     }
-
+    
     public static boolean create(Product p, int quantity) {
         try {
-
+            
             String query
                     = "INSERT INTO product"
                     + "(NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, CATEGORY_ID)"
@@ -117,7 +120,7 @@ public class ProductDAO {
             return retorno;
         } catch (SQLException ex) {
             printSQLException(ex);
-
+            
         }
         return false;
     }
@@ -138,15 +141,15 @@ public class ProductDAO {
             }
         }
     }
-
+    
     public static Product findBydId(int id) {
         try {
             String query = "SELECT * FROM product WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
-
+            
             rs = ps.executeQuery();
-
+            
             Product product = new Product();
             while (rs.next()) {
                 product.setId(rs.getInt("ID_PRODUCT"));
@@ -161,15 +164,15 @@ public class ProductDAO {
         }
         return null;
     }
-
+    
     public static List<Product> findByName(String name) {
         try {
             String query = "SELECT * FROM product WHERE NAMEPRODUCT LIKE ?";
             ps = con.prepareStatement(query);
             ps.setString(1, "%" + name + "%");
-
+            
             rs = ps.executeQuery();
-
+            
             List<Product> productList = new ArrayList<>();
             if (rs != null) {
                 while (rs.next()) {
@@ -179,7 +182,7 @@ public class ProductDAO {
                     product.setValues(rs.getDouble("BUYVALUE"));
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
-                    //product.setIdBranchOffice("ID_BRANCH_OFFICE");
+                    //product.setIdBranchOffice(rs.getInt("ID_BRANCH_OFFICE"));
                     productList.add(product);
                 }
             }
