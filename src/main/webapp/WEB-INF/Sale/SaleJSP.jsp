@@ -44,6 +44,7 @@
                         </c:choose>
                     </tbody>
                 </table>
+                <p>${errorClient}</p>
             </div>
         </div>
         <div class="ml-5">
@@ -81,12 +82,14 @@
                         </c:choose>
                     </tbody>
                 </table>
+                <p>${errorProduct}</p>
             </div>
         </div>
     </div>
     <div>
         <h2>Lista de produtos</h2>
         <div class="container mt-2 top-body">
+            <p>${errorQuantity}</p>
             <div class="row">
                 <div class="col">Id</div>
                 <div class="col">Nome</div>
@@ -121,6 +124,7 @@
                     </form>
                 </div>
             </div>
+            <p>${errorSale}</p>
         </div>
     </div>
 </section>

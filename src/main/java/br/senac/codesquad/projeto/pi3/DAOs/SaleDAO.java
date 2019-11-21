@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,11 +30,8 @@ public class SaleDAO {
         ArrayList<Sale> listaRetorno = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
         try {
-            String query = "SELECT * FROM SALE";
+            String query = "SELECT * FROM SALES";
             PreparedStatement comando = con.prepareStatement(query);
-
-            ResultSet rs = comando.getResultSet();
-
             if (rs != null) {
                 while (rs.next()) {
                     Sale s = new Sale();
@@ -118,20 +114,20 @@ public class SaleDAO {
                     + "(VALUE_FULL, "
                     + "USER_ID_USER, "
                     + "CLIENT_ID_CLIENT, "
-                    + "BRANCH_OFFICE_ID_BRANCH_OFFICE) "
+                    + "BRANCH_OFFICE_ID_BRANCH_OFFICE, "
+                    + "DATE_SALE) "
                     + "values "
-                    + "(?, ?, ?, ?);";
+                    + "(?, ?, ?, ?, ?);";
             ps = con.prepareStatement(query);
-            java.sql.Date dateDB = new java.sql.Date(0);
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//            sdf.format(dateDB);
-//            dateDB = new java.sql.Date(sale.getDate().getTime());
-//            sdf.format(dateDB);
-//            ps.setString(1, dateDB.toString());
+            Date dt = new Date();
+            SimpleDateFormat sdf
+                    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = sdf.format(dt);
             ps.setDouble(1, sale.getTotalValue());
             ps.setInt(2, 4);
             ps.setInt(3, sale.getClient().getId());
             ps.setInt(4, 2);
+            ps.setString(5, currentTime);
             int updatedlines = ps.executeUpdate();
 
             if (updatedlines > 0) {
