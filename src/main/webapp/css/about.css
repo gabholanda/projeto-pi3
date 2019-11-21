@@ -9,8 +9,22 @@ and open the template in the editor.
 */
 .cbg-image{
     background-image: url("C:\Users\lucas.mnpaiva\Documents\NetBeansProjects\projeto-pi3\src\main\webapp\BackgorundImages\backgroundAbout.jpg");
-   background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     background-attachment: fixed;
+}
+.map-container{
+    overflow:hidden;
+    padding-bottom: 56.25%;
+    position:relative;
+    height: 0;
+}
+.map-container iframe{
+  
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position:absolute;
 }
