@@ -6,6 +6,7 @@
 package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.UserDAO;
+import br.senac.codesquad.projeto.pi3.enums.Roles;
 import br.senac.codesquad.projeto.pi3.models.Management;
 import br.senac.codesquad.projeto.pi3.models.Manager;
 import br.senac.codesquad.projeto.pi3.models.User;
@@ -20,66 +21,54 @@ import java.util.logging.Logger;
  */
 public class UserController {
 
-    public static boolean create(String mail, String password, String name, String permission) {
-        if (permission.equalsIgnoreCase("funcionario")) {
-            return false;
-        } else if (permission.equalsIgnoreCase("gerencia")) {
+    public static boolean create(String mail, String password, String name, String permissionNew, String permission) {
+        if (permission.equalsIgnoreCase("TI")) {
             try {
-                Management management = new Management(name, mail, password);
-                return UserDAO.create(management, management.getPermission());
+                User user = new User(mail, password, name) {
+                };
+                return UserDAO.create(user, Roles.valueOf(permissionNew));
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (permission.equalsIgnoreCase("gerente")) {
+        } else {
             return false;
         }
         return false;
     }
 
-    public static boolean update(int id, String name, String mail, String password, String permission) {
-        if (permission.equalsIgnoreCase("funcionario")) {
+    public static boolean update(int id, String name, String password, String permission) {
+        if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
+            try {
+                User user = new User(name, password){};
+                return UserDAO.update(user, id);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
             return false;
-        } else if (permission.equalsIgnoreCase("gerencia")) {
-            try {
-                Management management = new Management(name, mail, password);
-                return UserDAO.update(management, id);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (permission.equalsIgnoreCase("gerente")) {
-            try {
-                Manager manager = new Manager(name, mail, password);
-                return UserDAO.update(manager, id);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return false;
 
     }
 
     public static boolean delete(int id, String permission) {
-        if (permission.equalsIgnoreCase("funcionario")) {
-            return false;
-        } else if (permission.equalsIgnoreCase("gerencia")) {
-            try {
+        if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
+           try {
                 return UserDAO.delete(id);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (permission.equalsIgnoreCase("gerente")) {
+        } else {
             return false;
         }
         return false;
     }
 
-    public static ArrayList<User> getUsers(String permission) {
+    public static ArrayList<User> read(String permission) {
         ArrayList<User> user = null;
-        if (permission.equalsIgnoreCase("funcionario")) {
+        if (permission.equalsIgnoreCase("VENDAS") || permission.equalsIgnoreCase("BACKOFFICE")) {
             return user;
-        } else if (permission.equalsIgnoreCase("gerencia")) {
-            return UserDAO.read();
-        } else if (permission.equalsIgnoreCase("gerente")) {
+        } else if (permission.equalsIgnoreCase("DIRETORIA") || permission.equalsIgnoreCase("GERENTE") || permission.equalsIgnoreCase("RH") || permission.equalsIgnoreCase("TI")) {
             return UserDAO.read();
         }
         return user;
@@ -87,10 +76,6 @@ public class UserController {
 
     public static User findById(int id) {
         return UserDAO.findBydId(id);
-    }
-
-    public static ArrayList<User> read() throws Exception {
-        return UserDAO.read();
     }
 
 }
