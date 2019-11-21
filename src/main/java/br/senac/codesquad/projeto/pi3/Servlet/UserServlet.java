@@ -103,7 +103,7 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("idAttr", user.getId());
         request.setAttribute("nameAttr", user.getName());
         request.setAttribute("mailAttr", user.getMail());
-        request.setAttribute("passwordAttr", user.getPassword());
+//        request.setAttribute("passwordAttr", user.getPassword());
 
         String path = "./User/UserEdit.jsp";
         request.setAttribute("path", path);
@@ -117,12 +117,12 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, Exception {
         String idAttr = request.getParameter("id");
         String name = (request.getParameter("name"));
-        String mail = (request.getParameter("mail"));
+//        String mail = (request.getParameter("email"));
         String password = (request.getParameter("password"));
-        String permission = (request.getParameter("permission"));
+//        String permission = (request.getParameter("permission"));
         int id = Integer.parseInt(idAttr);
 
-        UserController.update(id, name, mail, password, permission);
+        UserController.update(id, name, password, "TI");
         response.sendRedirect("user");
     }
 
@@ -130,11 +130,11 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException {
 
         String name = (request.getParameter("name"));
-        String mail = (request.getParameter("mail"));
+        String mail = (request.getParameter("email"));
         String password = (request.getParameter("password"));
         String permission = (request.getParameter("permission"));
 
-        UserController.create(name, mail, password, permission);
+        UserController.create(name, mail, password, permission, "TI");
         response.sendRedirect("user");
 
     }
@@ -143,9 +143,9 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException {
 
         String id = request.getParameter("id");
-        String permission = request.getParameter("permission");
-        UserController.delete(Integer.parseInt(id),permission);
-        response.sendRedirect("client");
+//        String permission = request.getParameter("permission");
+        UserController.delete(Integer.parseInt(id),"TI");
+        response.sendRedirect("user");
 
     }
 
@@ -153,9 +153,9 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
 
         try {
-            ArrayList<User> userList = UserController.read();
+            ArrayList<User> userList = UserController.read("DIRETORIA");
             String path = "./User/UserList.jsp";
-            request.setAttribute("clientList", userList);
+            request.setAttribute("userList", userList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(

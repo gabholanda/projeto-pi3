@@ -15,20 +15,19 @@ import javax.websocket.Session;
  */
 public class Employee extends User implements Authenticable {
 
-    private final Roles permission = Roles.VENDAS ; //permission user
+    private final Roles permission = Roles.VENDAS; //permission user
 
     public Employee() {
     }
 
-    public Employee(String mail, String password, String name) {
+    public Employee(String name, String mail, String password) {
         super(mail, password, name);
     }
 
-    
     public Roles getPermission() {
         return permission;
     }
-    
+
     @Override
     public Session login() {
         return null;

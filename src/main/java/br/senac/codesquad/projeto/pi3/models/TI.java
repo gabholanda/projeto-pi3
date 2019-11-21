@@ -21,6 +21,10 @@ public class TI extends User implements Authenticable {
         super(mail, password, name);
     }
 
+    public TI() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 //   
     /**
      * @return the permission

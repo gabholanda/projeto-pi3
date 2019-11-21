@@ -20,6 +20,10 @@ public class Management extends User implements Authenticable {
     public Management(String name, String mail, String password ) {
         super(mail, password, name);
     }
+
+    public Management() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     public Roles getPermission() {
