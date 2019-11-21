@@ -5,14 +5,17 @@
  */
 package br.senac.codesquad.projeto.pi3.controllers;
 
+import br.senac.codesquad.projeto.pi3.DAOs.SaleDAO;
+import br.senac.codesquad.projeto.pi3.models.Sale;
+
 /**
  *
  * @author gabriel.hsantos21
  */
 public class SaleController {
 
-    public static void create() {
-
+    public static boolean create(Sale sale) throws Exception {
+        return SaleDAO.create(sale);
     }
 
     public static void update() {

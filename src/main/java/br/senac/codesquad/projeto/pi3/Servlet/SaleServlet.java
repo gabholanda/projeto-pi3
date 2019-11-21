@@ -11,13 +11,20 @@ package br.senac.codesquad.projeto.pi3.Servlet;
  */
 import br.senac.codesquad.projeto.pi3.controllers.ClientController;
 import br.senac.codesquad.projeto.pi3.controllers.ProductController;
+import br.senac.codesquad.projeto.pi3.controllers.SaleController;
 import br.senac.codesquad.projeto.pi3.models.Client;
+import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -35,9 +42,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "SaleServlet", urlPatterns = {"/sale/*"})
 public class SaleServlet extends HttpServlet {
 
-    private Sale sale;
-    private Client client;
-
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
@@ -54,11 +58,24 @@ public class SaleServlet extends HttpServlet {
                 case "/new":
                     form(request, response);
                     break;
-                case "/client":
-                    client(request, response);
+                case "/create":
+                    create(request, response);
                     break;
-                case "/product":
-                    product(request, response);
+                case "/searchClient":
+                    searchClient(request, response);
+                    break;
+                case "/addClient":
+                    addClient(request, response);
+                    break;
+                case "/searchProduct":
+                    searchProduct(request, response);
+                    break;
+                case "/addSaleList":
+                    addSaleList(request, response);
+                    break;
+                case "/changeQuantity":
+                    changeQuantity(request, response);
+                    break;
                 default:
                     form(request, response);
                     break;
@@ -77,6 +94,14 @@ public class SaleServlet extends HttpServlet {
 
     public static void form(HttpServletRequest request, HttpServletResponse response) {
         try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("sale") == null) {
+                session.setAttribute("sale",
+                        new Sale());
+            }
+            Sale sale = (Sale) session.getAttribute("sale");
+            session.setAttribute("sale", sale);
             String path = "./Sale/SaleJSP.jsp";
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
@@ -88,7 +113,30 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void client(HttpServletRequest request, HttpServletResponse response) {
+    public static void create(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("sale") == null) {
+                session.setAttribute("errorSale", "Erro ao tentar realizar venda");
+                response.sendRedirect(request.getContextPath() + "/sale");
+            } else {
+                Sale sale = (Sale) session.getAttribute("sale");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                Date date = new Date();
+                sdf.format(date);
+                sale.setDate(date);
+                SaleController.create(sale);
+                response.sendRedirect(request.getContextPath() + "/sale");
+            }
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void searchClient(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -106,7 +154,26 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
-    public static void product(HttpServletRequest request, HttpServletResponse response) {
+    public static void addClient(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("selectedClient") == null) {
+                session.setAttribute("selectedClient",
+                        new Client());
+            }
+            // Seto a sale e o cliente que esta comprando
+            Sale sale = (Sale) session.getAttribute("sale");
+            String id = request.getParameter("clientId");
+            sale.setClient(ClientController.findById(Integer.parseInt(id)));
+            session.setAttribute("selectedClient", sale.getClient());
+            response.sendRedirect(request.getContextPath() + "/sale");
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void searchProduct(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
 
@@ -122,5 +189,68 @@ public class SaleServlet extends HttpServlet {
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void addSaleList(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("orderedItemList") == null) {
+                session.setAttribute("orderedItemList", new TreeSet<ItemOrdered>());
+            }
+            // Seto a sale e a lista de items da Sale
+            Sale sale = (Sale) session.getAttribute("sale");
+            sale.setItems((Set<ItemOrdered>) session.getAttribute("orderedItemList"));
+            // Busco o produto pelo ID e adiciono a lista, verificando se ela ja nao esta nela
+            String productId = request.getParameter("productId");
+            Product p = ProductController.findById(Integer.parseInt(productId));
+            ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
+            item.setName(p.getNameProduct());
+            if (!sale.getItems().contains(item)) {
+                sale.getItems().add(item);
+                sumTotalValue(sale);
+                response.sendRedirect(request.getContextPath() + "/sale");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/sale");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void changeQuantity(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("orderedItemList") == null) {
+                session.setAttribute("orderedItemList",
+                        new TreeSet<ItemOrdered>());
+            }
+            // Seto a sale e a lista de items da Sale
+            Sale sale = (Sale) session.getAttribute("sale");
+            sale.setItems((Set<ItemOrdered>) session.getAttribute("orderedItemList"));
+            String id = request.getParameter("orderedItemId");
+            String quantity = request.getParameter("itemQuantity");
+            // Verifico qual o item que vai ter a quantidade aumentada pelo ID e depois recalculo o total
+            for (Iterator<ItemOrdered> it = sale.getItems().iterator(); it.hasNext();) {
+                ItemOrdered item = it.next();
+                if (item.getId() == Integer.parseInt(id)) {
+                    item.setQuantityItem(Integer.parseInt(quantity));
+                    sumTotalValue(sale);
+                }
+            }
+            response.sendRedirect(request.getContextPath() + "/sale");
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void sumTotalValue(Sale sale) {
+        double soma = 0;
+        for (Iterator<ItemOrdered> it = sale.getItems().iterator(); it.hasNext();) {
+            ItemOrdered item = it.next();
+            soma += item.getValue() * item.getQuantityItem();
+        }
+        sale.setTotalValue(soma);
     }
 }
