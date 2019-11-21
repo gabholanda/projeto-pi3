@@ -22,7 +22,7 @@ public class BackOffice extends User implements Authenticable {
     }
 
     public BackOffice() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 //   

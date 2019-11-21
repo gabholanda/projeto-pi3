@@ -22,7 +22,7 @@ public class TI extends User implements Authenticable {
     }
 
     public TI() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 //   
