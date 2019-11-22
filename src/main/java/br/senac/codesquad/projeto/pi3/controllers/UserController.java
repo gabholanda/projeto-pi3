@@ -22,9 +22,7 @@ public class UserController {
     public static boolean create(String mail, String password, String name, String permissionNew, String permission) {
         if (permission.equalsIgnoreCase("TI")) {
             try {
-                User user = new User(mail, password, name) {
-                };
-                return UserDAO.create(user, Roles.valueOf(permissionNew));
+                return UserDAO.create(mail, password, name, Roles.valueOf(permissionNew));
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -37,9 +35,7 @@ public class UserController {
     public static boolean update(int id, String name, String password, String permission) {
         if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
             try {
-                User user = new User(name, "", password) {
-                };
-                return UserDAO.update(user, id);
+                return UserDAO.update(id, name, password);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -79,11 +75,8 @@ public class UserController {
     }
 
     public static User login(String mail, String password) {
-
         try {
-            User user = new User(mail, password) {
-            };
-            return UserDAO.findbyMail(user);
+            return UserDAO.findbyMail(mail, password);
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }

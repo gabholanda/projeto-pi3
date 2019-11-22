@@ -5,14 +5,15 @@
  */
 package br.senac.codesquad.projeto.pi3.Interfaces;
 
-import javax.websocket.Session;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author patrickchagas
  */
 public interface Authenticable {
-    public abstract Session login();
-    
-    public abstract Session Logout();
+
+    public HttpSession login();
+
+    public HttpSession logout();
 }

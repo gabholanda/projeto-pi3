@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,16 +42,16 @@ public class UserDAO {
         return retorno;
     }
 
-    public static boolean update(User user, int id) throws SQLException {
+    public static boolean update(int id, String name, String password) throws SQLException {
 
         try {
             String query = "UPDATE user SET NAME = ?, PASSWORD=? WHERE ID_USER = ?";
 
             ps = con.prepareStatement(query);
 
-            ps.setString(1, user.getName());
+            ps.setString(1, name);
 //            ps.setString(2, user.getMail());
-            ps.setString(2, user.getPassword());
+            ps.setString(2, password);
             ps.setInt(3, id);
 
             int updatedlines = ps.executeUpdate();
@@ -65,15 +66,15 @@ public class UserDAO {
 
     }
 
-    public static boolean create(User user, Roles permission) throws SQLException {
+    public static boolean create(String mail, String password, String name, Roles permission) throws SQLException {
 
         try {
 
             String query = "INSERT INTO user (NAME,EMAIL,PASSWORD,PERMISSIONS) VALUES(?,?,?,?)";
             ps = con.prepareStatement(query);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getMail());
-            ps.setString(3, user.getPassword());
+            ps.setString(1, name);
+            ps.setString(2, mail);
+            ps.setString(3, password);
             ps.setString(4, permission.getPermission());
 
             int updatedlines = ps.executeUpdate();
@@ -114,16 +115,7 @@ public class UserDAO {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs != null) {
-                //adicionar condiçoes de permissões
-                while (rs.next()) {
-                    User user = new User() {
-                    };
-                    user.setId(rs.getInt("ID_USER"));
-                    user.setName(rs.getString("NAME"));
-                    user.setMail(rs.getString("EMAIL"));
-                    user.setPermission(Roles.valueOf(rs.getString("PERMISSIONS")));
-                    users.add(user);
-                }
+                checkUserType(users);
             }
             return users;
         } catch (SQLException ex) {
@@ -141,15 +133,7 @@ public class UserDAO {
 
             rs = ps.executeQuery();
 
-            User user = new User() {
-            };
-            while (rs.next()) {
-                user.setId(rs.getInt("ID_USER"));
-                user.setName(rs.getString("NAME"));
-                user.setMail(rs.getString("EMAIL"));
-//                user.setPermission((rs.getString("PERMISSIONS")));
-            }
-
+            User user = checkUserType();
             return user;
 
         } catch (SQLException ex) {
@@ -158,30 +142,38 @@ public class UserDAO {
         return null;
     }
 
-    public static User findbyMail(User user) throws SQLException {
+    public static User findbyMail(String mail, String password) throws SQLException {
         try {
             String query = "SELECT EMAIL, PASSWORD, PERMISSIONS FROM codesquad.user WHERE EMAIL = ? ";
             ps = con.prepareStatement(query);
-            ps.setString(1, user.getMail());
+            ps.setString(1, mail);
 //            ps.setString(2, user.getPassword());
             rs = ps.executeQuery();
-            System.out.println("password: " + user.getPassword());
+            User user = null;
             while (rs.next()) {
-                if (rs.getString("permissions").equals("TI")) {
-                    user = new TI();
-                } else if (rs.getString("permissions").equals("RH")) {
-                    user = new RH();
-                } else if (rs.getString("permissions").equals("BACKOFFICE")) {
-                    user = new BackOffice();
-                } else if (rs.getString("permissions").equals("VENDAS")) {
-                    user = new Employee();
-                } else if (rs.getString("permissions").equals("MANAGER")) {
-                    user = new Manager();
-                } else {
-
-                    user = new Management();
+                switch (rs.getString("permissions")) {
+                    case "TI":
+                        user = new TI();
+                        break;
+                    case "RH":
+                        user = new RH();
+                        break;
+                    case "BACKOFFICE":
+                        user = new BackOffice();
+                        break;
+                    case "VENDAS":
+                        user = new Employee();
+                        break;
+                    case "GERENTE":
+                        user = new Manager();
+                        break;
+                    case "DIRETORIA":
+                        user = new Management();
+                        break;
+                    default:
+                        user = null;
+                        break;
                 }
-
                 user.setMail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
             }
@@ -193,4 +185,83 @@ public class UserDAO {
             return null;
         }
     }
+
+    public static User checkUserType() throws SQLException {
+        User user = null;
+        while (rs.next()) {
+            switch ((rs.getString("PERMISSIONS"))) {
+                case "RH":
+                    user = (User) new RH();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "TI":
+                    user = (User) new TI();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "VENDAS":
+                    user = (User) new Manager();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "DIRETORIA":
+                    user = (User) new Management();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "BACKOFFICE":
+                    user = (User) new BackOffice();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+            }
+        }
+        return user;
+    }
+
+    public static void checkUserType(List<User> list) throws SQLException {
+        User user = null;
+        while (rs.next()) {
+            switch ((rs.getString("PERMISSIONS"))) {
+                case "RH":
+                    user = (User) new RH();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "TI":
+                    user = (User) new TI();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "VENDAS":
+                    user = (User) new Manager();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "DIRETORIA":
+                    user = (User) new Management();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "BACKOFFICE":
+                    user = (User) new BackOffice();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+            }
+        }
+        list.add(user);
+    }
+
 }

@@ -74,7 +74,7 @@ public class ReportServlet extends HttpServlet {
 
     private void generate(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
+        
         response.sendRedirect(request.getContextPath() + "/report");
     }
 }
