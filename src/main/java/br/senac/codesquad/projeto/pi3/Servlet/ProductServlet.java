@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,6 +8,7 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 import br.senac.codesquad.projeto.pi3.controllers.ProductController;
 import br.senac.codesquad.projeto.pi3.models.Category;
 import br.senac.codesquad.projeto.pi3.models.Product;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -65,6 +66,9 @@ public class ProductServlet extends HttpServlet {
                     update(request, response);
                     break;
 
+                case "/searchProduct":
+                    searchProduct(request, response);
+                    break;
                 default:
                     read(request, response);
                     break;
@@ -102,7 +106,7 @@ public class ProductServlet extends HttpServlet {
         String idAttr = request.getParameter("id");
         int id = Integer.parseInt(idAttr);
         List<Category> categoryList = ProductController.findCategory();
-        
+
         Product product = ProductController.findById(id);
 
         request.setAttribute("idAttr", product.getId());
@@ -142,16 +146,18 @@ public class ProductServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
-
+        HttpSession session = request.getSession();
         String nameProduct = request.getParameter("name");
         String values = request.getParameter("priceBuy");
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
-        String category = request.getParameter("categoryName");
+        String categoryId = request.getParameter("categoryId");
         String quantity = request.getParameter("quantity");
 
+        User user = (User) session.getAttribute("user");
+
         ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                details, 3, 5, Integer.parseInt(quantity));
+                details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity));
         // details,Integer.parseInt(category));
 
         response.sendRedirect(request.getContextPath() + "/product");
@@ -174,16 +180,31 @@ public class ProductServlet extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         try {
-            ArrayList<Product> productList = ProductController.read();
             String path = "./Product/ProductList.jsp";
-            request.setAttribute("productList", productList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
-        } catch (Exception ex) {
+        } catch (IOException | ServletException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void searchProduct(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("productList") == null) {
+                session.setAttribute("productList", new ArrayList<>());
+            }
+            String name = request.getParameter("productName");
+            List<Product> productList = ProductController.findByName(name);
+            session.setAttribute("productList",
+                    productList);
+            response.sendRedirect(request.getContextPath() + "/product");
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

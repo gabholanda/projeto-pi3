@@ -31,19 +31,19 @@
                 <label for="txtQuantity">Quantidade</label>
                 <input type="number" name="quantity" class="form-control" value="${quantityAttr}" placeholder="Quantidade .." step="1" required/> 
             </div>
-             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtCategory">Categoria</label>
-                <select name="select">
+                <select name="categoryId">
                     <c:forEach var="category" items="${categoryList}">
                         <option value="${category.id}"><c:out value="${category.name}"/></option>
                     </c:forEach>
                 </select>
-             </div>
-                <button type="submit" class="btn btn-success">Salvar</button>
-                <button type="reset"class="btn btn-warning">Resetar Dados</button>
-                <a href="${pageContext.request.contextPath}/product" role="button" class="btn btn-danger">Cancelar</a>
             </div>
-        </form>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <button type="reset"class="btn btn-warning">Resetar Dados</button>
+            <a href="${pageContext.request.contextPath}/product" role="button" class="btn btn-danger">Cancelar</a>
     </div>
+</form>
+</div>
 </div>
 

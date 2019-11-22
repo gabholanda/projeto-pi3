@@ -17,6 +17,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public abstract class User implements Authenticable {
 
     private int id;
+    private int idBranch;
     private String mail;
     private String password;
     private String name;
@@ -117,6 +118,14 @@ public abstract class User implements Authenticable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdBranch() {
+        return idBranch;
+    }
+
+    public void setIdBranch(int idBranch) {
+        this.idBranch = idBranch;
     }
 
     public boolean checkPassword(String plainPassword) {

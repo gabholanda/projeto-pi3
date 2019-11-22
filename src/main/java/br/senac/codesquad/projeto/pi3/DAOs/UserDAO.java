@@ -69,7 +69,7 @@ public class UserDAO {
     public static boolean create(String mail, String password, String name, Roles permission) throws SQLException {
 
         try {
-
+            //FALTA O ID_BRANCH AQUI
             String query = "INSERT INTO user (NAME,EMAIL,PASSWORD,PERMISSIONS) VALUES(?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
@@ -144,10 +144,10 @@ public class UserDAO {
 
     public static User findbyMail(String mail, String password) throws SQLException {
         try {
+            //FALTA O ID BRANCH DAQUI
             String query = "SELECT EMAIL, PASSWORD, PERMISSIONS FROM codesquad.user WHERE EMAIL = ? ";
             ps = con.prepareStatement(query);
             ps.setString(1, mail);
-//            ps.setString(2, user.getPassword());
             rs = ps.executeQuery();
             User user = null;
             while (rs.next()) {
@@ -176,6 +176,7 @@ public class UserDAO {
                 }
                 user.setMail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
+                //user.setIdBranch(rs.getInt("ID_BRANCH"));
             }
 
             return user;

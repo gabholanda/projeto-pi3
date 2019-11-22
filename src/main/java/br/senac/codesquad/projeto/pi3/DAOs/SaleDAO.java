@@ -8,6 +8,7 @@ package br.senac.codesquad.projeto.pi3.DAOs;
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import br.senac.codesquad.projeto.pi3.models.Sale;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -106,7 +107,7 @@ public class SaleDAO {
         return retorno;
     }
 
-    public static boolean create(Sale sale) throws Exception {
+    public static boolean create(Sale sale, User user) throws Exception {
         Connection con = ConnectionManager.getConnection();
         try {
             String query
@@ -124,9 +125,9 @@ public class SaleDAO {
                     = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(dt);
             ps.setDouble(1, sale.getTotalValue());
-            ps.setInt(2, 4);
+            ps.setInt(2, user.getId());
             ps.setInt(3, sale.getClient().getId());
-            ps.setInt(4, 2);
+            ps.setInt(4, user.getIdBranch());
             ps.setString(5, currentTime);
             int updatedlines = ps.executeUpdate();
 

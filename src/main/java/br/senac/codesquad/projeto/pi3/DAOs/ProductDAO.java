@@ -24,6 +24,7 @@ public class ProductDAO {
     public static ArrayList<Product> getProduct()
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
+        //O AMOUNT DAQUI TEM QUE SER PELA FILIAL
         try {
             String query = "SELECT "
                     + "A.ID_PRODUCT, "
@@ -60,7 +61,6 @@ public class ProductDAO {
 
     public static boolean delete(int id)
             throws SQLException {
-
         String query = "DELETE FROM product WHERE ID_PRODUCT=? ";
 
         ps = con.prepareStatement(query);
@@ -72,7 +72,7 @@ public class ProductDAO {
 
     public static boolean update(Product p)
             throws SQLException {
-
+        // ESSE UPDATE TEM QUE SER POR FILIAL OU APENAS A DIRETORIA TER DIREITO DE FAZER
         try {
             String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, CATEGORY_ID WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);

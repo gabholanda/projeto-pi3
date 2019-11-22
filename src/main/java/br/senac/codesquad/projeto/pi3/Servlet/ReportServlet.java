@@ -5,6 +5,7 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
+import br.senac.codesquad.projeto.pi3.DAOs.ReportDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -74,7 +75,7 @@ public class ReportServlet extends HttpServlet {
 
     private void generate(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        
+        ReportDAO.generateReport();
         response.sendRedirect(request.getContextPath() + "/report");
     }
 }
