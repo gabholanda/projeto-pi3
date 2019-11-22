@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package br.senac.codesquad.projeto.pi3.Filter;
 
@@ -21,12 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // @author marcelo.smoraes2
-@WebFilter(filterName = "FilterAuth", urlPatterns = {"/branch/*", "/client/*", "/product/*", "/user/*", "/sale/*", "/report/*",})
+@WebFilter(filterName = "FilterAuth", urlPatterns = {"/branch/*", "/client/*", "/product/*", "/user/*", "/sale/*",
+    "/report/*",})
 
 public class FilterAuth implements Filter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -45,9 +47,7 @@ public class FilterAuth implements Filter {
         } else {
             String path = "./Auth/NoAuth.jsp";
             request.setAttribute("path", path);
-            RequestDispatcher dispatcher
-                    = request.getRequestDispatcher(
-                            "/WEB-INF/IndexJSP.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -59,16 +59,19 @@ public class FilterAuth implements Filter {
         if (urlAcessada.endsWith("/auth/LoginJSP") || urlAcessada.endsWith("/infoScreens/about")) {
             return true;
 
-        } else if (urlAcessada.contains("/branch") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
+        } else if (urlAcessada.contains("/branch") && user.verificarPapel(user, Roles.DIRETORIA)
+                || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
-        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
+        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA)
+                || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
         } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.valueOf("BACKOFFICE"))) {
             return true;
 
-        } else if (urlAcessada.contains("/user") && user.verificarPapel(user, Roles.valueOf("RH")) || user.verificarPapel(user, Roles.valueOf("TI"))) {
+        } else if (urlAcessada.contains("/user") && user.verificarPapel(user, Roles.valueOf("RH"))
+                || user.verificarPapel(user, Roles.valueOf("TI"))) {
             return true;
 
         } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.valueOf("VENDAS"))) {

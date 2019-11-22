@@ -5,11 +5,14 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
+import br.senac.codesquad.projeto.pi3.controllers.BranchOfficeController;
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
+import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -83,7 +86,10 @@ public class UserServlet extends HttpServlet {
     }
 
     private void form(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException, ServletException, SQLException {
+        List<BranchOffice> branchOfficeList = BranchOfficeController.findBranchOffice();
+        request.setAttribute("branchOfficeListAttr", branchOfficeList);
+        
         String path = "./User/UserCreate.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
@@ -133,12 +139,13 @@ public class UserServlet extends HttpServlet {
         String mail = (request.getParameter("email"));
         String password = (request.getParameter("password"));
         String permission = (request.getParameter("permission"));
+        String IdEmpresas = (request.getParameter("branchOfficeId"));
 
         if (session.getAttribute("user") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             User user = (User) session.getAttribute("user");
-            if (UserController.create(mail, password, name, permission, user.getPermission().getPermission())) {
+            if (UserController.create(mail, password, name, permission, Integer.parseInt(IdEmpresas) , user.getPermission().getPermission())) {
                 response.sendRedirect(request.getContextPath() + "/user");
             } else {
                 response.sendRedirect(request.getContextPath() + "/home");

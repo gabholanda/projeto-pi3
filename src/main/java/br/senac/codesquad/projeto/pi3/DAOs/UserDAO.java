@@ -66,19 +66,21 @@ public class UserDAO {
 
     }
 
-    public static boolean create(String mail, String password, String name, Roles permission) throws SQLException {
+    public static boolean create(String mail, String password, String name, Roles permission, int IdEmpresa) throws SQLException {
 
         try {
             //FALTA O ID_BRANCH AQUI
-            String query = "INSERT INTO user (NAME,EMAIL,PASSWORD,PERMISSIONS) VALUES(?,?,?,?)";
+            String query = "INSERT INTO user (NAME,EMAIL,PASSWORD,PERMISSIONS, ID_BRANCHOFFICE) VALUES(?,?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, mail);
             ps.setString(3, password);
             ps.setString(4, permission.getPermission());
+            ps.setInt(5, IdEmpresa);
 
             int updatedlines = ps.executeUpdate();
-
+            
+            
             retorno = updatedlines > 0;
 
             return retorno;

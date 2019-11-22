@@ -19,10 +19,10 @@ import java.util.logging.Logger;
  */
 public class UserController {
 
-    public static boolean create(String mail, String password, String name, String permissionNew, String permission) {
+    public static boolean create(String mail, String password, String name, String permissionNew,int IdEmpresa, String permission) {
         if (permission.equalsIgnoreCase("TI")) {
             try {
-                return UserDAO.create(mail, password, name, Roles.valueOf(permissionNew));
+                return UserDAO.create(mail, password, name, Roles.valueOf(permissionNew),IdEmpresa);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
