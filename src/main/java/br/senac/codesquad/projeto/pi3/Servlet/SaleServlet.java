@@ -16,10 +16,10 @@ import br.senac.codesquad.projeto.pi3.models.Client;
 import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import br.senac.codesquad.projeto.pi3.models.Sale;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -145,7 +145,8 @@ public class SaleServlet extends HttpServlet {
                     Date date = new Date();
                     sdf.format(date);
                     sale.setDate(date);
-                    if (SaleController.create(sale)) {
+                    User user = (User) session.getAttribute("user");
+                    if (SaleController.create(sale, user)) {
                         clean(request, response);
                         response.sendRedirect(request.getContextPath() + "/sale/new");
                     } else {

@@ -27,6 +27,7 @@ public class ProductController {
     }
 
     public static boolean delete(int id) throws SQLException {
+        // ESSE DELETE APENAS A DIRETORIA TEM QUE TER PERMISSÃO PRA REALIZAR
         return ProductDAO.delete(id);
     }
 
@@ -46,7 +47,8 @@ public class ProductController {
         }
         return productList;
     }
-    public static List<Category> findCategory() throws SQLException{
+
+    public static List<Category> findCategory() throws SQLException {
         return ProductDAO.findCategoryName();
     }
 }
