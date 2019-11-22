@@ -7,14 +7,20 @@ and open the template in the editor.
     Created on : 25/10/2019, 18:34:25
     Author     : lucas.paiva
 */
-.pbg-image{
-    background-image: url("https://images.pexels.com/photos/1420702/pexels-photo-1420702.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+.cbg-image{
+    background-image: url("../Images/BackgroundImages/BackgroundProduct.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     background-attachment: fixed;
 }
-
+.pbg-image{
+    background-image: url("https://i.imgur.com/cYiVA8qg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    background-attachment: fixed;
+}
 form{
     align-content: center
 }
@@ -167,4 +173,7 @@ input[type=text]:placeholder, input[type=number]:placeholder {
 
 #icon {
     width:60%;
+}
+.bg-purple {
+    background-color: #6f42c1;
 }

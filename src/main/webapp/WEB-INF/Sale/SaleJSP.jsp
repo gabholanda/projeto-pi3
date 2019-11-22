@@ -3,10 +3,12 @@
 
 
 <link href="${pageContext.request.contextPath}/css/sale.css" rel="stylesheet">
+
 <section class="p-5">
+    <div class="jumbotron">
     <div class="d-flex">
         <div class="mr-5">
-            <h2>Lista de clientes</h2>
+            <h1>Lista de clientes</h1>
             <form method="post" action="${pageContext.request.contextPath}/sale/client">
                 <input type="text" placeholder="Pesquise pelo nome ..." name="name">
                 <button type="submit">pesquisar</button>
@@ -40,6 +42,9 @@
                 </table>
             </div>
         </div>
+                </div>
+    </div>
+    <div class="jumbotron">
         <div class="ml-5">
             <h2>Lista de produtos</h2>
             <form method="post" action="${pageContext.request.contextPath}/sale/product">
@@ -56,6 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                          </div>
                         <c:choose>
                             <c:when test="${sessionScope.productList != null && !sessionScope.productList.isEmpty()}">
                                 <c:forEach var="product" items="${sessionScope.productList}">
