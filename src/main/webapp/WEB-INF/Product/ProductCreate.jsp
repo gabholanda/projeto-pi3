@@ -28,14 +28,7 @@
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtQuantity">Quantidade</label>
-                <input type="number" name="quantity" class="form-control" value="${quantityAttr}" placeholder="Quantiydade .." step="1" required/>            
-            </div>
-            <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
-                <c:forEach var="category" items="${categoryList}">
-                    <label for="txtCategory">Categoria</label>
-                    <input type="checkbox" name="category" class="form-control">
-                    <label for="checkCatgory">${categoryAttr}</label>
-                </c:forEach>
+                <input type="number" name="quantity" class="form-control" value="${quantityAttr}" placeholder="Quantidade .." step="1" required/>            
             </div>
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>
