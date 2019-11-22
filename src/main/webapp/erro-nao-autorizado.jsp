@@ -9,13 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <title>ACESSO NEGADO</title>
+        <title>ACESSO NEGADO</title>
     </head>
     <body>
         <h1>Nerd Universe</h1>
         <h1>Acesso Negado</h1>
-        <form method="post" action="${pageContext.request.contextPath}/infoScreens/home.jsp" novalidate>
-                <input type="submit" value="Voltar" class="btn">
-            </form>
+        <a href="${pageContext.request.contextPath}/home">Voltar</a>
     </body>
 </html>

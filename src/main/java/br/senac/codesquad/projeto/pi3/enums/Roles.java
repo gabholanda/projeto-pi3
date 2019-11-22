@@ -18,7 +18,7 @@ public enum Roles {
     DIRETORIA("DIRETORIA"),
     BACKOFFICE("BACKOFFICE");
 
-    private String permission;
+    private final String permission;
 
     Roles(String permission) {
         this.permission = permission;

@@ -7,8 +7,6 @@ package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.UserDAO;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
-import br.senac.codesquad.projeto.pi3.models.Management;
-import br.senac.codesquad.projeto.pi3.models.Manager;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.sql.SQLException;
 import java.util.ArrayList;

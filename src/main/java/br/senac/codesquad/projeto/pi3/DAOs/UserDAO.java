@@ -7,12 +7,6 @@ package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
-import static br.senac.codesquad.projeto.pi3.enums.Roles.RH;
-import static br.senac.codesquad.projeto.pi3.enums.Roles.TI;
-import static br.senac.codesquad.projeto.pi3.enums.Roles.BACKOFFICE;
-import static br.senac.codesquad.projeto.pi3.enums.Roles.DIRETORIA;
-import static br.senac.codesquad.projeto.pi3.enums.Roles.GERENTE;
-import static br.senac.codesquad.projeto.pi3.enums.Roles.VENDAS;
 import br.senac.codesquad.projeto.pi3.models.BackOffice;
 import br.senac.codesquad.projeto.pi3.models.Employee;
 import br.senac.codesquad.projeto.pi3.models.Management;
@@ -127,7 +121,6 @@ public class UserDAO {
                     user.setId(rs.getInt("ID_USER"));
                     user.setName(rs.getString("NAME"));
                     user.setMail(rs.getString("EMAIL"));
-//                    user.setPermission(Roles.DIRETORIA);
                     user.setPermission(Roles.valueOf(rs.getString("PERMISSIONS")));
                     users.add(user);
                 }
@@ -172,7 +165,7 @@ public class UserDAO {
             ps.setString(1, user.getMail());
 //            ps.setString(2, user.getPassword());
             rs = ps.executeQuery();
-            System.out.println("password: "+user.getPassword());
+            System.out.println("password: " + user.getPassword());
             while (rs.next()) {
                 if (rs.getString("permissions").equals("TI")) {
                     user = new TI();

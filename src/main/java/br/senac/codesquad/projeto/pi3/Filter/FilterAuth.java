@@ -37,10 +37,9 @@ public class FilterAuth implements Filter {
             return;
         }
 
-        User usuario = (User) session.getAttribute("FilterAuth");
+        User user = (User) session.getAttribute("user");
 
-        if (checkAuth(usuario, httpRequest)) {
-
+        if (checkAuth(user, httpRequest)) {
             chain.doFilter(request, response);
         } else {
 
@@ -59,7 +58,7 @@ public class FilterAuth implements Filter {
         } else if (urlAcessada.contains("/branch") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
-        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.valueOf("GERENTE"))) {
+        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
         } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.valueOf("BACKOFFICE"))) {
