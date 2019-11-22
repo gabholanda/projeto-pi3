@@ -21,6 +21,10 @@ public class BackOffice extends User implements Authenticable {
         super(mail, password, name);
     }
 
+    public BackOffice() {
+        
+    }
+
 //   
     /**
      * @return the permission

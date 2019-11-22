@@ -21,6 +21,10 @@ public class Manager extends User implements Authenticable {
         super(mail, password, name);
     }
 
+    public Manager() {
+      
+    }
+
 //   
     /**
      * @return the permission

@@ -15,7 +15,7 @@
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/client">Cliente</a>
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/product">Produto</a>
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/report">Relatório</a>
-        <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/employee">Funcionário</a>
+        <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/user">Funcionário</a>
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/branch">Filial</a>
     </div>
 </nav>

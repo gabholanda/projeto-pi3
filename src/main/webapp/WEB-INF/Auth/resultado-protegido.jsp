@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ReportManagement
-    Created on : 18/11/2019, 21:15:25
+    Document   : resultado-protegido
+    Created on : 21/11/2019, 19:27:13
     Author     : marcelo.smoraes2
 --%>
 
@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Acesso Protegido</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
-        <h1>Hello World2!</h1>
+     <body>
+        <h1><c:out value="${titulo}" /></h1>
+        <h2><c:out value="${msg}" /></h2>
     </body>
 </html>

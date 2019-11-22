@@ -35,7 +35,6 @@ public class ProductDAO {
                     + "B.AMOUNT "
                     + "FROM (product AS A INNER JOIN relation_product_and_branch_office AS B ON (A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT)) "
                     + "INNER JOIN category as C ON (A.CATEGORY_ID = C.ID_CATEGORY) ORDER BY A.NAMEPRODUCT";
-
             ps = con.prepareStatement(query);
             rs = ps.executeQuery(query);
             if (rs != null) {
@@ -185,7 +184,7 @@ public class ProductDAO {
                     product.setValues(rs.getDouble("BUYVALUE"));
                     product.setValuesSale(rs.getDouble("SALEVALUE"));
                     product.setDetails(rs.getString("DETAILS"));
-                    //product.setIdBranchOffice("ID_BRANCH_OFFICE");
+                    //product.setIdBranchOffice(rs.getInt("ID_BRANCH_OFFICE"));
                     productList.add(product);
                 }
             }

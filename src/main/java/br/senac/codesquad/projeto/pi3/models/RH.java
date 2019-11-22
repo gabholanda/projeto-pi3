@@ -21,6 +21,10 @@ public class RH extends User implements Authenticable {
         super(mail, password, name);
     }
 
+    public RH() {
+       
+    }
+
 //   
     /**
      * @return the permission

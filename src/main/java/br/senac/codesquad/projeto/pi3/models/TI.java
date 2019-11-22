@@ -21,6 +21,10 @@ public class TI extends User implements Authenticable {
         super(mail, password, name);
     }
 
+    public TI() {
+        
+    }
+
 //   
     /**
      * @return the permission
