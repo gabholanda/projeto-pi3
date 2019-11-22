@@ -1,6 +1,7 @@
 package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.ProductDAO;
+import br.senac.codesquad.projeto.pi3.models.Category;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ProductController {
     }
 
     public static boolean update(int id, String nameProduct, double values,
-            double valueSale, String details, int categoryId) throws Exception {
+            double valueSale, String details, int categoryId, int quantity) throws Exception {
         Product p = new Product(id, nameProduct, values, valueSale, details, categoryId);
         return ProductDAO.update(p);
 
@@ -44,5 +45,8 @@ public class ProductController {
             return productList;
         }
         return productList;
+    }
+    public static List<Category> findCategory() throws SQLException{
+        return ProductDAO.findCategoryName();
     }
 }

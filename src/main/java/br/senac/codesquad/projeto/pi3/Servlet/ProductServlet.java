@@ -7,10 +7,12 @@
 package br.senac.codesquad.projeto.pi3.Servlet;
 
 import br.senac.codesquad.projeto.pi3.controllers.ProductController;
+import br.senac.codesquad.projeto.pi3.models.Category;
 import br.senac.codesquad.projeto.pi3.models.Product;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -83,7 +85,9 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void form(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException, ServletException, SQLException {
+        List<Category> categoryList = ProductController.findCategory();
+        request.setAttribute("categoryList", categoryList);
         String path = "./Product/ProductCreate.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
@@ -93,11 +97,12 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void formEdit(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException, ServletException, SQLException {
 
         String idAttr = request.getParameter("id");
         int id = Integer.parseInt(idAttr);
-
+        List<Category> categoryList = ProductController.findCategory();
+        
         Product product = ProductController.findById(id);
 
         request.setAttribute("idAttr", product.getId());
@@ -105,6 +110,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("descriptionAttr", product.getDetails());
         request.setAttribute("priceSaleAttr", product.getValuesSale());
         request.setAttribute("priceBuyAttr", product.getValues());
+        request.setAttribute("categoryList", categoryList);
         request.setAttribute("categoryAttr", product.getCategoryId());
 
         String path = "./Product/ProductEdit.jsp";
@@ -124,11 +130,11 @@ public class ProductServlet extends HttpServlet {
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
         String quantidade = request.getParameter("quantity");
-        String category = request.getParameter("category");
+        String category = request.getParameter("categoryName");
 
         int id = Integer.parseInt(idAttr);
 
-        ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(quantidade));
+        ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(category), Integer.parseInt(quantidade));
 
         response.sendRedirect("product");
 
@@ -141,7 +147,7 @@ public class ProductServlet extends HttpServlet {
         String values = request.getParameter("priceBuy");
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
-        String category = request.getParameter("category");
+        String category = request.getParameter("categoryName");
         String quantity = request.getParameter("quantity");
 
         ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),

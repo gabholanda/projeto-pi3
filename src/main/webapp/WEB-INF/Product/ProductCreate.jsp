@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
@@ -27,11 +28,12 @@
                 <input type="number" name="priceSale" class="form-control" value="${valuesSaleAttr}" placeholder="Preço Compra" step="0.01" required/>            
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
-                <c:forEach var="category" items="${categoryList}">
                 <label for="txtCategory">Categoria</label>
-                <input type="checkbox" name="category" class="form-control">
-                <label for="checkCatgory">${categoryAttr}</label>
-                </c:forEach>
+                <select name="select">
+                    <c:forEach var="category" items="${categoryList}">
+                        <option value="${category.id}"><c:out value="${category.name}"/></option>
+                    </c:forEach>
+                </select>
             </div>
             <div>
                 <button type="submit" class="btn btn-success">Salvar</button>
