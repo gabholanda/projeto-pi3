@@ -28,7 +28,7 @@ public abstract class User {
 
     public User(String mail, String password) {
         this.mail = mail;
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt(11));
 //        BCrypt.hashpw(senhaAberta, BCrypt.gensalt());
     }
 
@@ -50,7 +50,7 @@ public abstract class User {
      * @param password the password to set
      */
     public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = password;
     }
 
     /**
@@ -118,8 +118,18 @@ public abstract class User {
         this.id = id;
     }
 
-    public boolean checkPassword(String password) {
-        return this.password.equals(password);
+//    public boolean checkPassword(String senhaAberta) {
+//        return BCrypt.checkpw(senhaAberta, password);
+//    }
+    public boolean checkPassword(String plainPassword) {
+        if (BCrypt.checkpw(plainPassword, password)) {
+            System.out.println("The password matches.");
+            return true;
+        } else {
+            System.out.println("The password does not match.");
+            return false;
+        }
+
     }
 
     public boolean verificarPapel(Roles roles) {

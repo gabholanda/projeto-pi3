@@ -33,7 +33,7 @@ public class FilterAuth implements Filter {
 
         if (session.getAttribute("FilterAuth") == null) {
             session.invalidate();
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/LOGINJSP");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
 

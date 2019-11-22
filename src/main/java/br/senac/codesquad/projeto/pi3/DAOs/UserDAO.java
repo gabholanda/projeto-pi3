@@ -167,12 +167,12 @@ public class UserDAO {
 
     public static User findbyMail(User user) throws SQLException {
         try {
-            String query = "SELECT PERMISSIONS FROM codesquad.user WHERE EMAIL = ? and PASSWORD = ?";
+            String query = "SELECT EMAIL, PASSWORD, PERMISSIONS FROM codesquad.user WHERE EMAIL = ? ";
             ps = con.prepareStatement(query);
             ps.setString(1, user.getMail());
-            ps.setString(2, user.getPassword());
+//            ps.setString(2, user.getPassword());
             rs = ps.executeQuery();
-
+            System.out.println("password: "+user.getPassword());
             while (rs.next()) {
                 if (rs.getString("permissions").equals("TI")) {
                     user = new TI();
@@ -189,7 +189,7 @@ public class UserDAO {
                     user = new Management();
                 }
 
-                user.setMail(rs.getString("mail"));
+                user.setMail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
             }
 
