@@ -31,7 +31,7 @@ public class FilterAuth implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
 
-        if (session.getAttribute("FilterAuth") == null) {
+        if (session.getAttribute("user") == null) {
             session.invalidate();
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
@@ -50,28 +50,28 @@ public class FilterAuth implements Filter {
 
     }
 
-    private boolean checkAuth(User user, HttpServletRequest httpRequest) {
-
-        String urlAcessada = httpRequest.getRequestURI();
+    private boolean checkAuth(User user, HttpServletRequest request) {
+        String urlAcessada = request.getRequestURI();
 
         if (urlAcessada.endsWith("/auth/LoginJSP") || urlAcessada.endsWith("/infoScreens/about")) {
             return true;
 
-        } else if (urlAcessada.endsWith("/branch") && user.verificarPapel(Roles.valueOf("DIRETORIA")) || user.verificarPapel(Roles.valueOf("GERENTE"))) {
+        } else if (urlAcessada.contains("/branch") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
-        } else if (urlAcessada.endsWith("/report") && user.verificarPapel(Roles.valueOf("DIRETORIA")) || user.verificarPapel(Roles.valueOf("GERENTE"))) {
+        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.valueOf("GERENTE"))) {
             return true;
 
-        } else if (urlAcessada.endsWith("/product") && user.verificarPapel(Roles.valueOf("BACKOFFICE"))) {
+        } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.valueOf("BACKOFFICE"))) {
             return true;
 
-        } else if (urlAcessada.endsWith("/user") && user.verificarPapel(Roles.valueOf("RH")) || user.verificarPapel(Roles.valueOf("TI"))) {
+        } else if (urlAcessada.contains("/user") && user.verificarPapel(user, Roles.valueOf("RH")) || user.verificarPapel(user, Roles.valueOf("TI"))) {
             return true;
 
-        } else if (urlAcessada.endsWith("/sale") && user.verificarPapel(Roles.valueOf("VENDAS"))) {
+        } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.valueOf("VENDAS"))) {
             return true;
-        } else if (urlAcessada.endsWith("/client") && user.verificarPapel(Roles.valueOf("VENDAS"))) {
+
+        } else if (urlAcessada.contains("/client") && user.verificarPapel(user, Roles.valueOf("VENDAS"))) {
             return true;
         }
         return false;

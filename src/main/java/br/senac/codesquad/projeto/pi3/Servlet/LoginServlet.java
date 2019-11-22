@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
         if (session.getAttribute("usuario") != null) {
 
-            response.sendRedirect(request.getContextPath() + "/auth/home");
+            response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
 
@@ -50,15 +50,14 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
-        User usuario = UserController.login(mail, password);
-        if (usuario != null && usuario.checkPassword(password)) {
+        User user = UserController.login(mail, password);
+        if (user != null && user.checkPassword(password)) {
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuario);
-            response.sendRedirect(request.getContextPath() + "/Home");
+            session.setAttribute("user", user);
+            response.sendRedirect(request.getContextPath() + "/home");
         } else {
             request.setAttribute("msgErro", "Usuário ou senha incorreta");
             request.getRequestDispatcher("/WEB-INF/Auth/LoginJSP.jsp")
