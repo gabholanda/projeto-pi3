@@ -33,13 +33,9 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
-
-        request.getRequestDispatcher("/WEB-INF/Auth/LoginJSP.jsp")
-                .forward(request, response);
-
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
-                        "/WEB-INF/IndexJSP.jsp");
+                        "/WEB-INF/Auth/LoginJSP.jsp");
         dispatcher.forward(request, response);
     }
 
