@@ -65,13 +65,13 @@ public class FilterAuth implements Filter {
         } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
-        } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.valueOf("BACKOFFICE"))) {
+        } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.BACKOFFICE)) {
             return true;
 
-        } else if (urlAcessada.contains("/user") && user.verificarPapel(user, Roles.valueOf("RH")) || user.verificarPapel(user, Roles.valueOf("TI"))) {
+        } else if (urlAcessada.contains("/user") && user.verificarPapel(user, Roles.RH) || user.verificarPapel(user, Roles.TI)) {
             return true;
 
-        } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.valueOf("VENDAS"))) {
+        } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.VENDAS)) {
             return true;
 
         } else if (urlAcessada.contains("/client") && user.verificarPapel(user, Roles.valueOf("VENDAS"))) {
