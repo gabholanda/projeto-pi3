@@ -5,14 +5,13 @@
  */
 package br.senac.codesquad.projeto.pi3.Interfaces;
 
-import javax.websocket.Session;
-
 /**
  *
  * @author patrickchagas
  */
-public interface Emitivel {
-    public abstract String EmitirRelatorio();
-    
-    public abstract String EmitirRelatorioGeral();
+public interface Emitable {
+
+    public String generateReport();
+
+    public String generateOverallReport();
 }

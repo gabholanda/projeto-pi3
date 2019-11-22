@@ -8,7 +8,6 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -115,45 +115,63 @@ public class UserServlet extends HttpServlet {
 
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, Exception {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         String idAttr = request.getParameter("id");
         String name = (request.getParameter("name"));
-//        String mail = (request.getParameter("email"));
         String password = (request.getParameter("password"));
-//        String permission = (request.getParameter("permission"));
         int id = Integer.parseInt(idAttr);
-
-        UserController.update(id, name, password, "TI");
+        UserController.update(id, name, password, user.getPermission().getPermission());
         response.sendRedirect(request.getContextPath() + "/user");
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
+        HttpSession session = request.getSession();
 
         String name = (request.getParameter("name"));
         String mail = (request.getParameter("email"));
         String password = (request.getParameter("password"));
         String permission = (request.getParameter("permission"));
 
-        UserController.create(name, mail, password, permission, "TI");
-        response.sendRedirect(request.getContextPath() + "/user");
-
+        if (session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        } else {
+            User user = (User) session.getAttribute("user");
+            if (UserController.create(mail, password, name, permission, user.getPermission().getPermission())) {
+                response.sendRedirect(request.getContextPath() + "/user");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
+        }
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-
+        HttpSession session = request.getSession();
         String id = request.getParameter("id");
-//        String permission = request.getParameter("permission");
-        UserController.delete(Integer.parseInt(id), "TI");
-        response.sendRedirect(request.getContextPath() + "/user");
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            if (id == null || id.equals("")) {
+                //ADICIONAR O SETATTRIBUTE DE ERROR AQUI
+                response.sendRedirect(request.getContextPath() + "/user");
+            } else if ((UserController.delete(Integer.parseInt(id), user.getPermission().getPermission()))) {
+                response.sendRedirect(request.getContextPath() + "/user");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login");
 
+        }
     }
 
     public void read(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-
         try {
-            ArrayList<User> userList = UserController.read("DIRETORIA");
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+            ArrayList<User> userList = UserController.read(user.getPermission().getPermission());
             String path = "./User/UserList.jsp";
             request.setAttribute("userList", userList);
             request.setAttribute("path", path);
@@ -161,7 +179,7 @@ public class UserServlet extends HttpServlet {
                     = request.getRequestDispatcher(
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
-        } catch (Exception ex) {
+        } catch (IOException | ServletException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
