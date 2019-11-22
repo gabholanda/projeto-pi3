@@ -7,40 +7,38 @@ package br.senac.codesquad.projeto.pi3.models;
 
 import br.senac.codesquad.projeto.pi3.Interfaces.Authenticable;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 /**
  *
  * @author patrickchagas
  */
-public class BackOffice extends User implements Authenticable {
+public class BackOffice extends User {
 
     private final Roles permission = Roles.BACKOFFICE; //permission user 
 
-    public BackOffice(String name, String mail, String password) {
-        super(mail, password, name);
+    public BackOffice(String mail, String password) {
+        super(mail, password);
     }
 
     public BackOffice() {
-        
+
     }
 
-//   
-    /**
-     * @return the permission
-     */
+    @Override
     public Roles getPermission() {
         return permission;
     }
 
     @Override
-    public Session login() {
+    public HttpSession login() {
         return null;
     }
 
     @Override
-    public Session Logout() {
-        return null;
+    public HttpSession logout() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

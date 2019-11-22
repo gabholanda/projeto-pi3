@@ -5,6 +5,7 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import br.senac.codesquad.projeto.pi3.Interfaces.Authenticable;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
 import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
@@ -13,7 +14,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author marcelo.moraes and Patrick
  */
-public abstract class User {
+public abstract class User implements Authenticable {
 
     private int id;
     private String mail;
@@ -118,22 +119,11 @@ public abstract class User {
         this.id = id;
     }
 
-//    public boolean checkPassword(String senhaAberta) {
-//        return BCrypt.checkpw(senhaAberta, password);
-//    }
     public boolean checkPassword(String plainPassword) {
-        if (BCrypt.checkpw(plainPassword, password)) {
-            System.out.println("The password matches.");
-            return true;
-        } else {
-            System.out.println("The password does not match.");
-            return false;
-        }
-
+        return BCrypt.checkpw(plainPassword, password);
     }
 
     public boolean verificarPapel(User user, Roles roles) {
         return user.getPermission() == roles;
     }
-
 }
