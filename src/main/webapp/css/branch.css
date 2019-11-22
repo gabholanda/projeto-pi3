@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : gabriel.hsantos21
 */
 
+.top-body {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
 .bbg-image {
     background-image: url("https://images.wallpaperscraft.com/image/office_work_interior_walls_80538_1920x1080.jpg");
     background-repeat: no-repeat;
