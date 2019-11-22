@@ -1,11 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/sale.css" rel="stylesheet">
+
 <section class="p-5">
+    <div class="jumbotron">
     <div class="d-flex">
         <div class="mr-5">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/Sale/SaleCreateJSP.jsp
             <h2>Lista de clientes</h2>
             <form method="post" action="${pageContext.request.contextPath}/sale/searchClient">
+=======
+            <h1>Lista de clientes</h1>
+            <form method="post" action="${pageContext.request.contextPath}/sale/client">
+>>>>>>> 72e2330a68f83074fb25a16bf36420afe670a907:src/main/webapp/WEB-INF/Sale/SaleJSP.jsp
                 <input type="text" placeholder="Pesquise pelo nome ..." name="name">
                 <button type="submit">pesquisar</button>
             </form>
@@ -45,6 +52,9 @@
                 <p>${errorClient}</p>
             </div>
         </div>
+                </div>
+    </div>
+    <div class="jumbotron">
         <div class="ml-5">
             <h2>Lista de produtos</h2>
             <form method="post" action="${pageContext.request.contextPath}/sale/searchProduct">
@@ -61,6 +71,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                          </div>
                         <c:choose>
                             <c:when test="${sessionScope.productList != null && !sessionScope.productList.isEmpty()}">
                                 <c:forEach var="product" items="${sessionScope.productList}">
