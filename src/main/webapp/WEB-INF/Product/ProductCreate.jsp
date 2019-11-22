@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
+
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
         <form method="post" action="${pageContext.request.contextPath}/product/create">
@@ -46,4 +47,3 @@
 </form>
 </div>
 </div>
-

@@ -1,50 +1,56 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/sale.css" rel="stylesheet">
+
 <section class="p-5">
-    <div class="d-flex">
-        <div class="mr-5">
-            <h2>Lista de clientes</h2>
-            <form method="post" action="${pageContext.request.contextPath}/sale/searchClient">
-                <input type="text" placeholder="Pesquise pelo nome ..." name="name">
-                <button type="submit">pesquisar</button>
-            </form>
-            <div class="table-responsive-sm table-w mt-2 top-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">CPF</th>
-                            <th scope="col">Endereço</th>
-                            <th scope="col">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:choose>
-                            <c:when test="${sessionScope.clientList != null && !sessionScope.clientList.isEmpty()}">
-                                <c:forEach var="client" items="${sessionScope.clientList}">
-                                    <tr>
-                                        <th scope="row" name="clientId"><c:out value="${client.id}"/></th>
-                                        <td><c:out value="${client.name}"/></td>
-                                        <td><c:out value="${client.cpf}"/></td>
-                                        <td><c:out value="${client.address}"/></td>
-                                        <td><c:out value="${client.mail}"/></td>
-                                        <td>
-                                            <form method="post" action="${pageContext.request.contextPath}/sale/addClient">
-                                                <input type="hidden"  name="clientId" value="${client.id}">
-                                                <button type="submit">Adicionar</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:when>
-                        </c:choose>
-                    </tbody>
-                </table>
-                <p>${errorClient}</p>
+    <div class="jumbotron">
+        <div class="d-flex">
+            <div class="mr-5">
+                <h2>Lista de clientes</h2>
+                <form method="post" action="${pageContext.request.contextPath}/sale/searchClient">
+                    <form method="post" action="${pageContext.request.contextPath}/sale/client">
+                        <input type="text" placeholder="Pesquise pelo nome ..." name="name">
+                        <button type="submit">pesquisar</button>
+                    </form>
+                    <div class="table-responsive-sm table-w mt-2 top-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">CPF</th>
+                                    <th scope="col">Endereço</th>
+                                    <th scope="col">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${sessionScope.clientList != null && !sessionScope.clientList.isEmpty()}">
+                                        <c:forEach var="client" items="${sessionScope.clientList}">
+                                            <tr>
+                                                <th scope="row" name="clientId"><c:out value="${client.id}"/></th>
+                                                <td><c:out value="${client.name}"/></td>
+                                                <td><c:out value="${client.cpf}"/></td>
+                                                <td><c:out value="${client.address}"/></td>
+                                                <td><c:out value="${client.mail}"/></td>
+                                                <td>
+                                                    <form method="post" action="${pageContext.request.contextPath}/sale/addClient">
+                                                        <input type="hidden"  name="clientId" value="${client.id}">
+                                                        <button type="submit">Adicionar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                </c:choose>
+                            </tbody>
+                        </table>
+                        <p>${errorClient}</p>
+                    </div>
             </div>
         </div>
+    </div>
+    <div class="jumbotron">
         <div class="ml-5">
             <h2>Lista de produtos</h2>
             <form method="post" action="${pageContext.request.contextPath}/sale/searchProduct">
@@ -61,6 +67,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        </div>
                         <c:choose>
                             <c:when test="${sessionScope.productList != null && !sessionScope.productList.isEmpty()}">
                                 <c:forEach var="product" items="${sessionScope.productList}">
