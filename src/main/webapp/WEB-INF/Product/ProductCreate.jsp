@@ -43,6 +43,7 @@
                 <button type="reset"class="btn btn-warning">Resetar Dados</button>
                 <a href="${pageContext.request.contextPath}/product" role="button" class="btn btn-danger">Cancelar</a>
             </div>
+            <p>${errorCreateProduct}</p>
         </form>
     </div>
 </div>
