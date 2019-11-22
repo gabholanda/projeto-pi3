@@ -8,9 +8,14 @@ and open the template in the editor.
     Author     : lucas.paiva
 */
 
+.top-body {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
 .cbg-image{
     background-image: url("http://www.elephantmediasd.com/wp-content/uploads/ktz/backgrounds-full-hd-wallpaper-cave-original-background-hd-wallpapers-fabulous-8-38sb027r6g4hfjl6ccf4e8.jpg");
-   background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     background-attachment: fixed;

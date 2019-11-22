@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -37,15 +38,17 @@ public class FilterAuth implements Filter {
             return;
         }
 
-        User usuario = (User) session.getAttribute("FilterAuth");
+        User user = (User) session.getAttribute("user");
 
-        if (checkAuth(usuario, httpRequest)) {
-
+        if (checkAuth(user, httpRequest)) {
             chain.doFilter(request, response);
         } else {
-
-            httpResponse.sendRedirect(httpRequest.getContextPath()
-                    + "/erro-nao-autorizado.jsp");
+            String path = "./Auth/NoAuth.jsp";
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
         }
 
     }
@@ -59,7 +62,7 @@ public class FilterAuth implements Filter {
         } else if (urlAcessada.contains("/branch") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
-        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.valueOf("GERENTE"))) {
+        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
             return true;
 
         } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.valueOf("BACKOFFICE"))) {

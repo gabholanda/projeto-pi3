@@ -8,7 +8,7 @@
 <footer  style="background-color: #141014">
     <div id='divFooter'>
         <div class="relative">
-            Developed by: CodeSquad  
+            Developed by: <a href="${pageContext.request.contextPath}/about">CodeSquad</a> 
         </div>
         <div class="location">
             <%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");%>

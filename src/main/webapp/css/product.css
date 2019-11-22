@@ -7,6 +7,12 @@ and open the template in the editor.
     Created on : 25/10/2019, 18:34:25
     Author     : lucas.paiva
 */
+
+.top-body {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
 .pbg-image{
     background-image: url("https://images.pexels.com/photos/1420702/pexels-photo-1420702.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
     background-repeat: no-repeat;

@@ -135,4 +135,5 @@ public abstract class User {
     public boolean verificarPapel(User user, Roles roles) {
         return user.getPermission() == roles;
     }
+
 }

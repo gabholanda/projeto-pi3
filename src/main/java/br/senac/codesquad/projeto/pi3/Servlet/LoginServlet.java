@@ -5,13 +5,9 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
-import br.senac.codesquad.projeto.pi3.DAOs.UserDAO;
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,13 +33,9 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
-
-        request.getRequestDispatcher("/WEB-INF/Auth/LoginJSP.jsp")
-                .forward(request, response);
-
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher(
-                        "/WEB-INF/IndexJSP.jsp");
+                        "/WEB-INF/Auth/LoginJSP.jsp");
         dispatcher.forward(request, response);
     }
 
