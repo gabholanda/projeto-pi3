@@ -14,6 +14,7 @@
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtName">Nome</label>
                 <input type="text" name="name" class="form-control" value="${nameProductAttr}" placeholder="Digite o nome do produto" required/>
+                <p>${errorTamanhoName}</p>
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtDescription">Descrição</label>
@@ -22,10 +23,12 @@
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtPriceBuy">Preço de Compra</label>
                 <input type="number" name="priceBuy" class="form-control" value="${valuesAttr}" placeholder="Preço Venda" step="0.01" required/>
+                <p>${errorValues}</p>
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtPriceSale">Preço de Venda</label>
                 <input type="number" name="priceSale" class="form-control" value="${valuesSaleAttr}" placeholder="Preço Compra" step="0.01" required/>            
+                <p>${errorValues}</p>
             </div>
             <div>
                 <label for="txtQuantity">Quantidade</label>

@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 /**
  *
@@ -132,16 +134,25 @@ public class ClientServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-
+            throws SQLException, IOException, AddressException {
+         
+        HttpSession session = request.getSession();
+        
         String name = request.getParameter("name");
         String cpf = request.getParameter("cpf");
         String address = request.getParameter("address");
         String mail = request.getParameter("mail");
-
-        ClientController.create(name, cpf, address, mail);
-        response.sendRedirect(request.getContextPath() + "/client");
-
+        
+        if(session.getAttribute("name")==null || session.getAttribute("cpf")==null || session.getAttribute("adress")==null || 
+        session.getAttribute("mail")==null){
+            session.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
+        }else{
+            
+            
+            if(ClientController.create(name, cpf, address, mail)){
+            response.sendRedirect(request.getContextPath() + "/client");
+            } 
+        }       
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)

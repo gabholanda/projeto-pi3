@@ -142,24 +142,26 @@ public class ProductServlet extends HttpServlet {
         {
            session.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
            response.sendRedirect(request.getContextPath() + "/product/new");
-        }
-        Product product = (Product) session.getAttribute("product");
-        //Validar Preco Compra deve ser menor que Preco Venda 
-        if(product.getValues()>product.getValuesSale() ){
+        }else{
+            Product product = (Product) session.getAttribute("product");
+            //Validar Preco Compra deve ser menor que Preco Venda 
+            if(product.getValues()>product.getValuesSale() ){
             session.setAttribute("errorValues","O Valor de Compra não pode ser maior que o valor de venda!");
             response.sendRedirect(request.getContextPath() + "/product/new");
-        }
-        //Validar limites de caracteres
-        if(product.getNameProduct().charAt(0)>100){
-            session.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
-            response.sendRedirect(request.getContextPath() + "/product/new");
-        }
-        int id = Integer.parseInt(idAttr);
-
-        ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), details, Integer.parseInt(category), Integer.parseInt(quantidade));
-
-        response.sendRedirect(request.getContextPath() + "/product");
-
+            }else{
+                //Validar limites de caracteres
+                if(product.getNameProduct().charAt(0)>100){
+                    session.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
+                    response.sendRedirect(request.getContextPath() + "/product/new");
+                }else{
+                    int id = Integer.parseInt(idAttr);
+                    if(ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), 
+                    details, Integer.parseInt(category), Integer.parseInt(quantidade))){
+                    response.sendRedirect(request.getContextPath() + "/product");
+                    }
+                }   
+            }
+        }   
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
@@ -181,23 +183,26 @@ public class ProductServlet extends HttpServlet {
            session.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
            response.sendRedirect(request.getContextPath() + "/product/new");
         }
-        Product product = (Product) session.getAttribute("product");
-        //Validar Preco Compra deve ser menor que Preco Venda 
-        if(product.getValues()>product.getValuesSale() ){
-            session.setAttribute("errorValues","O Valor de Compra não pode ser maior que o valor de venda!");
-            response.sendRedirect(request.getContextPath() + "/product/new");
-        }
-        //Validar limites de caracteres
-        if(product.getNameProduct().charAt(0)>100){
-            session.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
-            response.sendRedirect(request.getContextPath() + "/product/new");
-        }
-        //Validar que texto escrito nos campos numéricos
-        ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                details, 3, 5, Integer.parseInt(quantity));
-        
-
-        response.sendRedirect(request.getContextPath() + "/product");
+        else{
+            Product product = (Product) session.getAttribute("product");
+            //Validar Preco Compra deve ser menor que Preco Venda 
+            if(product.getValues()>product.getValuesSale() ){
+                session.setAttribute("errorValues","O Valor de Compra não pode ser maior que o valor de venda!");
+                response.sendRedirect(request.getContextPath() + "/product/new");
+            }else{   
+            //Validar limites de caracteres
+                if(product.getNameProduct().charAt(0)>100){
+                session.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
+                response.sendRedirect(request.getContextPath() + "/product/new");
+                }else{
+            
+                    if(ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
+                    details, 3, 5, Integer.parseInt(quantity))){
+                        response.sendRedirect(request.getContextPath() + "/product");
+                    }
+                }    
+            }    
+        }      
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response)
