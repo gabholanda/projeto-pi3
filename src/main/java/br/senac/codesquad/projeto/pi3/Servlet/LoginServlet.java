@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("usuario") != null) {
-
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
@@ -46,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
         User user = UserController.login(mail, password);
-        
+
         if (user != null && user.checkPassword(password)) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
