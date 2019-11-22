@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,6 +8,7 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 import br.senac.codesquad.projeto.pi3.controllers.ProductController;
 import br.senac.codesquad.projeto.pi3.models.Category;
 import br.senac.codesquad.projeto.pi3.models.Product;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -66,6 +66,9 @@ public class ProductServlet extends HttpServlet {
                     update(request, response);
                     break;
 
+                case "/searchProduct":
+                    searchProduct(request, response);
+                    break;
                 default:
                     read(request, response);
                     break;
@@ -103,7 +106,7 @@ public class ProductServlet extends HttpServlet {
         String idAttr = request.getParameter("id");
         int id = Integer.parseInt(idAttr);
         List<Category> categoryList = ProductController.findCategory();
-        
+
         Product product = ProductController.findById(id);
 
         request.setAttribute("idAttr", product.getId());
@@ -124,85 +127,96 @@ public class ProductServlet extends HttpServlet {
 
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws IOException, Exception {
-        
+
         HttpSession session = request.getSession();
-        
+
         String idAttr = request.getParameter("id");
         String nameProduct = request.getParameter("name");
         String values = request.getParameter("priceBuy");
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
-        String quantidade = request.getParameter("quantity");
+        String quantity = request.getParameter("quantity");
         String category = request.getParameter("categoryName");
-        
+
         //Validar Campos em branco
-        if(session.getAttribute("name")==null || session.getAttribute("pricebuy")==null || 
-           session.getAttribute("pricebuy")==null || session.getAttribute("priceSale")==null || 
-           session.getAttribute("description")==null || session.getAttribute("quantity")==null)
-        {
-           session.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
-           response.sendRedirect(request.getContextPath() + "/product/new");
-        }else{
-            Product product = (Product) session.getAttribute("product");
-            //Validar Preco Compra deve ser menor que Preco Venda 
-            if(product.getValues()>product.getValuesSale() ){
-            session.setAttribute("errorValues","O Valor de Compra não pode ser maior que o valor de venda!");
+        if (nameProduct == null || values == null || valuesSale == null || details == null|| quantity == null) {
+            request.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
             response.sendRedirect(request.getContextPath() + "/product/new");
-            }else{
+        } else {
+            //Validar Preco Compra deve ser menor que Preco Venda 
+            if (Double.parseDouble(values) >= Double.parseDouble(valuesSale)) {
+                request.setAttribute("errorValues", "O Valor de Compra não pode ser maior que o valor de venda!");
+                response.sendRedirect(request.getContextPath() + "/product/new");
+            } else {
                 //Validar limites de caracteres
-                if(product.getNameProduct().charAt(0)>100){
-                    session.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
+                if (nameProduct.length() > 100) {
+                    request.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
                     response.sendRedirect(request.getContextPath() + "/product/new");
-                }else{
-                    int id = Integer.parseInt(idAttr);
-                    if(ProductController.update(id, nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale), 
-                    details, Integer.parseInt(category), Integer.parseInt(quantidade))){
-                    response.sendRedirect(request.getContextPath() + "/product");
+                } else {
+                    User user = (User) session.getAttribute("user");
+                    if (user == null) {
+                        response.sendRedirect(request.getContextPath() + "/loginss");
+                    } else {
+                        if (ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
+                                details, user.getIdBranch(), Integer.parseInt(category), Integer.parseInt(quantity))) {
+
+                            ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
+                                    details, user.getIdBranch(), Integer.parseInt(category), Integer.parseInt(quantity));
+
+                            response.sendRedirect(request.getContextPath() + "/product");
+                        } else {
+                            response.sendRedirect(request.getContextPath() + "/product/news");
+                        }
                     }
-                }   
+                }
             }
-        }   
+        }
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
-        
         HttpSession session = request.getSession();
-        
         String nameProduct = request.getParameter("name");
         String values = request.getParameter("priceBuy");
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
-        String category = request.getParameter("categoryName");
+        String categoryId = request.getParameter("categoryId");
         String quantity = request.getParameter("quantity");
+
         //Validar Campos em branco
-        if(session.getAttribute("name")==null || session.getAttribute("pricebuy")==null || 
-           session.getAttribute("pricebuy")==null || session.getAttribute("priceSale")==null || 
-           session.getAttribute("description")==null || session.getAttribute("quantity")==null)
-        {
-           session.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
-           response.sendRedirect(request.getContextPath() + "/product/new");
-        }
-        else{
-            Product product = (Product) session.getAttribute("product");
+        if (nameProduct == null || values == null || valuesSale == null || details == null|| quantity == null) {
+            request.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
+            response.sendRedirect(request.getContextPath() + "/product/new");
+        } else {
             //Validar Preco Compra deve ser menor que Preco Venda 
-            if(product.getValues()>product.getValuesSale() ){
-                session.setAttribute("errorValues","O Valor de Compra não pode ser maior que o valor de venda!");
+            if (Double.parseDouble(values) >= Double.parseDouble(valuesSale)) {
+                request.setAttribute("errorValues", "O Valor de Compra não pode ser maior que o valor de venda!");
                 response.sendRedirect(request.getContextPath() + "/product/new");
-            }else{   
-            //Validar limites de caracteres
-                if(product.getNameProduct().charAt(0)>100){
-                session.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
-                response.sendRedirect(request.getContextPath() + "/product/new");
-                }else{
-            
-                    if(ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                    details, 3, 5, Integer.parseInt(quantity))){
-                        response.sendRedirect(request.getContextPath() + "/product");
+            } else {
+                //Validar limites de caracteres
+                if (nameProduct.length() > 100) {
+                    request.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
+                    response.sendRedirect(request.getContextPath() + "/product/new");
+                } else {
+                    User user = (User) session.getAttribute("user");
+                    if (user == null) {
+                        response.sendRedirect(request.getContextPath() + "/loginss");
+                    } else {
+                        if (ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
+                                details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity))) {
+
+                            ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
+                                    details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity));
+
+                            response.sendRedirect(request.getContextPath() + "/product");
+                        } else {
+                            response.sendRedirect(request.getContextPath() + "/product/news");
+                        }
                     }
-                }    
-            }    
-        }      
+                }
+            }
+        }
+
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response)
@@ -221,16 +235,31 @@ public class ProductServlet extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         try {
-            ArrayList<Product> productList = ProductController.read();
             String path = "./Product/ProductList.jsp";
-            request.setAttribute("productList", productList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
-        } catch (Exception ex) {
+        } catch (IOException | ServletException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void searchProduct(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("productList") == null) {
+                session.setAttribute("productList", new ArrayList<>());
+            }
+            String name = request.getParameter("productName");
+            List<Product> productList = ProductController.findByName(name);
+            session.setAttribute("productList",
+                    productList);
+            response.sendRedirect(request.getContextPath() + "/product");
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

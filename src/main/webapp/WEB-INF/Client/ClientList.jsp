@@ -10,6 +10,10 @@
 
 <h2>Lista de Clientes</h2>
 <section class="p-5">
+    <form method="post" action="${pageContext.request.contextPath}/client/searchClient">
+        <input type="text" placeholder="Pesquise pelo nome ..." name="name">
+        <button type="submit">pesquisar</button>
+    </form>
     <div class="top-body">
         <table class="table">
             <thead>
@@ -23,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="client" items="${clientList}">
+                <c:forEach var="client" items="${sessionScope.clientList}">
                     <tr>
                         <th scope="row"><c:out value="${client.id}" /></th>
                         <td><c:out value="${client.name}"/></td>

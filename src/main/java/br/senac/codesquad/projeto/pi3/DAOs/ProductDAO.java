@@ -24,6 +24,7 @@ public class ProductDAO {
     public static ArrayList<Product> getProduct()
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
+        //O AMOUNT DAQUI TEM QUE SER PELA FILIAL
         try {
             String query = "SELECT "
                     + "A.ID_PRODUCT, "
@@ -60,7 +61,6 @@ public class ProductDAO {
 
     public static boolean delete(int id)
             throws SQLException {
-
         String query = "DELETE FROM product WHERE ID_PRODUCT=? ";
 
         ps = con.prepareStatement(query);
@@ -72,7 +72,7 @@ public class ProductDAO {
 
     public static boolean update(Product p)
             throws SQLException {
-
+        // ESSE UPDATE TEM QUE SER POR FILIAL OU APENAS A DIRETORIA TER DIREITO DE FAZER
         try {
             String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, CATEGORY_ID WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
@@ -169,7 +169,16 @@ public class ProductDAO {
 
     public static List<Product> findByName(String name) {
         try {
-            String query = "SELECT * FROM product WHERE NAMEPRODUCT LIKE ?";
+            String query = "SELECT "
+                    + "A.ID_PRODUCT, "
+                    + "A.NAMEPRODUCT, "
+                    + "A.BUYVALUE, "
+                    + "A.SALEVALUE, "
+                    + "A.DETAILS, "
+                    + "C.NAME, "
+                    + "B.AMOUNT "
+                    + "FROM (product AS A INNER JOIN relation_product_and_branch_office AS B ON (A.ID_PRODUCT = B.PRODUCT_ID_PRODUCT)) "
+                    + "INNER JOIN category as C ON (A.CATEGORY_ID = C.ID_CATEGORY) AND A.NAMEPRODUCT LIKE ? ORDER BY A.NAMEPRODUCT ";
             ps = con.prepareStatement(query);
             ps.setString(1, "%" + name + "%");
 
@@ -179,12 +188,13 @@ public class ProductDAO {
             if (rs != null) {
                 while (rs.next()) {
                     Product product = new Product();
-                    product.setId(rs.getInt("ID_PRODUCT"));
-                    product.setNameProduct(rs.getString("NAMEPRODUCT"));
-                    product.setValues(rs.getDouble("BUYVALUE"));
-                    product.setValuesSale(rs.getDouble("SALEVALUE"));
-                    product.setDetails(rs.getString("DETAILS"));
-                    //product.setIdBranchOffice(rs.getInt("ID_BRANCH_OFFICE"));
+                    product.setId(rs.getInt(1));
+                    product.setNameProduct(rs.getString(2));
+                    product.setValues(rs.getDouble(3));
+                    product.setValuesSale(rs.getDouble(4));
+                    product.setDetails(rs.getString(5));
+                    product.setCategoryName(rs.getString(6));
+                    product.setQuantity(rs.getInt(7));
                     productList.add(product);
                 }
             }

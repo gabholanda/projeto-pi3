@@ -7,6 +7,7 @@ package br.senac.codesquad.projeto.pi3.controllers;
 
 import br.senac.codesquad.projeto.pi3.DAOs.SaleDAO;
 import br.senac.codesquad.projeto.pi3.models.Sale;
+import br.senac.codesquad.projeto.pi3.models.User;
 
 /**
  *
@@ -14,8 +15,8 @@ import br.senac.codesquad.projeto.pi3.models.Sale;
  */
 public class SaleController {
 
-    public static boolean create(Sale sale) throws Exception {
-        return SaleDAO.create(sale);
+    public static boolean create(Sale sale, User user) throws Exception {
+        return SaleDAO.create(sale, user);
     }
 
     public static void update() {

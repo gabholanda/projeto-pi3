@@ -12,6 +12,7 @@ import br.senac.codesquad.projeto.pi3.models.Client;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -68,6 +69,11 @@ public class ClientServlet extends HttpServlet {
                 case "/update":
                     update(request, response);
                     break;
+
+                case "/searchClient":
+                    searchClient(request, response);
+                    break;
+
                 default:
                     read(request, response);
                     break;
@@ -128,28 +134,29 @@ public class ClientServlet extends HttpServlet {
         String address = (request.getParameter("address"));
         String mail = (request.getParameter("mail"));
         int id = Integer.parseInt(idAttr);
-
+        if(name==null || cpf==null || address==null ||  mail==null){
+            request.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
+            response.sendRedirect(request.getContextPath()+ "/client/new");
+        }else{
         ClientController.update(id, name, cpf, address, mail);
         response.sendRedirect(request.getContextPath() + "/client");
+        }
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, AddressException {
          
-        HttpSession session = request.getSession();
-        
         String name = request.getParameter("name");
         String cpf = request.getParameter("cpf");
         String address = request.getParameter("address");
         String mail = request.getParameter("mail");
         
-        if(session.getAttribute("name")==null || session.getAttribute("cpf")==null || session.getAttribute("adress")==null || 
-        session.getAttribute("mail")==null){
-            session.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
+        if(name==null || cpf==null || address==null ||  mail==null){
+            request.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
+            response.sendRedirect(request.getContextPath()+ "/client/new");
         }else{
-            
-            
             if(ClientController.create(name, cpf, address, mail)){
+            ClientController.create(name, cpf, address, mail);
             response.sendRedirect(request.getContextPath() + "/client");
             } 
         }       
@@ -174,18 +181,33 @@ public class ClientServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
 
         try {
-            ArrayList<Client> clientList = ClientController.read();
             String path = "./Client/ClientList.jsp";
-            request.setAttribute("clientList", clientList);
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher(
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
-        } catch (Exception ex) {
+        } catch (IOException | ServletException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
+        }
+    }
+
+    private static void searchClient(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("clientList") == null) {
+                session.setAttribute("clientList", new ArrayList<>());
+            }
+            String name = request.getParameter("name");
+            List<Client> clientList = ClientController.findByName(name);
+            session.setAttribute("clientList",
+                    clientList);
+            response.sendRedirect(request.getContextPath() + "/client");
+        } catch (IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
