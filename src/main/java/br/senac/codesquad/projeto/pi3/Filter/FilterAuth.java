@@ -21,25 +21,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // @author marcelo.smoraes2
-@WebFilter(filterName = "FilterAuth", urlPatterns = {"/branch/*", "/client/*", "/product/*", "/user/*", "/sale/*", "/report/*",})
+@WebFilter(filterName = "FilterAuth", urlPatterns = {"/branch/*", "/client/*", "/product/*", "/user/*", "/sale/*", "/report/*", "/home/*"})
 
 public class FilterAuth implements Filter {
-
+    
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+        
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
-
+        
         if (session.getAttribute("user") == null) {
             session.invalidate();
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
-
         User user = (User) session.getAttribute("user");
-
+        
         if (checkAuth(user, httpRequest)) {
             chain.doFilter(request, response);
         } else {
@@ -50,43 +49,43 @@ public class FilterAuth implements Filter {
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
         }
-
+        
     }
-
+    
     private boolean checkAuth(User user, HttpServletRequest request) {
         String urlAcessada = request.getRequestURI();
-
-        if (urlAcessada.endsWith("/auth/LoginJSP") || urlAcessada.endsWith("/infoScreens/about")) {
+        
+        if (urlAcessada.endsWith("/login") || urlAcessada.endsWith("/about") || urlAcessada.endsWith("/home")) {
             return true;
-
-        } else if (urlAcessada.contains("/branch") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
+            
+        } else if (urlAcessada.contains("/branch") && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE))) {
             return true;
-
-        } else if (urlAcessada.contains("/report") && user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE)) {
+            
+        } else if (urlAcessada.contains("/report") && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE))) {
             return true;
-
+            
         } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.BACKOFFICE)) {
             return true;
-
-        } else if (urlAcessada.contains("/user") && user.verificarPapel(user, Roles.RH) || user.verificarPapel(user, Roles.TI)) {
+            
+        } else if (urlAcessada.contains("/user") && (user.verificarPapel(user, Roles.RH) || user.verificarPapel(user, Roles.TI))) {
             return true;
-
+            
         } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.VENDAS)) {
             return true;
-
-        } else if (urlAcessada.contains("/client") && user.verificarPapel(user, Roles.valueOf("VENDAS"))) {
+            
+        } else if (urlAcessada.contains("/client") && user.verificarPapel(user, Roles.VENDAS)) {
             return true;
         }
         return false;
     }
-
+    
     @Override
     public void destroy() {
-
+        
     }
-
+    
     @Override
     public void init(FilterConfig filterConfig) {
-
+        
     }
 }

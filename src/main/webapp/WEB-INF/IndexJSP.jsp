@@ -23,7 +23,6 @@
     <body>
         <jsp:include page="./Navbar/NavBarJSP.jsp" />
         <jsp:include page="${path}" />
-
         <jsp:include page="./Navbar/Footer/Footer.jsp" />
     </body>
 </html>
