@@ -8,7 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
 
-<div class="wrapper fadeInDown cbg-image">
+<div class="wrapper fadeInDown pbg-image">
     <div id="formContent" class="p-3">
         <form method="post" action="${pageContext.request.contextPath}/product/create">
 
@@ -37,11 +37,13 @@
             </div>
             <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
                 <label for="txtCategory">Categoria</label>
+                
                 <select name="categoryId">
                     <c:forEach var="category" items="${categoryList}">
                         <option value="${category.id}"><c:out value="${category.name}"/></option>
                     </c:forEach>
                 </select>
+                 
             </div>
             <p>${errorCreateProduct}</p>
         </form>

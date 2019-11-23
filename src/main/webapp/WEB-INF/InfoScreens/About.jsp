@@ -7,7 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<body style="position: relative">
+<link href="${pageContext.request.contextPath}/css/about.css" rel="stylesheet"/>
+<body style="position: relative" class="abg-image">
     <div class="container">
 
 
@@ -29,9 +30,9 @@
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-0 shadow">
                     <img src="${pageContext.request.contextPath}/Images/Developer/henrique.png" class="card-img-top" alt="...">
-                    <div class="card-body text-center">
+                    <div  class="card-body  text-center">
                         <h5 class="card-title mb-0">Henrique Cyrillo</h5>
-                        <div class="card-text text-black-50">Full Stack Developer</div>
+                        <div class="card-text text-black-50">Tester Developer</div>
                     </div>
                 </div>
             </div>

@@ -6,12 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/user.css" rel="stylesheet">
-<div class="wrapper fadeInDown cbg-image">
+<div class="wrapper fadeInDown ubg-image">
     <div id="formContent" class="p-3">
         <form method="post" action="${pageContext.request.contextPath}/user/create">
 
             <div>
-                <span style="color: red ">*</span><span>Campo obrigatório</span>
+                <span> Todos os campos são obrigatórios</span> <span style="color: red ">*</span>
             </div>
 
             <div class="form-groupUser d-flex flex-column justify-content-center align-items-center">

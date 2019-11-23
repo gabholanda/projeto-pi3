@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/user.css" rel="stylesheet">
-<div class="wrapper fadeInDown cbg-image">
+
+<div class="wrapper fadeInDown ubg-image">
     <div id="formContent" class="p-3">
         <form  method="post" action="${pageContext.request.contextPath}/user/update">
             <input type="hidden" name="id" value="${idAttr}"/>

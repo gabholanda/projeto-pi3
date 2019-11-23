@@ -13,7 +13,7 @@ and open the template in the editor.
     overflow-y: auto;
 }
 
-.cbg-image{
+.pbg-image{
     background-image: url("../Images/BackgroundImages/BackgroundProduct.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,27 +21,25 @@ and open the template in the editor.
     background-attachment: fixed;
 }
 
-.pbg-image{
-    background-image: url("https://i.imgur.com/cYiVA8qg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-    background-attachment: fixed;
-}
+
 form{
     align-content: center
 }
 
 #formContent {
-    border-radius: 10px;
-    background: #fff;
-    padding: 30px;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    padding: 0px;
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    text-align: center;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+  font-weight: bold
+  
 }
 
 .wrapper {

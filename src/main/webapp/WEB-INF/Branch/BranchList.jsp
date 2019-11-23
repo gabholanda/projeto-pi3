@@ -8,7 +8,9 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/branch.css" rel="stylesheet"/>
-<h2>Lista de Filiais</h2>
+<div class="jumbotron">
+    <h2>Lista de Filiais</h2>
+</div>
 <section class="p-5">
     <div class="top-body">
         <table class="table">
