@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  *
@@ -133,32 +132,32 @@ public class ClientServlet extends HttpServlet {
         String address = (request.getParameter("address"));
         String mail = (request.getParameter("mail"));
         int id = Integer.parseInt(idAttr);
-        if(name==null || cpf==null || address==null ||  mail==null){
+        if (name == null || cpf == null || address == null || mail == null) {
             request.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
-            response.sendRedirect(request.getContextPath()+ "/client/new");
-        }else{
-        ClientController.update(id, name, cpf, address, mail);
-        response.sendRedirect(request.getContextPath() + "/client");
+            response.sendRedirect(request.getContextPath() + "/client/new");
+        } else {
+            ClientController.update(id, name, cpf, address, mail);
+            response.sendRedirect(request.getContextPath() + "/client");
         }
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-         
+
         String name = request.getParameter("name");
         String cpf = request.getParameter("cpf");
         String address = request.getParameter("address");
         String mail = request.getParameter("mail");
-        
-        if(name==null || cpf==null || address==null ||  mail==null){
+
+        if (name == null || cpf == null || address == null || mail == null) {
             request.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
-            response.sendRedirect(request.getContextPath()+ "/client/new");
-        }else{
-            if(ClientController.create(name, cpf, address, mail)){
-            ClientController.create(name, cpf, address, mail);
-            response.sendRedirect(request.getContextPath() + "/client");
-            } 
-        }       
+            response.sendRedirect(request.getContextPath() + "/client/new");
+        } else {
+            if (ClientController.create(name, cpf, address, mail)) {
+                ClientController.create(name, cpf, address, mail);
+                response.sendRedirect(request.getContextPath() + "/client");
+            }
+        }
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
@@ -178,7 +177,6 @@ public class ClientServlet extends HttpServlet {
 
     public void read(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-
         try {
             String path = "./Client/ClientList.jsp";
             request.setAttribute("path", path);

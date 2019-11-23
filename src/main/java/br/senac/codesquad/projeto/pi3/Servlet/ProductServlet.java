@@ -139,7 +139,7 @@ public class ProductServlet extends HttpServlet {
         String category = request.getParameter("categoryName");
 
         //Validar Campos em branco
-        if (nameProduct == null || values == null || valuesSale == null || details == null|| quantity == null) {
+        if (nameProduct == null || values == null || valuesSale == null || details == null || quantity == null) {
             request.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
             response.sendRedirect(request.getContextPath() + "/product/new");
         } else {
@@ -184,7 +184,7 @@ public class ProductServlet extends HttpServlet {
         String quantity = request.getParameter("quantity");
 
         //Validar Campos em branco
-        if (nameProduct == null || values == null || valuesSale == null || details == null|| quantity == null) {
+        if (nameProduct == null || values == null || valuesSale == null || details == null || quantity == null) {
             request.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
             response.sendRedirect(request.getContextPath() + "/product/new");
         } else {
