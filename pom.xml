@@ -46,12 +46,7 @@
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>javaee</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>5</version>
-            <type>jar</type>
-        </dependency>
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

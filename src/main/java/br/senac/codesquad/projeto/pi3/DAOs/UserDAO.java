@@ -261,8 +261,8 @@ public class UserDAO {
                     user.setMail(rs.getString("EMAIL"));
                     break;
             }
+            list.add(user);
         }
-        list.add(user);
     }
 
 }
