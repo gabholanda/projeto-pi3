@@ -5,6 +5,8 @@
 --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<link href="${pageContext.request.contextPath}/css/client.css" rel="stylesheet">
 <div class="wrapper fadeInDown cbg-image">
     <div id="formContent" class="p-3">
         <form  method="post" action="${pageContext.request.contextPath}/client/update">
@@ -26,7 +28,7 @@
                 <label>Email do Cliente</label>
                 <input type="email" name="mail" class="form-control" value="${mailAttr}" placeholder= "Digite o Email do Cliente:" required maxlength="100" value="${mailAttr}"/>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-success">Enviar</button>
             <button type="reset" class="btn btn-warning">Resetar dados</button>
             <a href="${pageContext.request.contextPath}/client" role="button" class="btn btn-danger">Cancelar</a>
         </form>

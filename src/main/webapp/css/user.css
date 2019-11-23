@@ -13,8 +13,8 @@ and open the template in the editor.
     overflow-y: auto;
 }
 
-.pbg-image{
-    background-image: url("https://images.pexels.com/photos/1420702/pexels-photo-1420702.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+.ubg-image{
+    background-image: url("../Images/BackgroundImages/backgroundEmployeer.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -26,16 +26,21 @@ form{
 }
 
 #formContent {
-    border-radius: 10px;
-    background: #fff;
-    padding: 30px;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    padding: 0px;
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    text-align: center;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+  font-weight: bold
+  
 }
+
 
 .wrapper {
     display: flex;
