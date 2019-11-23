@@ -22,8 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
+
 
 /**
  *
@@ -144,7 +143,7 @@ public class ClientServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, AddressException {
+            throws SQLException, IOException {
          
         String name = request.getParameter("name");
         String cpf = request.getParameter("cpf");
