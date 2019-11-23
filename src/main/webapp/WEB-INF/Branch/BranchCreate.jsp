@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="${pageContext.request.contextPath}/css/branch.css" rel="stylesheet">
-<div class="wrapper fadeInDown cbg-image">
+<div class="wrapper fadeInDown bbg-image">
     <div id="formContent" class="p-3">
         <form method="post" action="${pageContext.request.contextPath}/branch/create">
             <div class="form-group">

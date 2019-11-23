@@ -7,7 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
-<div class="wrapper fadeInDown cbg-image">
+
+<div class="wrapper fadeInDown pbg-image">
     <div id="formContent" class="p-3">
         <form  method="post" action="${pageContext.request.contextPath}/product/update">
             <input type="hidden" name="id" value="${idAttr}"/>

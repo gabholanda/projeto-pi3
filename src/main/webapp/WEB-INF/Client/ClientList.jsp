@@ -7,14 +7,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+ <link href="${pageContext.request.contextPath}/css/client.css" rel="stylesheet"/>
+<div class="jumbotron">
 <h2>Lista de Clientes</h2>
+</div>
 <section class="p-5">
     <form method="post" action="${pageContext.request.contextPath}/client/searchClient">
-        <input type="text" placeholder="Pesquise pelo nome ..." name="name">
-        <button type="submit">pesquisar</button>
+        <input type="text" placeholder="Pesquise pelo nome ..." name="name"     >
+        <button type="submit" class="btn btn-secondary">Pesquisar</button>
     </form>
     <div class="top-body">
+         
         <table class="table">
             <thead>
                 <tr>

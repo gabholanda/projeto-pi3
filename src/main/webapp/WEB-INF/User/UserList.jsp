@@ -7,8 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<div class="jumbotron">
 <h2>Lista de Usuarios</h2>
+</div>
 <section class="p-5">
     <div class="top-body">
         <table class="table">
@@ -17,7 +18,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
-                    <th scope="col">permissões</th>
+                    <th scope="col">Permissões</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
