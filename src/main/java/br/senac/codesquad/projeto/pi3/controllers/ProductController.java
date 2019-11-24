@@ -20,7 +20,7 @@ public class ProductController {
     }
 
     public static boolean update(int id, String nameProduct, double values,
-            double valueSale, String details, int categoryId, int quantity) throws Exception {
+            double valueSale, String details, int categoryId) throws Exception {
         Product p = new Product(id, nameProduct, values, valueSale, details, categoryId);
         return ProductDAO.update(p);
 

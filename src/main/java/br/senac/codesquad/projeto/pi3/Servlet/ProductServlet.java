@@ -135,37 +135,55 @@ public class ProductServlet extends HttpServlet {
         String values = request.getParameter("priceBuy");
         String valuesSale = request.getParameter("priceSale");
         String details = request.getParameter("description");
-        String quantity = request.getParameter("quantity");
-        String category = request.getParameter("categoryName");
+        String categoryId = request.getParameter("categoryId");
+        List<Category> categoryList = ProductController.findCategory();
+
+        request.setAttribute("idAttr", idAttr);
+        request.setAttribute("nameProductAttr", nameProduct);
+        request.setAttribute("descriptionAttr", details);
+        request.setAttribute("priceSaleAttr", valuesSale);
+        request.setAttribute("priceBuyAttr", values);
+        request.setAttribute("categoryList", categoryList);
 
         //Validar Campos em branco
-        if (nameProduct == null || values == null || valuesSale == null || details == null || quantity == null) {
+        if (nameProduct == null || values == null || valuesSale == null || details == null) {
             request.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
-            response.sendRedirect(request.getContextPath() + "/product/new");
+            response.sendRedirect(request.getContextPath() + "/product/edit");
         } else {
             //Validar Preco Compra deve ser menor que Preco Venda 
             if (Double.parseDouble(values) >= Double.parseDouble(valuesSale)) {
                 request.setAttribute("errorValues", "O Valor de Compra não pode ser maior que o valor de venda!");
-                response.sendRedirect(request.getContextPath() + "/product/new");
+                String path = "./Product/ProductEdit.jsp";
+                request.setAttribute("path", path);
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher(
+                                "/WEB-INF/IndexJSP.jsp");
+                dispatcher.forward(request, response);
             } else {
                 //Validar limites de caracteres
                 if (nameProduct.length() > 100) {
                     request.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
-                    response.sendRedirect(request.getContextPath() + "/product/new");
+                    String path = "./Product/ProductEdit.jsp";
+                    request.setAttribute("path", path);
+                    RequestDispatcher dispatcher
+                            = request.getRequestDispatcher(
+                                    "/WEB-INF/IndexJSP.jsp");
+                    dispatcher.forward(request, response);
                 } else {
                     User user = (User) session.getAttribute("user");
                     if (user == null) {
-                        response.sendRedirect(request.getContextPath() + "/loginss");
+                        response.sendRedirect(request.getContextPath() + "/login");
                     } else {
-                        if (ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                                details, user.getIdBranch(), Integer.parseInt(category), Integer.parseInt(quantity))) {
-
-                            ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                                    details, user.getIdBranch(), Integer.parseInt(category), Integer.parseInt(quantity));
-
+                        if (ProductController.update(Integer.parseInt(idAttr), nameProduct, Double.parseDouble(values),
+                                Double.parseDouble(valuesSale), details, Integer.parseInt(categoryId))) {
                             response.sendRedirect(request.getContextPath() + "/product");
                         } else {
-                            response.sendRedirect(request.getContextPath() + "/product/news");
+                            String path = "./Product/ProductEdit.jsp";
+                            request.setAttribute("path", path);
+                            RequestDispatcher dispatcher
+                                    = request.getRequestDispatcher(
+                                            "/WEB-INF/IndexJSP.jsp");
+                            dispatcher.forward(request, response);
                         }
                     }
                 }
@@ -200,17 +218,13 @@ public class ProductServlet extends HttpServlet {
                 } else {
                     User user = (User) session.getAttribute("user");
                     if (user == null) {
-                        response.sendRedirect(request.getContextPath() + "/loginss");
+                        response.sendRedirect(request.getContextPath() + "/login");
                     } else {
                         if (ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
                                 details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity))) {
-
-                            ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                                    details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity));
-
                             response.sendRedirect(request.getContextPath() + "/product");
                         } else {
-                            response.sendRedirect(request.getContextPath() + "/product/news");
+                            response.sendRedirect(request.getContextPath() + "/product/new");
                         }
                     }
                 }

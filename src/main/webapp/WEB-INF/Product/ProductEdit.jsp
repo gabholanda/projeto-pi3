@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="txtCategory">Categoria</label><br>
-                <select name="select">
+                <select name="categoryId">
                     <c:forEach var="category" items="${categoryList}">
                         <option value="${category.id}"><c:out value="${category.name}"/></option>
                     </c:forEach>

@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // @author marcelo.smoraes2
-@WebFilter(filterName = "FilterAuth", urlPatterns = { "/branch/*", "/client/*", "/product/*", "/user/*", "/sale/*",
-        "/report/*", "/home/*" })
+@WebFilter(filterName = "FilterAuth", urlPatterns = {"/branch/*", "/client/*", "/product/*", "/user/*", "/sale/*",
+    "/report/*", "/home/*"})
 
 public class FilterAuth implements Filter {
 
@@ -69,8 +69,7 @@ public class FilterAuth implements Filter {
         } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.BACKOFFICE)) {
             return true;
 
-        } else if (urlAcessada.contains("/user")
-                && (user.verificarPapel(user, Roles.RH) || user.verificarPapel(user, Roles.TI))) {
+        } else if (urlAcessada.contains("/user") && (user.verificarPapel(user, Roles.RH) || user.verificarPapel(user, Roles.TI))) {
             return true;
 
         } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.VENDAS)) {
