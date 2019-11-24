@@ -17,7 +17,32 @@ and open the template in the editor.
     overflow-y: auto;
 }
 
-input[type=number] {
-    width: 70%;
+input[type=text], input[type=number] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px;
 }
 
+input[type=text]:focus,  input[type=number]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+}
+
+input[type=text]:placeholder, input[type=number]:placeholder {
+    color: #cccccc;
+}
+
+.selected {
+    padding: 10px;
+    border: 1px solid black;
+}
