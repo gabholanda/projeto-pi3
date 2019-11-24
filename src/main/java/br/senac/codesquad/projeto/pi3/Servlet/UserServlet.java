@@ -89,7 +89,7 @@ public class UserServlet extends HttpServlet {
             throws IOException, ServletException, SQLException {
         List<BranchOffice> branchOfficeList = BranchOfficeController.findBranchOffice();
         request.setAttribute("branchOfficeListAttr", branchOfficeList);
-        
+
         String path = "./User/UserCreate.jsp";
         request.setAttribute("path", path);
         RequestDispatcher dispatcher
@@ -145,7 +145,7 @@ public class UserServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             User user = (User) session.getAttribute("user");
-            if (UserController.create(mail, password, name, permission, Integer.parseInt(IdEmpresas) , user.getPermission().getPermission())) {
+            if (UserController.create(mail, password, name, permission, Integer.parseInt(IdEmpresas), user.getPermission().getPermission())) {
                 response.sendRedirect(request.getContextPath() + "/user");
             } else {
                 response.sendRedirect(request.getContextPath() + "/home");
@@ -160,7 +160,7 @@ public class UserServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             if (id == null || id.equals("")) {
-                //ADICIONAR O SETATTRIBUTE DE ERROR AQUI
+                session.setAttribute("errorUser", "User não encontrado");
                 response.sendRedirect(request.getContextPath() + "/user");
             } else if ((UserController.delete(Integer.parseInt(id), user.getPermission().getPermission()))) {
                 response.sendRedirect(request.getContextPath() + "/user");
