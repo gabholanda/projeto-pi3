@@ -79,8 +79,7 @@ public class UserDAO {
             ps.setInt(5, IdEmpresa);
 
             int updatedlines = ps.executeUpdate();
-            
-            
+
             retorno = updatedlines > 0;
 
             return retorno;

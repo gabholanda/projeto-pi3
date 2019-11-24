@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 public class RH extends User {
 
-    private final Roles permission = Roles.BACKOFFICE; //permission user 
+    private final Roles permission = Roles.RH; //permission user 
 
     public RH(String mail, String password) {
         super(mail, password);

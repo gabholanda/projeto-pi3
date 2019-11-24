@@ -74,7 +74,13 @@ public class ProductDAO {
             throws SQLException {
         // ESSE UPDATE TEM QUE SER POR FILIAL OU APENAS A DIRETORIA TER DIREITO DE FAZER
         try {
-            String query = "UPDATE product SET NAMEPRODUCT =?,BUYVALUE =?, SALEVALUE=?, DETAILS =?, CATEGORY_ID WHERE ID_PRODUCT = ?";
+            String query = "UPDATE product SET"
+                    + " NAMEPRODUCT = ?,"
+                    + " BUYVALUE = ?,"
+                    + " SALEVALUE= ?,"
+                    + " DETAILS = ?,"
+                    + " CATEGORY_ID = ?"
+                    + " WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
 
             ps.setString(1, p.getNameProduct());
@@ -82,7 +88,7 @@ public class ProductDAO {
             ps.setDouble(3, p.getValuesSale());
             ps.setString(4, p.getDetails());
             ps.setInt(5, p.getCategoryId());
-            ps.setInt(5, p.getId());
+            ps.setInt(6, p.getId());
 
             int updatedlines = ps.executeUpdate();
 
