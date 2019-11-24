@@ -127,7 +127,6 @@ public class UserDAO {
     }
 
     public static User findBydId(int id) {
-
         try {
             String query = "SELECT ID_USER, NAME, EMAIL  FROM user WHERE ID_USER = ?";
             ps = con.prepareStatement(query);
@@ -147,7 +146,7 @@ public class UserDAO {
     public static User findbyMail(String mail, String password) throws SQLException {
         try {
             //FALTA O ID BRANCH DAQUI
-            String query = "SELECT EMAIL, PASSWORD, PERMISSIONS FROM codesquad.user WHERE EMAIL = ? ";
+            String query = "SELECT EMAIL, PASSWORD, PERMISSIONS, ID_USER, ID_BRANCHOFFICE FROM user WHERE EMAIL = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, mail);
             rs = ps.executeQuery();
@@ -178,7 +177,8 @@ public class UserDAO {
                 }
                 user.setMail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                //user.setIdBranch(rs.getInt("ID_BRANCH"));
+                user.setIdBranch(rs.getInt("ID_BRANCHOFFICE"));
+                user.setId(rs.getInt("ID_USER"));
             }
 
             return user;
@@ -263,8 +263,8 @@ public class UserDAO {
                     user.setMail(rs.getString("EMAIL"));
                     break;
             }
+            list.add(user);
         }
-        list.add(user);
     }
 
 }
