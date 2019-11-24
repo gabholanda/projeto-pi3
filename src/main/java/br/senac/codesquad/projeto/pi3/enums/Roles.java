@@ -16,7 +16,8 @@ public enum Roles {
     RH("RH"),
     GERENTE("GERENTE"),
     DIRETORIA("DIRETORIA"),
-    BACKOFFICE("BACKOFFICE");
+    BACKOFFICE("BACKOFFICE"),
+    GERENTE_GLOBAL("GERENTE GLOBAL");
 
     private final String permission;
 

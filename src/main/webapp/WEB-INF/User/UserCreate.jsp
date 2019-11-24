@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/user.css" rel="stylesheet">
 <div class="wrapper fadeInDown ubg-image">
     <div id="formContent" class="p-3">
@@ -32,16 +33,21 @@
                     <option name="permission" value="BACKOFFICE" >BACKOFFICE</option>
                     <option name="permission" value="DIRETORIA" >DIRETORIA</option>
                     <option name="permission" value="GERENTE" >GERENTE</option>
+                    <option name="permission" value="GERENTE GLOBAL" >GERENTE GLOBAL</option>
                     <option name="permission" value="RH" >RH</option>
                     <option name="permission" value="TI" >TI</option>
                     <option name="permission" value="VENDAS" >VENDAS</option>
+
                 </select>
 
-<!--                <c:forEach var="category" items="${categoryList}">
-                <label for="txtCategory">Categoria</label>
-                <input type="checkbox" name="category" class="form-control">
-                <label for="checkCatgory">${categoryAttr}</label>-->
-                </c:forEach>
+                <div class="form-groupProduct d-flex flex-column justify-content-center align-items-center">
+                    <label for="txtBranchOffice">Empresa</label>
+                    <select name="branchOfficeId">
+                        <c:forEach var="branchOffice" items="${branchOfficeListAttr}">
+                            <option value="${branchOffice.id}"><c:out value="${branchOffice.name}"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
             </div>
             <div class="Div_buttons">
                 <button type="submit" class="btn btn-success">Salvar</button>

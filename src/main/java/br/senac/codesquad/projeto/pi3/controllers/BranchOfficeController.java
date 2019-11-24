@@ -9,6 +9,7 @@ import br.senac.codesquad.projeto.pi3.DAOs.BranchOfficeDAO;
 import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -39,6 +40,10 @@ public class BranchOfficeController {
 
     public static BranchOffice findById(int id) {
         return BranchOfficeDAO.findBydId(id);
+    }
+    
+        public static List<BranchOffice> findBranchOffice() throws SQLException {
+        return BranchOfficeDAO.findCategoryName();
     }
 
 }

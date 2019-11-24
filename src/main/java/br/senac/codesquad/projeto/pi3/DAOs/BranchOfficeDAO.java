@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -140,6 +141,27 @@ public class BranchOfficeDAO {
                 }
             }
         }
+    }
+    
+    public static List<BranchOffice> findCategoryName() throws SQLException {
+        try {
+            String query = "SELECT * FROM branch_office";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            List<BranchOffice> list = new ArrayList<>();
+            if (rs != null) {
+                while (rs.next()) {
+                    BranchOffice branchOffice = new BranchOffice();
+                    branchOffice.setId(rs.getInt("ID"));
+                    branchOffice.setName(rs.getString("NAME"));
+                    list.add(branchOffice);
+                }
+            }
+            return list;
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        return null;
     }
 
 }
