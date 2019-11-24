@@ -204,10 +204,6 @@ public class ProductServlet extends HttpServlet {
                     } else {
                         if (ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
                                 details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity))) {
-
-                            ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
-                                    details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity));
-
                             response.sendRedirect(request.getContextPath() + "/product");
                         } else {
                             response.sendRedirect(request.getContextPath() + "/product/news");
