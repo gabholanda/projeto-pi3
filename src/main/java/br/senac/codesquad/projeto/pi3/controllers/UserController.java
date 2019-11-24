@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -19,10 +20,10 @@ import java.util.logging.Logger;
  */
 public class UserController {
 
-    public static boolean create(String mail, String password, String name, String permissionNew,int IdEmpresa, String permission) {
+    public static boolean create(String mail, String password, String name, String permissionNew, int IdEmpresa, String permission) {
         if (permission.equalsIgnoreCase("TI")) {
             try {
-                return UserDAO.create(mail, password, name, Roles.valueOf(permissionNew),IdEmpresa);
+                return UserDAO.create(mail, BCrypt.hashpw(password, BCrypt.gensalt()), name, Roles.valueOf(permissionNew), IdEmpresa);
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -35,7 +36,7 @@ public class UserController {
     public static boolean update(int id, String name, String password, String permission) {
         if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
             try {
-                return UserDAO.update(id, name, password);
+                return UserDAO.update(id, name, BCrypt.hashpw(password, BCrypt.gensalt()));
             } catch (SQLException ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
