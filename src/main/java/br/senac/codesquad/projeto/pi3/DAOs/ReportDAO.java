@@ -72,6 +72,36 @@ public class ReportDAO {
         return null;
     }
 
+    
+    //to com muito sono olhar isso aqui depois 
+    public ArrayList<Report> generateReportTotalBranch(int idbranchs) throws SQLException {
+        ArrayList<Report> reportList = new ArrayList<>();
+        Connection con = ConnectionManager.getConnection();
+
+        try {
+            String query = "quero a querry disso";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    Report report = new Report();
+                    String productL = rs.getString("NAMEBRANCH");
+                    productL = rs.getString("TOTALVALUEBRANCH");
+                    reportList.add(report);
+                }
+
+            } else {
+
+                throw new SQLException();
+            }
+        } catch (SQLException ex) {
+            reportList = null;
+        }
+        return reportList;
+
+    }
+
     private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

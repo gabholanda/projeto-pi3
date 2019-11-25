@@ -13,6 +13,7 @@ import java.util.Set;
  */
 public class Report {
 
+    private String BranchName; 
     //valor total de todas as filiais solicitado pela diretoria. 
     private double totalValue;
     //10 produtos mais vendidos solicitado pela diretoria. 
@@ -23,10 +24,17 @@ public class Report {
     private String dataInicialReport;
     //data final do relatorio
     private String dataFinalReport;
-
-    //
+  
+    
+  
     public Report() {
 
+    }
+    
+    //revisar esse report total muito sono
+    public Report (String BranchName, double totalBranchValue){ 
+        this.BranchName = BranchName; 
+        this.totalBranchValue = totalBranchValue;  
     }
 
     public Report(double totalValue, double totalBranchValue, String dataInicialReport, String dataFinalReport) {
