@@ -5,6 +5,8 @@
  */
 package br.senac.codesquad.projeto.pi3.Interfaces;
 
+import br.senac.codesquad.projeto.pi3.models.User;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -13,7 +15,5 @@ import javax.servlet.http.HttpSession;
  */
 public interface Authenticable {
 
-    public HttpSession login();
-
-    public HttpSession logout();
+    public void login(User user, HttpServletRequest request, HttpSession session);
 }

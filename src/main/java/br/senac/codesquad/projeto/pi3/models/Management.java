@@ -6,6 +6,7 @@
 package br.senac.codesquad.projeto.pi3.models;
 
 import br.senac.codesquad.projeto.pi3.enums.Roles;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -27,5 +28,10 @@ public class Management extends User {
     @Override
     public Roles getPermission() {
         return permission;
+    }
+
+    @Override
+    public void login(User user, HttpServletRequest request, HttpSession session) {
+        session.setAttribute("user", user);
     }
 }
