@@ -152,7 +152,9 @@ public class ProductServlet extends HttpServlet {
         } else {
             //Validar Preco Compra deve ser menor que Preco Venda 
             if (Double.parseDouble(values) >= Double.parseDouble(valuesSale)) {
+                request.setAttribute("categoryList", categoryList);
                 request.setAttribute("errorValues", "O Valor de Compra não pode ser maior que o valor de venda!");
+
                 String path = "./Product/ProductEdit.jsp";
                 request.setAttribute("path", path);
                 RequestDispatcher dispatcher
@@ -162,6 +164,7 @@ public class ProductServlet extends HttpServlet {
             } else {
                 //Validar limites de caracteres
                 if (nameProduct.length() > 100) {
+                    request.setAttribute("categoryList", categoryList);
                     request.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
                     String path = "./Product/ProductEdit.jsp";
                     request.setAttribute("path", path);
@@ -178,6 +181,7 @@ public class ProductServlet extends HttpServlet {
                                 Double.parseDouble(valuesSale), details, Integer.parseInt(categoryId))) {
                             searchProduct(request, response);
                         } else {
+                            request.setAttribute("categoryList", categoryList);
                             String path = "./Product/ProductEdit.jsp";
                             request.setAttribute("path", path);
                             RequestDispatcher dispatcher
@@ -192,7 +196,7 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, SQLException {
+            throws IOException, SQLException, ServletException {
         HttpSession session = request.getSession();
         String nameProduct = request.getParameter("name");
         String values = request.getParameter("priceBuy");
@@ -203,16 +207,32 @@ public class ProductServlet extends HttpServlet {
 
         //Validar Campos em branco
         if (nameProduct == null || values == null || valuesSale == null || details == null || quantity == null) {
+            List<Category> categoryList = ProductController.findCategory();
+            request.setAttribute("categoryList", categoryList);
             request.setAttribute("errorCreateProduct", "Não é possível finalizar essa ação com campos vazios!");
-            response.sendRedirect(request.getContextPath() + "/product/new");
+            String path = "./Product/ProductCreate.jsp";
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
         } else {
             //Validar Preco Compra deve ser menor que Preco Venda 
             if (Double.parseDouble(values) >= Double.parseDouble(valuesSale)) {
-                request.setAttribute("errorValues", "O Valor de Compra não pode ser maior que o valor de venda!");
-                response.sendRedirect(request.getContextPath() + "/product/new");
+                List<Category> categoryList = ProductController.findCategory();
+                request.setAttribute("categoryList", categoryList);
+                request.setAttribute("errorValues", "Valor de Compra não pode ser maior que o valor de venda!");
+                String path = "./Product/ProductCreate.jsp";
+                request.setAttribute("path", path);
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher(
+                                "/WEB-INF/IndexJSP.jsp");
+                dispatcher.forward(request, response);
             } else {
                 //Validar limites de caracteres
                 if (nameProduct.length() > 100) {
+                    List<Category> categoryList = ProductController.findCategory();
+                    request.setAttribute("categoryList", categoryList);
                     request.setAttribute("errorTamanhoName", "Limite de caracteres excedido!");
                     response.sendRedirect(request.getContextPath() + "/product/new");
                 } else {
@@ -224,7 +244,14 @@ public class ProductServlet extends HttpServlet {
                                 details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity))) {
                             searchProduct(request, response);
                         } else {
-                            response.sendRedirect(request.getContextPath() + "/product/new");
+                            List<Category> categoryList = ProductController.findCategory();
+                            request.setAttribute("categoryList", categoryList);
+                            String path = "./Product/ProductCreate.jsp";
+                            request.setAttribute("path", path);
+                            RequestDispatcher dispatcher
+                                    = request.getRequestDispatcher(
+                                            "/WEB-INF/IndexJSP.jsp");
+                            dispatcher.forward(request, response);
                         }
                     }
                 }

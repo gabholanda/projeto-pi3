@@ -24,7 +24,7 @@
                 <label>Senha</label>
                 <input class="form-control" type="password" name="password"  value="${passwordAttr}"  />
             </div>
-
+            <p class="error">${errorForm}</p>
             <button type="submit" class="btn btn-success">Alterar</button>
             <a href="${pageContext.request.contextPath}/user" role="button" class="btn btn-danger">Cancelar</a>
         </form>

@@ -48,6 +48,7 @@
                         </c:forEach>
                     </select>
                 </div>
+                <p class="error">${errorForm}</p>
             </div>
             <div class="Div_buttons">
                 <button type="submit" class="btn btn-success">Salvar</button>

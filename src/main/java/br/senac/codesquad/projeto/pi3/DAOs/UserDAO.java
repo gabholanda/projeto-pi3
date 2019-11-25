@@ -128,7 +128,7 @@ public class UserDAO {
 
     public static User findBydId(int id) {
         try {
-            String query = "SELECT ID_USER, NAME, EMAIL  FROM user WHERE ID_USER = ?";
+            String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS  FROM user WHERE ID_USER = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
 
