@@ -59,11 +59,11 @@ public class FilterAuth implements Filter {
             return true;
 
         } else if (urlAcessada.contains("/branch")
-                && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE))) {
+                && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE) || user.verificarPapel(user, Roles.GERENTE_GLOBAL))) {
             return true;
 
         } else if (urlAcessada.contains("/report")
-                && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE))) {
+                && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE) || user.verificarPapel(user, Roles.GERENTE_GLOBAL)))  {
             return true;
 
         } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.BACKOFFICE)) {
