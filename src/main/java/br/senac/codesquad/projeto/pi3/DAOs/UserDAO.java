@@ -11,6 +11,7 @@ import br.senac.codesquad.projeto.pi3.models.BackOffice;
 import br.senac.codesquad.projeto.pi3.models.Employee;
 import br.senac.codesquad.projeto.pi3.models.Management;
 import br.senac.codesquad.projeto.pi3.models.Manager;
+import br.senac.codesquad.projeto.pi3.models.ManagerGlobal;
 import br.senac.codesquad.projeto.pi3.models.RH;
 import br.senac.codesquad.projeto.pi3.models.TI;
 import br.senac.codesquad.projeto.pi3.models.User;
@@ -167,6 +168,9 @@ public class UserDAO {
                     case "GERENTE":
                         user = new Manager();
                         break;
+                    case "GERENTE GLOBAL":
+                        user = new ManagerGlobal();
+                        break;
                     case "DIRETORIA":
                         user = new Management();
                         break;
@@ -205,7 +209,19 @@ public class UserDAO {
                     user.setMail(rs.getString("EMAIL"));
                     break;
                 case "VENDAS":
+                    user = (User) new Employee();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "GERENTE":
                     user = (User) new Manager();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "GERENTE GLOBAL":
+                    user = (User) new ManagerGlobal();
                     user.setId(rs.getInt("ID_USER"));
                     user.setName(rs.getString("NAME"));
                     user.setMail(rs.getString("EMAIL"));
@@ -244,7 +260,19 @@ public class UserDAO {
                     user.setMail(rs.getString("EMAIL"));
                     break;
                 case "VENDAS":
+                    user = (User) new Employee();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "GERENTE":
                     user = (User) new Manager();
+                    user.setId(rs.getInt("ID_USER"));
+                    user.setName(rs.getString("NAME"));
+                    user.setMail(rs.getString("EMAIL"));
+                    break;
+                case "GERENTE GLOBAL":
+                    user = (User) new ManagerGlobal();
                     user.setId(rs.getInt("ID_USER"));
                     user.setName(rs.getString("NAME"));
                     user.setMail(rs.getString("EMAIL"));
