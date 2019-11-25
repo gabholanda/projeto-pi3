@@ -121,17 +121,39 @@ public class UserServlet extends HttpServlet {
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, Exception {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
         String idAttr = request.getParameter("id");
         String name = (request.getParameter("name"));
         String password = (request.getParameter("password"));
-        int id = Integer.parseInt(idAttr);
-        UserController.update(id, name, password, user.getPermission().getPermission());
-        response.sendRedirect(request.getContextPath() + "/user");
+        if (name == null || password == null || idAttr == null) {
+            String path = "./User/UserEdit.jsp";
+            request.setAttribute("path", path);
+            request.setAttribute("name", name);
+            request.setAttribute("password", password);
+            request.setAttribute("errorForm", "É necessário preencher todos os campos");
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            User user = (User) session.getAttribute("user");
+            if (UserController.update(Integer.parseInt(idAttr), name, password, user.getPermission().getPermission())) {
+                response.sendRedirect(request.getContextPath() + "/user");
+            } else {
+                String path = "./User/UserEdit.jsp";
+                request.setAttribute("path", path);
+                request.setAttribute("name", name);
+                request.setAttribute("password", password);
+                request.setAttribute("errorForm", "Erro ao tentar editar");
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher(
+                                "/WEB-INF/IndexJSP.jsp");
+                dispatcher.forward(request, response);
+            }
+        }
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+            throws SQLException, IOException, ServletException {
         HttpSession session = request.getSession();
 
         String name = (request.getParameter("name"));
@@ -143,16 +165,44 @@ public class UserServlet extends HttpServlet {
         if (session.getAttribute("user") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
+            if (name == null || mail == null || password == null || permission == null || IdEmpresas == null) {
+                List<BranchOffice> branchOfficeList = BranchOfficeController.findBranchOffice();
+                String path = "./User/UserCreate.jsp";
+                request.setAttribute("branchOfficeListAttr", branchOfficeList);
+                request.setAttribute("path", path);
+                request.setAttribute("name", name);
+                request.setAttribute("mail", mail);
+                request.setAttribute("password", password);
+                request.setAttribute("permission", permission);
+                request.setAttribute("IdEmpresas", IdEmpresas);
+                request.setAttribute("errorForm", "É necessário preencher todos os campos");
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher(
+                                "/WEB-INF/IndexJSP.jsp");
+                dispatcher.forward(request, response);
+            }
             User user = (User) session.getAttribute("user");
             if (UserController.create(mail, password, name, permission, Integer.parseInt(IdEmpresas), user.getPermission().getPermission())) {
                 response.sendRedirect(request.getContextPath() + "/user");
             } else {
-                response.sendRedirect(request.getContextPath() + "/home");
+                List<BranchOffice> branchOfficeList = BranchOfficeController.findBranchOffice();
+                String path = "./User/UserCreate.jsp";
+                request.setAttribute("branchOfficeListAttr", branchOfficeList);
+                request.setAttribute("path", path);
+                request.setAttribute("name", name);
+                request.setAttribute("mail", mail);
+                request.setAttribute("password", password);
+                request.setAttribute("permission", permission);
+                request.setAttribute("IdEmpresas", IdEmpresas);
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher(
+                                "/WEB-INF/IndexJSP.jsp");
+                dispatcher.forward(request, response);
             }
         }
     }
 
-    public void delete(HttpServletRequest request, HttpServletResponse response)
+    private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         HttpSession session = request.getSession();
         String id = request.getParameter("id");
@@ -172,7 +222,7 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    public void read(HttpServletRequest request, HttpServletResponse response)
+    private void read(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         try {
             HttpSession session = request.getSession();
@@ -187,9 +237,6 @@ public class UserServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } catch (IOException | ServletException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
         }
     }
-
 }
