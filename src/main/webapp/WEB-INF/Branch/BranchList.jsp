@@ -24,22 +24,26 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="branchOffice" items="${branchList}">
-                    <tr>
-                        <th scope="row"><c:out value="${branchOffice.id}" /></th>
-                        <td><c:out value="${branchOffice.name}"/></td>
-                        <td><c:out value="${branchOffice.cnpj}"/></td>
-                        <td><c:out value="${branchOffice.address}"/></td>
-                        <td class="d-flex">
-                            <a href="${pageContext.request.contextPath}/branch/edit?id=<c:out value='${branchOffice.id}' />" class="btn btn-secondary">Editar</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <form method="post" action="${pageContext.request.contextPath}/branch/delete?id=<c:out value='${branchOffice.id}' />">
-                                <input type="hidden" name="id" value="${branchOffice.id}">
-                                <button type="submit" class="btn btn-danger">Deletar</button> 
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${branchList != null && !branchList.isEmpty()}">
+                        <c:forEach var="branchOffice" items="${branchList}">
+                            <tr>
+                                <th scope="row"><c:out value="${branchOffice.id}" /></th>
+                                <td><c:out value="${branchOffice.name}"/></td>
+                                <td><c:out value="${branchOffice.cnpj}"/></td>
+                                <td><c:out value="${branchOffice.address}"/></td>
+                                <td class="d-flex">
+                                    <a href="${pageContext.request.contextPath}/branch/edit?id=<c:out value='${branchOffice.id}' />" class="btn btn-secondary">Editar</a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <form method="post" action="${pageContext.request.contextPath}/branch/delete?id=<c:out value='${branchOffice.id}' />">
+                                        <input type="hidden" name="id" value="${branchOffice.id}">
+                                        <button type="submit" class="btn btn-danger">Deletar</button> 
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                </c:choose>
             </tbody>
         </table>
     </div>

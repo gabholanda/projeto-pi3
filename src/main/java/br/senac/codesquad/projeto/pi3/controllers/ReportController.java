@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class ReportController {
 
     //revisar depois muito sono
-    public ArrayList<Report> reportTotalValueBranch(int idbranchs) throws SQLException {
+    public static Report generateRegionalReport() throws SQLException {
 
-        ArrayList<Report> report = new ReportDAO().generateReportTotalBranch(idbranchs);
+        Report report = ReportDAO.generateReport();
         return report;
     }
 }
