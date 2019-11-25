@@ -8,13 +8,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet">
 <body style="position: relative">
-        <div class="jumbotron">
-<h2>Lista de Produtos</h2>
-  </div>
-<section class="p-5">
-    <form method="post" action="${pageContext.request.contextPath}/product/searchProduct">
-        <input type="text" placeholder="Pesquise pelo nome ..." name="productName">
-        <button type="submit" class="btn btn-secondary">Pesquisar</button>
+    <div class="jumbotron">
+        <h2>Lista de Produtos</h2>
+    </div>
+    <section class="p-5">
+        <form method="post" action="${pageContext.request.contextPath}/product/searchProduct">
+            <input type="text" placeholder="Pesquise pelo nome ..." name="productName">
+            <button type="submit" class="btn btn-secondary">Pesquisar</button>
+        </form>
         <div class="top-body">
             <table class="table">
                 <thead>
@@ -54,8 +55,8 @@
         </div>
          
         <div class="d-flex justify-content-center" >
-    <a href="${pageContext.request.contextPath}/product/new" class="btn btn-success">Novo produto</a>
-</div>
- 
-</section>
+            <a href="${pageContext.request.contextPath}/product/new" class="btn btn-success">Novo produto</a>
+        </div>
+         
+    </section>
 </body>

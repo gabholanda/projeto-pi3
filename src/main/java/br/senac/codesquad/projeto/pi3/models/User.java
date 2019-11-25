@@ -14,7 +14,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author marcelo.moraes and Patrick
  */
-public abstract class User implements Authenticable {
+public abstract class User {
 
     private int id;
     private int idBranch;
