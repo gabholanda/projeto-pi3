@@ -18,5 +18,6 @@
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/user">Funcionário</a>
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/branch">Filial</a>
         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/about">Sobre</a>
+         <a class="py-2 d-none d-md-inline-block" href="${pageContext.request.contextPath}/logout">Logout</a>
     </div>
 </nav>
