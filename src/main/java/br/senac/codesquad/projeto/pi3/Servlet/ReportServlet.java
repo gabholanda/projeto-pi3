@@ -5,9 +5,8 @@
  */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
-import br.senac.codesquad.projeto.pi3.DAOs.ReportDAO;
+import br.senac.codesquad.projeto.pi3.controllers.ReportController;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,7 +74,11 @@ public class ReportServlet extends HttpServlet {
 
     private void generate(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        ReportDAO.generateReport();
-        response.sendRedirect(request.getContextPath() + "/report");
+        try {
+            ReportController.generateRegionalReport();
+            response.sendRedirect(request.getContextPath() + "/report");
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

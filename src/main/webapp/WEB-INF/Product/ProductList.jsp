@@ -30,26 +30,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="product" items="${sessionScope.productList}">
-                        <tr>
-                            <th scope="row"><c:out value="${product.id}" /></th>
-                            <td><c:out value="${product.nameProduct}"/></td>
-                            <td><c:out value="${product.details}"/></td>
-                            <td><c:out value="${product.values}"/></td>
-                            <td><c:out value="${product.valuesSale}"/></td>    
-                            <td><c:out value="${product.categoryName}"/></td>
-                            <td><c:out value="${product.quantity}"/></td>
+                    <c:choose>
+                        <c:when test="${sessionScope.productList != null && !sessionScope.productList.isEmpty()}">
+                            <c:forEach var="product" items="${sessionScope.productList}">
+                                <tr>
+                                    <th scope="row"><c:out value="${product.id}" /></th>
+                                    <td><c:out value="${product.nameProduct}"/></td>
+                                    <td><c:out value="${product.details}"/></td>
+                                    <td><c:out value="${product.values}"/></td>
+                                    <td><c:out value="${product.valuesSale}"/></td>    
+                                    <td><c:out value="${product.categoryName}"/></td>
+                                    <td><c:out value="${product.quantity}"/></td>
 
-                            <td class="d-flex">
-                                <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <form method="post" action="${pageContext.request.contextPath}/product/delete?id=<c:out value='${product.id}' />">
-                                    <input type="hidden" name="id" value="${product.id}">
-                                    <button type="submit" class="btn btn-danger">Deletar</button> 
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                                    <td class="d-flex">
+                                        <a href="${pageContext.request.contextPath}/product/edit?id=<c:out value='${product.id}' />" class="btn btn-secondary">Editar</a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <form method="post" action="${pageContext.request.contextPath}/product/delete?id=<c:out value='${product.id}' />">
+                                            <input type="hidden" name="id" value="${product.id}">
+                                            <button type="submit" class="btn btn-danger">Deletar</button> 
+                                        </form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                    </c:choose>
                 </tbody>
             </table>
         </div>

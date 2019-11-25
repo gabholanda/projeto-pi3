@@ -23,22 +23,26 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="employee" items="${userList}">
-                    <tr>
-                        <th scope="row"><c:out value="${employee.id}" /></th>
-                        <td><c:out value="${employee.name}"/></td>
-                        <td><c:out value="${employee.mail}"/></td>
-                        <td><c:out value="${employee.permission}"/></td>
-                        <td class="d-flex">
-                            <a href="${pageContext.request.contextPath}/user/edit?id=<c:out value='${employee.id}' />" class="btn btn-secondary">Editar</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <form method="post" action="${pageContext.request.contextPath}/user/delete?id=<c:out value='${employee.id}' />">
-                                <input type="hidden" name="id" value="${employee.id}">
-                                <button type="submit" class="btn btn-danger">Deletar</button> 
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${sessionScope.userList != null && !sessionScope.userList.isEmpty()}">
+                        <c:forEach var="employee" items="${userList}">
+                            <tr>
+                                <th scope="row"><c:out value="${employee.id}" /></th>
+                                <td><c:out value="${employee.name}"/></td>
+                                <td><c:out value="${employee.mail}"/></td>
+                                <td><c:out value="${employee.permission}"/></td>
+                                <td class="d-flex">
+                                    <a href="${pageContext.request.contextPath}/user/edit?id=<c:out value='${employee.id}' />" class="btn btn-secondary">Editar</a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <form method="post" action="${pageContext.request.contextPath}/user/delete?id=<c:out value='${employee.id}' />">
+                                        <input type="hidden" name="id" value="${employee.id}">
+                                        <button type="submit" class="btn btn-danger">Deletar</button> 
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                </c:choose>
             </tbody>
         </table>
     </div>

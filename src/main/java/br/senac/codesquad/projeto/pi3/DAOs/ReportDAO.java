@@ -32,11 +32,11 @@ public class ReportDAO {
             String query
                     = "select A.ID_SALES,E.NAME,A.VALUE_FULL, C.*, sum(B.AMOUNT_ITEM), D.NAME "
                     + "from sales as A "
-                    + "inner join codesquad.item_ordered as B "
+                    + "inner join item_ordered as B "
                     + "on A.ID_SALES = B.SALES_ID_SALES "
                     + "inner join product AS C "
                     + "ON B.PRODUCT_ID_PRODUCT = C.ID_PRODUCT "
-                    + "INNER JOIN codesquad.category as D "
+                    + "INNER JOIN category as D "
                     + "on C.CATEGORY_ID = D.ID_CATEGORY "
                     + "inner join client as E "
                     + "on A.CLIENT_ID_CLIENT = E.ID_CLIENT "
@@ -72,9 +72,8 @@ public class ReportDAO {
         return null;
     }
 
-    
     //to com muito sono olhar isso aqui depois 
-    public ArrayList<Report> generateReportTotalBranch(int idbranchs) throws SQLException {
+    public static ArrayList<Report> generateReportTotalBranch(int idbranchs) throws SQLException {
         ArrayList<Report> reportList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
 
