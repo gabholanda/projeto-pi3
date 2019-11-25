@@ -21,7 +21,7 @@ public abstract class User implements Authenticable {
     private String mail;
     private String password;
     private String name;
-    Roles permission; // permission user
+    private Roles permission; // permission user
     private ArrayList<Sale> saleList;
     private ArrayList<User> userList;
 

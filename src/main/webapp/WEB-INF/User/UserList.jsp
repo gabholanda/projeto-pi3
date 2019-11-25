@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <c:choose>
-                    <c:when test="${sessionScope.userList != null && !sessionScope.userList.isEmpty()}">
+                    <c:when test="${userList != null && !userList.isEmpty()}">
                         <c:forEach var="employee" items="${userList}">
                             <tr>
                                 <th scope="row"><c:out value="${employee.id}" /></th>
