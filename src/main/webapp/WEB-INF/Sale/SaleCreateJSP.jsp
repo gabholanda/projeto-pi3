@@ -37,8 +37,12 @@
         </c:choose>
         <div class="row">
             <div class="col">
+                <label for="discount">Desconto: </label>
+                <form method="post" action="${pageContext.request.contextPath}/sale/changeDiscount">
+                    <input type="number" step="1" value="${sale.discount}%" name="discount" max="100" min="0">
+                </form>
                 <label for="valorTotal">Valor Total:</label>
-                <input type="number" step="0.01" disabled value="${sale.totalValue}" name="valorTotal">
+                <input type="number" step="0.00" disabled value="${sale.totalValue - sale.discount * sale.totalValue}" name="valorTotal">
                 <p class="selected">Cliente: ${selectedClient.name}</p>
                 <input type="hidden" value="${selectedClient.id}" name="selectedClientId">
                 <form method="post" action="${pageContext.request.contextPath}/sale/create">
