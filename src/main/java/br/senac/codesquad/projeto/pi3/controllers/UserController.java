@@ -64,7 +64,7 @@ public class UserController {
         ArrayList<User> user = null;
         if (permission.equalsIgnoreCase("VENDAS") || permission.equalsIgnoreCase("BACKOFFICE")) {
             return user;
-        } else if (permission.equalsIgnoreCase("DIRETORIA") || permission.equalsIgnoreCase("GERENTE")
+        } else if (permission.equalsIgnoreCase("DIRETORIA") || permission.equalsIgnoreCase("GERENTE") || permission.equalsIgnoreCase("GERENTE GLOBAL")
                 || permission.equalsIgnoreCase("RH") || permission.equalsIgnoreCase("TI")) {
             return UserDAO.read();
         }
