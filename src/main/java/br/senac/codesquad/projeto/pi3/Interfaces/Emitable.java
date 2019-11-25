@@ -5,13 +5,15 @@
  */
 package br.senac.codesquad.projeto.pi3.Interfaces;
 
+import br.senac.codesquad.projeto.pi3.models.Report;
+
 /**
  *
  * @author patrickchagas
  */
 public interface Emitable {
 
-    public String generateReport();
+    public Report generateReport();
 
-    public String generateOverallReport();
+    public Report generateOverallReport();
 }
