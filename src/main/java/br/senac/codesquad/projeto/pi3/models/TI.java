@@ -28,15 +28,4 @@ public class TI extends User {
     public Roles getPermission() {
         return permission;
     }
-
-    @Override
-    public HttpSession login() {
-        return null;
-    }
-
-    @Override
-    public HttpSession logout() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

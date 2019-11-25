@@ -176,7 +176,7 @@ public class ProductServlet extends HttpServlet {
                     } else {
                         if (ProductController.update(Integer.parseInt(idAttr), nameProduct, Double.parseDouble(values),
                                 Double.parseDouble(valuesSale), details, Integer.parseInt(categoryId))) {
-                            response.sendRedirect(request.getContextPath() + "/product");
+                            searchProduct(request, response);
                         } else {
                             String path = "./Product/ProductEdit.jsp";
                             request.setAttribute("path", path);
@@ -222,7 +222,7 @@ public class ProductServlet extends HttpServlet {
                     } else {
                         if (ProductController.create(nameProduct, Double.parseDouble(values), Double.parseDouble(valuesSale),
                                 details, user.getIdBranch(), Integer.parseInt(categoryId), Integer.parseInt(quantity))) {
-                            response.sendRedirect(request.getContextPath() + "/product");
+                            searchProduct(request, response);
                         } else {
                             response.sendRedirect(request.getContextPath() + "/product/new");
                         }
@@ -237,10 +237,8 @@ public class ProductServlet extends HttpServlet {
             throws IOException, ServletException, SQLException {
         try {
             String id = request.getParameter("id");
-            request.setAttribute("id", id);
-
             ProductController.delete(Integer.parseInt(id));
-            response.sendRedirect(request.getContextPath() + "/product");
+            searchProduct(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

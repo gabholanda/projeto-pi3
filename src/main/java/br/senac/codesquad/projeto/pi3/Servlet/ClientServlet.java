@@ -136,8 +136,11 @@ public class ClientServlet extends HttpServlet {
             request.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
             response.sendRedirect(request.getContextPath() + "/client/new");
         } else {
-            ClientController.update(id, name, cpf, address, mail);
-            response.sendRedirect(request.getContextPath() + "/client");
+            if (ClientController.update(id, name, cpf, address, mail)) {
+                searchClient(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/client/edit");
+            }
         }
     }
 
@@ -154,8 +157,9 @@ public class ClientServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/client/new");
         } else {
             if (ClientController.create(name, cpf, address, mail)) {
-                ClientController.create(name, cpf, address, mail);
-                response.sendRedirect(request.getContextPath() + "/client");
+                searchClient(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/client/new");
             }
         }
     }
@@ -168,7 +172,7 @@ public class ClientServlet extends HttpServlet {
             request.setAttribute("id", id);
 
             ClientController.delete(Integer.parseInt(id));
-            response.sendRedirect(request.getContextPath() + "/client");
+            searchClient(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
