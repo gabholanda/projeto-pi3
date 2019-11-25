@@ -8,6 +8,12 @@ and open the template in the editor.
     Author     : lucas.mnpaiva
 */
 
+.error {
+    background-color: #db6b71;
+    color: #dba9ac;
+    border: 1px solid #b8272f;
+}
+
 .pb-1, .py-1 {
     padding-bottom: .25rem!important;
 }

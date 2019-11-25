@@ -8,7 +8,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="jumbotron">
-<h2>Lista de Usuarios</h2>
+    <h2>Lista de Usuarios</h2>
 </div>
 <section class="p-5">
     <div class="top-body">
@@ -23,17 +23,17 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="user" items="${userList}">
+                <c:forEach var="employee" items="${userList}">
                     <tr>
-                        <th scope="row"><c:out value="${user.id}" /></th>
-                        <td><c:out value="${user.name}"/></td>
-                        <td><c:out value="${user.mail}"/></td>
-                        <td><c:out value="${user.permission}"/></td>
+                        <th scope="row"><c:out value="${employee.id}" /></th>
+                        <td><c:out value="${employee.name}"/></td>
+                        <td><c:out value="${employee.mail}"/></td>
+                        <td><c:out value="${employee.permission}"/></td>
                         <td class="d-flex">
-                            <a href="${pageContext.request.contextPath}/user/edit?id=<c:out value='${user.id}' />" class="btn btn-secondary">Editar</a>
+                            <a href="${pageContext.request.contextPath}/user/edit?id=<c:out value='${employee.id}' />" class="btn btn-secondary">Editar</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <form method="post" action="${pageContext.request.contextPath}/user/delete?id=<c:out value='${user.id}' />">
-                                <input type="hidden" name="id" value="${user.id}">
+                            <form method="post" action="${pageContext.request.contextPath}/user/delete?id=<c:out value='${employee.id}' />">
+                                <input type="hidden" name="id" value="${employee.id}">
                                 <button type="submit" class="btn btn-danger">Deletar</button> 
                             </form>
                         </td>
@@ -44,5 +44,5 @@
     </div>
 </section>
 <div class="d-flex justify-content-center">
-    <a href="${pageContext.request.contextPath}/user/new" class="btn btn-success"   >Novo Usuario</a>
+    <a href="${pageContext.request.contextPath}/user/new" class="btn btn-success">Novo Usuario</a>
 </div>

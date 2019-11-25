@@ -109,7 +109,6 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("idAttr", user.getId());
         request.setAttribute("nameAttr", user.getName());
         request.setAttribute("mailAttr", user.getMail());
-//        request.setAttribute("passwordAttr", user.getPassword());
 
         String path = "./User/UserEdit.jsp";
         request.setAttribute("path", path);
