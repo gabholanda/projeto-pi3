@@ -104,11 +104,17 @@ public class ProductServlet extends HttpServlet {
             throws IOException, ServletException, SQLException {
 
         String idAttr = request.getParameter("id");
-        int id = Integer.parseInt(idAttr);
+        if (idAttr == null) {
+            response.sendRedirect(request.getContextPath() + "/product");
+            return;
+        }
         List<Category> categoryList = ProductController.findCategory();
 
-        Product product = ProductController.findById(id);
-
+        Product product = ProductController.findById(Integer.parseInt(idAttr));
+        if (product == null) {
+            response.sendRedirect(request.getContextPath() + "/product");
+            return;
+        }
         request.setAttribute("idAttr", product.getId());
         request.setAttribute("nameProductAttr", product.getNameProduct());
         request.setAttribute("descriptionAttr", product.getDetails());
@@ -264,6 +270,10 @@ public class ProductServlet extends HttpServlet {
             throws IOException, ServletException, SQLException {
         try {
             String id = request.getParameter("id");
+            if (id == null) {
+                response.sendRedirect(request.getContextPath() + "/product");
+                return;
+            }
             ProductController.delete(Integer.parseInt(id));
             searchProduct(request, response);
         } catch (SQLException ex) {

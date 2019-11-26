@@ -96,10 +96,15 @@ public class BranchServlet extends HttpServlet {
             throws IOException, ServletException {
 
         String idAttr = request.getParameter("id");
-        int id = Integer.parseInt(idAttr);
-
-        BranchOffice branch = BranchOfficeController.findById(id);
-
+        if (idAttr == null) {
+            response.sendRedirect(request.getContextPath() + "/branch");
+            return;
+        }
+        BranchOffice branch = BranchOfficeController.findById(Integer.parseInt(idAttr));
+        if (branch == null) {
+            response.sendRedirect(request.getContextPath() + "/branch");
+            return;
+        }
         request.setAttribute("idAttr", branch.getId());
         request.setAttribute("nameAttr", branch.getName());
         request.setAttribute("cnpjAttr", branch.getCnpj());
@@ -121,11 +126,32 @@ public class BranchServlet extends HttpServlet {
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String cnpj = request.getParameter("cnpj");
-
-            BranchOfficeController.create(name, address, cnpj);
-
-            response.sendRedirect(request.getContextPath() + "/branch");
-        } catch (SQLException ex) {
+            if (name == null || address == null || cnpj == null) {
+                request.setAttribute("name", name);
+                request.setAttribute("address", address);
+                request.setAttribute("cnpj", cnpj);
+                String path = "./Branch/BranchCreate.jsp";
+                request.setAttribute("path", path);
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher(
+                                "/WEB-INF/IndexJSP.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+            if (BranchOfficeController.create(name, address, cnpj)) {
+                response.sendRedirect(request.getContextPath() + "/branch");
+                return;
+            }
+            request.setAttribute("name", name);
+            request.setAttribute("address", address);
+            request.setAttribute("cnpj", cnpj);
+            String path = "./Branch/BranchCreate.jsp";
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } catch (SQLException | ServletException ex) {
             Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -136,18 +162,42 @@ public class BranchServlet extends HttpServlet {
         String name = request.getParameter("name");
         String cnpj = request.getParameter("cnpj");
         String address = request.getParameter("address");
-        int id = Integer.parseInt(idAttr);
-
-        BranchOfficeController.update(id, name, cnpj, address);
-        response.sendRedirect(request.getContextPath() + "/branch");
+        if (idAttr == null || name == null || address == null || cnpj == null) {
+            request.setAttribute("id", idAttr);
+            request.setAttribute("name", name);
+            request.setAttribute("address", address);
+            request.setAttribute("cnpj", cnpj);
+            String path = "./Branch/BranchEdit.jsp";
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+        if (BranchOfficeController.update(Integer.parseInt(idAttr), name, cnpj, address)) {
+            response.sendRedirect(request.getContextPath() + "/branch");
+            return;
+        }
+        request.setAttribute("id", idAttr);
+        request.setAttribute("name", name);
+        request.setAttribute("address", address);
+        request.setAttribute("cnpj", cnpj);
+        String path = "./Branch/BranchEdit.jsp";
+        request.setAttribute("path", path);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher(
+                        "/WEB-INF/IndexJSP.jsp");
+        dispatcher.forward(request, response);
     }
 
     public void delete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         try {
             String id = request.getParameter("id");
-            request.setAttribute("id", id);
-
+            if (id == null) {
+                return;
+            }
             BranchOfficeController.delete(Integer.parseInt(id));
             response.sendRedirect(request.getContextPath() + "/branch");
         } catch (SQLException ex) {

@@ -38,12 +38,14 @@ public class BranchOfficeDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
 
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return false;
     }
 
@@ -54,6 +56,7 @@ public class BranchOfficeDAO {
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
+        con.close();
         return retorno;
     }
 
@@ -71,13 +74,15 @@ public class BranchOfficeDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
 
         } catch (SQLException ex) {
-            throw ex;
+            printSQLException(ex);
+            con.close();
         }
-
+        con.close();
+        return false;
     }
 
     public static ArrayList<BranchOffice> read() throws Exception {
@@ -97,14 +102,17 @@ public class BranchOfficeDAO {
                     Branchs.add(branch);
                 }
             }
+            con.close();
             return Branchs;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
-    public static BranchOffice findBydId(int id) {
+    public static BranchOffice findBydId(int id) throws SQLException {
         try {
             String query = "SELECT * FROM branch_office WHERE ID = ?";
             ps = con.prepareStatement(query);
@@ -112,17 +120,21 @@ public class BranchOfficeDAO {
 
             rs = ps.executeQuery();
 
-            BranchOffice branch = new BranchOffice();
+            BranchOffice branch = null;
             while (rs.next()) {
+                branch = new BranchOffice();
                 branch.setId(rs.getInt("ID"));
                 branch.setName(rs.getString("NAME"));
                 branch.setCnpj(rs.getString("CNPJ"));
                 branch.setAddress((rs.getString("ADDRESS")));
             }
+            con.close();
             return branch;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
@@ -142,7 +154,7 @@ public class BranchOfficeDAO {
             }
         }
     }
-    
+
     public static List<BranchOffice> findCategoryName() throws SQLException {
         try {
             String query = "SELECT * FROM branch_office";
@@ -157,10 +169,13 @@ public class BranchOfficeDAO {
                     list.add(branchOffice);
                 }
             }
+            con.close();
             return list;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 

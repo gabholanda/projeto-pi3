@@ -40,6 +40,7 @@ public class UserDAO {
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
+        con.close();
         return retorno;
     }
 
@@ -58,20 +59,20 @@ public class UserDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
 
         } catch (SQLException ex) {
-            throw ex;
+            printSQLException(ex);
         }
-
+        con.close();
+        return false;
     }
 
     public static boolean create(String mail, String password, String name, Roles permission, int IdEmpresa) throws SQLException {
 
         try {
-            //FALTA O ID_BRANCH AQUI
-            String query = "INSERT INTO user (NAME,EMAIL,PASSWORD,PERMISSIONS, ID_BRANCHOFFICE) VALUES(?,?,?,?,?)";
+            String query = "INSERT INTO user (NAME, EMAIL, PASSWORD, PERMISSIONS, ID_BRANCHOFFICE) VALUES(?,?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, mail);
@@ -82,13 +83,14 @@ public class UserDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
 
         } catch (SQLException ex) {
             printSQLException(ex);
-
+            con.close();
         }
+        con.close();
         return false;
     }
 
@@ -109,7 +111,7 @@ public class UserDAO {
         }
     }
 
-    public static ArrayList<User> read() {
+    public static ArrayList<User> read() throws SQLException {
         ArrayList<User> users = new ArrayList<>();
         try {
             String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS FROM user";
@@ -119,27 +121,30 @@ public class UserDAO {
             if (rs != null) {
                 checkUserType(users);
             }
+            con.close();
             return users;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
-    public static User findBydId(int id) {
+    public static User findBydId(int id) throws SQLException {
         try {
             String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS  FROM user WHERE ID_USER = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
-
             rs = ps.executeQuery();
-
             User user = checkUserType();
+            con.close();
             return user;
-
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
@@ -183,13 +188,15 @@ public class UserDAO {
                 user.setIdBranch(rs.getInt("ID_BRANCHOFFICE"));
                 user.setId(rs.getInt("ID_USER"));
             }
-
+            con.close();
             return user;
 
         } catch (SQLException ex) {
-            System.out.println(ex);
-            return null;
+            printSQLException(ex);
+            con.close();
         }
+        con.close();
+        return null;
     }
 
     public static User checkUserType() throws SQLException {

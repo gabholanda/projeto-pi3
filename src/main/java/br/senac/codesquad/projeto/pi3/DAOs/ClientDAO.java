@@ -25,7 +25,7 @@ public class ClientDAO {
     private static boolean retorno = false;
     private static final Connection con = ConnectionManager.getConnection();
 
-    public static boolean create(Client client) {
+    public static boolean create(Client client) throws SQLException {
         try {
 
             String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
@@ -38,13 +38,14 @@ public class ClientDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
 
         } catch (SQLException ex) {
             printSQLException(ex);
-
+            con.close();
         }
+        con.close();
         return false;
     }
 
@@ -55,6 +56,7 @@ public class ClientDAO {
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
+        con.close();
         return retorno;
     }
 
@@ -74,12 +76,15 @@ public class ClientDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
 
         } catch (SQLException ex) {
-            throw ex;
+            printSQLException(ex);
+            con.close();
         }
+        con.close();
+        return false;
 
     }
 
@@ -100,7 +105,7 @@ public class ClientDAO {
         }
     }
 
-    public static ArrayList<Client> read() {
+    public static ArrayList<Client> read() throws SQLException {
         ArrayList<Client> Clients = new ArrayList<>();
         try {
             String query = "SELECT * FROM client";
@@ -118,14 +123,17 @@ public class ClientDAO {
                     Clients.add(client);
                 }
             }
+            con.close();
             return Clients;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
-    public static Client findBydId(int id) {
+    public static Client findBydId(int id) throws SQLException {
 
         try {
             String query = "SELECT * FROM client WHERE ID_CLIENT = ?";
@@ -134,24 +142,27 @@ public class ClientDAO {
 
             rs = ps.executeQuery();
 
-            Client client = new Client();
+            Client client = null;
             while (rs.next()) {
+                client = new Client();
                 client.setId(rs.getInt("ID_CLIENT"));
                 client.setName(rs.getString("NAME"));
                 client.setCpf(rs.getString("CPF"));
                 client.setAddress((rs.getString("ADDRESS")));
                 client.setMail(rs.getString("EMAIL"));
             }
-
+            con.close();
             return client;
 
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
-    public static List<Client> findByName(String name) {
+    public static List<Client> findByName(String name) throws SQLException {
         try {
             String query = "SELECT * FROM client WHERE NAME LIKE ?";
             ps = con.prepareStatement(query);
@@ -171,10 +182,13 @@ public class ClientDAO {
                     clientList.add(client);
                 }
             }
+            con.close();
             return clientList;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 

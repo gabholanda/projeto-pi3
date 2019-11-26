@@ -106,10 +106,16 @@ public class ClientServlet extends HttpServlet {
             throws IOException, ServletException {
 
         String idAttr = request.getParameter("id");
-        int id = Integer.parseInt(idAttr);
 
-        Client client = ClientController.findById(id);
-
+        if (idAttr == null) {
+            response.sendRedirect(request.getContextPath() + "/client");
+            return;
+        }
+        Client client = ClientController.findById(Integer.parseInt(idAttr));
+        if (client == null) {
+            response.sendRedirect(request.getContextPath() + "/client");
+            return;
+        }
         request.setAttribute("idAttr", client.getId());
         request.setAttribute("nameAttr", client.getName());
         request.setAttribute("cpfAttr", client.getCpf());
@@ -134,7 +140,7 @@ public class ClientServlet extends HttpServlet {
         int id = Integer.parseInt(idAttr);
         if (name == null || cpf == null || address == null || mail == null) {
             request.setAttribute("errorCreateClient", "Não é possível finalizar essa ação com campos vazios!");
-            response.sendRedirect(request.getContextPath() + "/client/new");
+            response.sendRedirect(request.getContextPath() + "/client/edit");
         } else {
             if (ClientController.update(id, name, cpf, address, mail)) {
                 searchClient(request, response);

@@ -6,7 +6,6 @@
 package br.senac.codesquad.projeto.pi3.Servlet;
 
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
-import br.senac.codesquad.projeto.pi3.models.BackOffice;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -46,7 +45,6 @@ public class LoginServlet extends HttpServlet {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
         User user = UserController.findByMail(mail, password);
-
         if (user != null && user.checkPassword(password)) {
             HttpSession session = request.getSession();
             user.login(user, request, session);
