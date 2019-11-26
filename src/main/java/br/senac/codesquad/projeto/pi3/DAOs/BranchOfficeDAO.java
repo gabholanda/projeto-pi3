@@ -112,8 +112,9 @@ public class BranchOfficeDAO {
 
             rs = ps.executeQuery();
 
-            BranchOffice branch = new BranchOffice();
+            BranchOffice branch = null;
             while (rs.next()) {
+                branch = new BranchOffice();
                 branch.setId(rs.getInt("ID"));
                 branch.setName(rs.getString("NAME"));
                 branch.setCnpj(rs.getString("CNPJ"));
@@ -142,7 +143,7 @@ public class BranchOfficeDAO {
             }
         }
     }
-    
+
     public static List<BranchOffice> findCategoryName() throws SQLException {
         try {
             String query = "SELECT * FROM branch_office";
