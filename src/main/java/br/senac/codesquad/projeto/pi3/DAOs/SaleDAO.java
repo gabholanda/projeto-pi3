@@ -72,7 +72,7 @@ public class SaleDAO {
         Connection con = ConnectionManager.getConnection();
         try {
             String query
-                    = "DELETE FROM SALES WHERE salesID= ?";
+                    = "DELETE FROM sales WHERE ID_SALES= ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
             int updatedlines = ps.executeUpdate();

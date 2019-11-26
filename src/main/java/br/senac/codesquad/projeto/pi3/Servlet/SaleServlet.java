@@ -59,7 +59,7 @@ public class SaleServlet extends HttpServlet {
                     read(request, response);
                         break;
                 case "/delete":
-                    //delete(request,response); aqui tbm
+                    delete(request,response);
                     break;
                 case "/update":
                     //update(request, response); aqui tbm
@@ -176,7 +176,7 @@ public class SaleServlet extends HttpServlet {
             List<Client> clientList = ClientController.findByName(name);
             session.setAttribute("clientList",
                     clientList);
-            response.sendRedirect(request.getContextPath() + "/sale/new");
+            response.sendRedirect(request.getContextPath() + "/sale");
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -379,7 +379,22 @@ public class SaleServlet extends HttpServlet {
                             "/WEB-INF/IndexJSP.jsp");
             dispatcher.forward(request, response);
         } catch (IOException | ServletException ex) {
-            Logger.getLogger(BranchServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void delete(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+
+        try {
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+
+            SaleController.delete(Integer.parseInt(id));
+            searchClient(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
