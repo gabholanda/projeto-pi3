@@ -56,6 +56,7 @@ public class ReportDAO {
                     teste = rs.getString("NAME");
                 }
             } else {
+                con.close();
                 throw new SQLException();
             }
         } catch (SQLException e) {
@@ -91,12 +92,13 @@ public class ReportDAO {
                 }
 
             } else {
-
                 throw new SQLException();
             }
         } catch (SQLException ex) {
+            con.close();
             reportList = null;
         }
+        con.close();
         return reportList;
 
     }
