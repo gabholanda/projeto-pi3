@@ -75,7 +75,7 @@ public class UserController {
         return UserDAO.findBydId(id);
     }
 
-    public static User login(String mail, String password) {
+    public static User findByMail(String mail, String password) {
         try {
             return UserDAO.findbyMail(mail, password);
         } catch (SQLException ex) {

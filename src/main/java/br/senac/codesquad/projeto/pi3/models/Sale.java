@@ -19,7 +19,7 @@ public class Sale {
     private double discount;
     private Set<ItemOrdered> items;
     private Client client;
-
+    private User user;
     private Date date;
 
     public Sale() {
@@ -38,7 +38,7 @@ public class Sale {
     }
 
     public void setTotalValue(double totalValue) {
-        this.totalValue = totalValue;
+        this.totalValue += totalValue;
     }
 
     public Set<ItemOrdered> getItems() {
@@ -78,7 +78,18 @@ public class Sale {
     }
 
     public void setDiscount(double discount) {
+        if (discount <= 0 || discount > 1) {
+            return;
+        }
         this.discount = discount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

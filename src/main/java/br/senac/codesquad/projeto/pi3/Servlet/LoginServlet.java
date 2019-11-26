@@ -6,6 +6,7 @@
 package br.senac.codesquad.projeto.pi3.Servlet;
 
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
+import br.senac.codesquad.projeto.pi3.models.BackOffice;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -44,11 +45,11 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
-        User user = UserController.login(mail, password);
+        User user = UserController.findByMail(mail, password);
 
         if (user != null && user.checkPassword(password)) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            user.login(user, request, session);
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
             request.setAttribute("msgErro", "Usuário ou senha incorreta");

@@ -134,7 +134,7 @@ public class SaleDAO {
             SimpleDateFormat sdf
                     = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(dt);
-            ps.setDouble(1, sale.getTotalValue());
+            ps.setDouble(1, sale.getTotalValue() - sale.getDiscount() * sale.getTotalValue());
             ps.setInt(2, user.getId());
             ps.setInt(3, sale.getClient().getId());
             ps.setInt(4, user.getIdBranch());

@@ -59,23 +59,23 @@ public class FilterAuth implements Filter {
             return true;
 
         } else if (urlAcessada.contains("/branch")
-                && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE) || user.verificarPapel(user, Roles.GERENTE_GLOBAL))) {
+                && (user.checkRole(user, Roles.DIRETORIA) || user.checkRole(user, Roles.GERENTE) || user.checkRole(user, Roles.GERENTE_GLOBAL))) {
             return true;
 
         } else if (urlAcessada.contains("/report")
-                && (user.verificarPapel(user, Roles.DIRETORIA) || user.verificarPapel(user, Roles.GERENTE) || user.verificarPapel(user, Roles.GERENTE_GLOBAL)))  {
+                && (user.checkRole(user, Roles.DIRETORIA) || user.checkRole(user, Roles.GERENTE) || user.checkRole(user, Roles.GERENTE_GLOBAL))) {
             return true;
 
-        } else if (urlAcessada.contains("/product") && user.verificarPapel(user, Roles.BACKOFFICE)) {
+        } else if (urlAcessada.contains("/product") && user.checkRole(user, Roles.BACKOFFICE)) {
             return true;
 
-        } else if (urlAcessada.contains("/user") && (user.verificarPapel(user, Roles.RH) || user.verificarPapel(user, Roles.TI))) {
+        } else if (urlAcessada.contains("/user") && (user.checkRole(user, Roles.RH) || user.checkRole(user, Roles.TI))) {
             return true;
 
-        } else if (urlAcessada.contains("/sale") && user.verificarPapel(user, Roles.VENDAS)) {
+        } else if (urlAcessada.contains("/sale") && user.checkRole(user, Roles.VENDAS)) {
             return true;
 
-        } else if (urlAcessada.contains("/client") && user.verificarPapel(user, Roles.VENDAS)) {
+        } else if (urlAcessada.contains("/client") && user.checkRole(user, Roles.VENDAS)) {
             return true;
         }
         return false;

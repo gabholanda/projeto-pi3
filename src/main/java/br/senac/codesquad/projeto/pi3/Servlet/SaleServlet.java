@@ -91,6 +91,9 @@ public class SaleServlet extends HttpServlet {
                 case "/changeQuantity":
                     changeQuantity(request, response);
                     break;
+                case "/changeDiscount":
+                    changeDiscount(request, response);
+                    break;
                 default:
                     //read(request, response);
                     break;
@@ -326,8 +329,25 @@ public class SaleServlet extends HttpServlet {
         }
     }
 
+    private static void changeDiscount(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("sale") == null) {
+                session.setAttribute("sale", new Sale());
+            }
+            Sale sale = (Sale) session.getAttribute("sale");
+            double discount = Double.parseDouble(request.getParameter("discount"));
+            sale.setDiscount(discount / 100);
+            session.setAttribute("sale", sale);
+            response.sendRedirect(request.getContextPath() + "/sale/new");
+        } catch (NumberFormatException | IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private static void sumTotalValue(Sale sale) {
-        double soma = 0;
+        int soma = 0;
         for (ItemOrdered item : sale.getItems()) {
             soma += item.getValue() * item.getQuantityItem();
         }

@@ -14,14 +14,14 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author marcelo.moraes and Patrick
  */
-public abstract class User {
+public abstract class User implements Authenticable {
 
     private int id;
     private int idBranch;
     private String mail;
     private String password;
     private String name;
-    Roles permission; // permission user
+    private Roles permission; // permission user
     private ArrayList<Sale> saleList;
     private ArrayList<User> userList;
 
@@ -132,7 +132,7 @@ public abstract class User {
         return BCrypt.checkpw(plainPassword, password);
     }
 
-    public boolean verificarPapel(User user, Roles roles) {
+    public boolean checkRole(User user, Roles roles) {
         return user.getPermission() == roles;
     }
 }

@@ -5,15 +5,16 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import br.senac.codesquad.projeto.pi3.Interfaces.Emitable;
 import java.util.Set;
 
 /**
  *
  * @author gabriel.hsantos21
  */
-public class Report {
+public class Report implements Emitable {
 
-    private String BranchName; 
+    private String BranchName;
     //valor total de todas as filiais solicitado pela diretoria. 
     private double totalValue;
     //10 produtos mais vendidos solicitado pela diretoria. 
@@ -21,27 +22,25 @@ public class Report {
     //valor total por filial solicitado pela diretoria. 
     private double totalBranchValue;
     //data inicial do relatorio
-    private String dataInicialReport;
+    private String initialDateReport;
     //data final do relatorio
-    private String dataFinalReport;
-  
-    
-  
+    private String finalDateReport;
+
     public Report() {
 
     }
-    
+
     //revisar esse report total muito sono
-    public Report (String BranchName, double totalBranchValue){ 
-        this.BranchName = BranchName; 
-        this.totalBranchValue = totalBranchValue;  
+    public Report(String BranchName, double totalBranchValue) {
+        this.BranchName = BranchName;
+        this.totalBranchValue = totalBranchValue;
     }
 
-    public Report(double totalValue, double totalBranchValue, String dataInicialReport, String dataFinalReport) {
+    public Report(double totalValue, double totalBranchValue, String initialDateReport, String finalDateReport) {
         this.totalValue = totalValue;
         this.totalBranchValue = totalBranchValue;
-        this.dataInicialReport = dataInicialReport;
-        this.dataFinalReport = dataFinalReport;
+        this.initialDateReport = initialDateReport;
+        this.finalDateReport = finalDateReport;
     }
 
     public double getTotalValue() {
@@ -60,20 +59,28 @@ public class Report {
         this.totalBranchValue = totalBranchValue;
     }
 
-    public String getDataInicialReport() {
-        return dataInicialReport;
+    public String getBranchName() {
+        return BranchName;
     }
 
-    public void setDataInicialReport(String dataInicialReport) {
-        this.dataInicialReport = dataInicialReport;
+    public void setBranchName(String BranchName) {
+        this.BranchName = BranchName;
     }
 
-    public String getDataFinalReport() {
-        return dataFinalReport;
+    public String getInitialDateReport() {
+        return initialDateReport;
     }
 
-    public void setDataFinalReport(String dataFinalReport) {
-        this.dataFinalReport = dataFinalReport;
+    public void setInitialDateReport(String initialDateReport) {
+        this.initialDateReport = initialDateReport;
+    }
+
+    public String getFinalDateReport() {
+        return finalDateReport;
+    }
+
+    public void setFinalDateReport(String finalDateReport) {
+        this.finalDateReport = finalDateReport;
     }
 
     public Set<Sale> getSalesList() {
@@ -82,6 +89,16 @@ public class Report {
 
     public void setSalesList(Set<Sale> salesList) {
         this.salesList = salesList;
+    }
+
+    @Override
+    public Report generateReport() {
+        return null;
+    }
+
+    @Override
+    public Report generateOverallReport() {
+        return null;
     }
 
 }
