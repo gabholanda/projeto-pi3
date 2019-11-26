@@ -46,8 +46,7 @@ public class LoginServlet extends HttpServlet {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
         User user = UserController.findByMail(mail, password);
-
-        if (user != null && user.checkPassword(password)) {
+      if (user != null && user.checkPassword(password)) {
             HttpSession session = request.getSession();
             user.login(user, request, session);
             response.sendRedirect(request.getContextPath() + "/home");
