@@ -157,8 +157,9 @@ public class ProductDAO {
 
             rs = ps.executeQuery();
 
-            Product product = new Product();
+            Product product = null;
             while (rs.next()) {
+                product = new Product();
                 product.setId(rs.getInt("ID_PRODUCT"));
                 product.setNameProduct(rs.getString("NAMEPRODUCT"));
                 product.setValues(rs.getDouble("BUYVALUE"));

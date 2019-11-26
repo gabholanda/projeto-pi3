@@ -6,7 +6,6 @@
 package br.senac.codesquad.projeto.pi3.Servlet;
 
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
-import br.senac.codesquad.projeto.pi3.models.BackOffice;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
