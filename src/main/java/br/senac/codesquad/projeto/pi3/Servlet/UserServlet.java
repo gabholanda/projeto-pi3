@@ -102,10 +102,16 @@ public class UserServlet extends HttpServlet {
             throws IOException, ServletException {
 
         String idAttr = request.getParameter("id");
-        int id = Integer.parseInt(idAttr);
+        if (idAttr == null) {
+            response.sendRedirect(request.getContextPath() + "/user");
+            return;
+        }
 
-        User user = UserController.findById(id);
-
+        User user = UserController.findById(Integer.parseInt(idAttr));
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/user");
+            return;
+        }
         request.setAttribute("idAttr", user.getId());
         request.setAttribute("nameAttr", user.getName());
         request.setAttribute("mailAttr", user.getMail());
