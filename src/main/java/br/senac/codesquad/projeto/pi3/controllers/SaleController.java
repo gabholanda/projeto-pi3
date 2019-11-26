@@ -8,6 +8,8 @@ package br.senac.codesquad.projeto.pi3.controllers;
 import br.senac.codesquad.projeto.pi3.DAOs.SaleDAO;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import br.senac.codesquad.projeto.pi3.models.User;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,11 +25,11 @@ public class SaleController {
 
     }
 
-    public static void delete() {
-
+    public static boolean delete(int id) throws SQLException {
+        return SaleDAO.delete(id);
     }
 
-    public static void read() {
-
+public static ArrayList<Sale> read() throws Exception {
+        return SaleDAO.getSales();
     }
 }

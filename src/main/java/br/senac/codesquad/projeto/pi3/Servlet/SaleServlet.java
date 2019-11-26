@@ -18,6 +18,7 @@ import br.senac.codesquad.projeto.pi3.models.Product;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,10 +56,10 @@ public class SaleServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/sale":
-                    //read(request, response); Aqui é com vc Patrick
-                    break;
+                    read(request, response);
+                        break;
                 case "/delete":
-                    //delete(request,response); aqui tbm
+                    delete(request,response);
                     break;
                 case "/update":
                     //update(request, response); aqui tbm
@@ -175,7 +176,7 @@ public class SaleServlet extends HttpServlet {
             List<Client> clientList = ClientController.findByName(name);
             session.setAttribute("clientList",
                     clientList);
-            response.sendRedirect(request.getContextPath() + "/sale/new");
+            response.sendRedirect(request.getContextPath() + "/sale");
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -361,5 +362,39 @@ public class SaleServlet extends HttpServlet {
         session.setAttribute("orderedItemList", new TreeSet<>());
         session.setAttribute("selectedClient", new Client());
         session.setAttribute("errorSale", "");
+    }
+    
+    private void read(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException, Exception {
+        try {
+            HttpSession session = request.getSession();
+//            User user = (User) session.getAttribute("user");
+
+            ArrayList<Sale> saleList = SaleController.read();
+            String path = "./Sale/SaleList.jsp";
+            request.setAttribute("saleList", saleList);
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } catch (IOException | ServletException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void delete(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+
+        try {
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+
+            SaleController.delete(Integer.parseInt(id));
+            searchClient(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
