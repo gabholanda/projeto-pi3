@@ -51,12 +51,15 @@ public class ProductDAO {
                     Product.add(product);
                 }
             }
+            con.close();
             return Product;
 
         } catch (SQLException ex) {
-            throw ex;
+            printSQLException(ex);
+            con.close();
         }
-
+        con.close();
+        return null;
     }
 
     public static boolean delete(int id)
@@ -67,6 +70,7 @@ public class ProductDAO {
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
         retorno = updatedlines > 0;
+        con.close();
         return retorno;
     }
 
@@ -93,14 +97,17 @@ public class ProductDAO {
             int updatedlines = ps.executeUpdate();
 
             retorno = updatedlines > 0;
-
+            con.close();
             return retorno;
         } catch (SQLException ex) {
-            throw ex;
+            printSQLException(ex);
+            con.close();
         }
+        con.close();
+        return false;
     }
 
-    public static boolean create(Product p, int quantity) {
+    public static boolean create(Product p, int quantity) throws SQLException {
         try {
 
             String query
@@ -124,11 +131,13 @@ public class ProductDAO {
             ps.setInt(2, quantity);
             updatedlines = ps.executeUpdate();
             retorno = updatedlines > 0;
+            con.close();
             return retorno;
         } catch (SQLException ex) {
             printSQLException(ex);
-
+            con.close();
         }
+        con.close();
         return false;
     }
 // Method that helps to print SQL exceptions on console
@@ -149,7 +158,7 @@ public class ProductDAO {
         }
     }
 
-    public static Product findBydId(int id) {
+    public static Product findBydId(int id) throws SQLException {
         try {
             String query = "SELECT * FROM product WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
@@ -167,14 +176,17 @@ public class ProductDAO {
                 product.setDetails(rs.getString("DETAILS"));
                 product.setCategoryId(rs.getInt("CATEGORY_ID"));
             }
+            con.close();
             return product;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
-    public static List<Product> findByName(String name) {
+    public static List<Product> findByName(String name) throws SQLException {
         try {
             String query = "SELECT "
                     + "A.ID_PRODUCT, "
@@ -205,10 +217,13 @@ public class ProductDAO {
                     productList.add(product);
                 }
             }
+            con.close();
             return productList;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 
@@ -226,10 +241,13 @@ public class ProductDAO {
                     list.add(category);
                 }
             }
+            con.close();
             return list;
         } catch (SQLException ex) {
             printSQLException(ex);
+            con.close();
         }
+        con.close();
         return null;
     }
 }
