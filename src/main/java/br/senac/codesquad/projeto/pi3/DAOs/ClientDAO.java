@@ -134,8 +134,9 @@ public class ClientDAO {
 
             rs = ps.executeQuery();
 
-            Client client = new Client();
+            Client client = null;
             while (rs.next()) {
+                client = new Client();
                 client.setId(rs.getInt("ID_CLIENT"));
                 client.setName(rs.getString("NAME"));
                 client.setCpf(rs.getString("CPF"));
