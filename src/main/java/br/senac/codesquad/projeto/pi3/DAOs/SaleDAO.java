@@ -6,6 +6,7 @@
 package br.senac.codesquad.projeto.pi3.DAOs;
 
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
+import br.senac.codesquad.projeto.pi3.models.Client;
 import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import br.senac.codesquad.projeto.pi3.models.User;
@@ -31,15 +32,24 @@ public class SaleDAO {
         ArrayList<Sale> listaRetorno = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
         try {
-            String query = "SELECT * FROM SALES";
-            PreparedStatement comando = con.prepareStatement(query);
+            String query = "SELECT A.ID_SALES, A.DATE_SALE, B.NAME, A.VALUE_FULL "
+                    + "FROM sales A "
+                    + "INNER JOIN client AS B "
+                    + "ON A.CLIENT_ID_CLIENT = B.ID_CLIENT;";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            
             if (rs != null) {
                 while (rs.next()) {
                     Sale s = new Sale();
-                    s.setId(rs.getInt("id"));
-                    s.setDate((Date) rs.getObject("createDate"));
-                    s.setTotalValue(rs.getDouble("totalValue"));
+                    Client c = new Client();
+                    s.setId(rs.getInt("ID_SALES"));
+                    s.setDate((Date) rs.getObject("DATE_SALE"));
+                    c.setName((String) rs.getObject("NAME"));
+                    s.setClient(c); 
+                    s.setTotalValue(rs.getDouble("VALUE_FULL"));
                     listaRetorno.add(s);
+                    
                 }
             } else {
                 throw new SQLException();
