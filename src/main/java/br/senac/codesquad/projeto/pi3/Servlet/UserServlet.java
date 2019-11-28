@@ -7,6 +7,7 @@ package br.senac.codesquad.projeto.pi3.Servlet;
 
 import br.senac.codesquad.projeto.pi3.controllers.BranchOfficeController;
 import br.senac.codesquad.projeto.pi3.controllers.UserController;
+import br.senac.codesquad.projeto.pi3.enums.Roles;
 import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.io.IOException;
@@ -100,7 +101,12 @@ public class UserServlet extends HttpServlet {
 
     private void formEdit(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
+        HttpSession session = request.getSession();
+        User loggedUser = (User) session.getAttribute("user");
+        if (loggedUser.checkRole(loggedUser, Roles.RH)) {
+            response.sendRedirect(request.getContextPath() + "/user");
+            return;
+        }
         String idAttr = request.getParameter("id");
         if (idAttr == null) {
             response.sendRedirect(request.getContextPath() + "/user");
