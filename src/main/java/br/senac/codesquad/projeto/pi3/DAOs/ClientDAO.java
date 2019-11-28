@@ -23,11 +23,11 @@ public class ClientDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static final Connection con = ConnectionManager.getConnection();
+    private static Connection con;
 
     public static boolean create(Client client) throws SQLException {
         try {
-
+            con = ConnectionManager.getConnection();
             String query = "INSERT INTO client (NAME,CPF,ADDRESS,EMAIL) VALUES(?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, client.getName());
@@ -50,8 +50,8 @@ public class ClientDAO {
     }
 
     public static boolean delete(int id) throws SQLException {
+        con = ConnectionManager.getConnection();
         String query = "DELETE FROM client WHERE ID_CLIENT =?";
-
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
@@ -61,12 +61,10 @@ public class ClientDAO {
     }
 
     public static boolean update(Client client) throws SQLException {
-
         try {
+            con = ConnectionManager.getConnection();
             String query = "UPDATE client SET NAME = ?,CPF= ?, ADDRESS =?, EMAIL =? WHERE ID_CLIENT = ?";
-
             ps = con.prepareStatement(query);
-
             ps.setString(1, client.getName());
             ps.setString(2, client.getCpf());
             ps.setString(3, client.getAddress());
@@ -108,8 +106,8 @@ public class ClientDAO {
     public static ArrayList<Client> read() throws SQLException {
         ArrayList<Client> Clients = new ArrayList<>();
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM client";
-
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs != null) {
@@ -134,8 +132,8 @@ public class ClientDAO {
     }
 
     public static Client findBydId(int id) throws SQLException {
-
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM client WHERE ID_CLIENT = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -164,6 +162,7 @@ public class ClientDAO {
 
     public static List<Client> findByName(String name) throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM client WHERE NAME LIKE ?";
             ps = con.prepareStatement(query);
             ps.setString(1, "%" + name + "%");

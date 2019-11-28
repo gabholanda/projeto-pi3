@@ -10,6 +10,8 @@ import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,10 +41,15 @@ public class BranchOfficeController {
     }
 
     public static BranchOffice findById(int id) {
-        return BranchOfficeDAO.findBydId(id);
+        try {
+            return BranchOfficeDAO.findBydId(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchOfficeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-    
-        public static List<BranchOffice> findBranchOffice() throws SQLException {
+
+    public static List<BranchOffice> findBranchOffice() throws SQLException {
         return BranchOfficeDAO.findCategoryName();
     }
 

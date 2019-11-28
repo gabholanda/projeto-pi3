@@ -19,13 +19,14 @@ public class ProductDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static final Connection con = ConnectionManager.getConnection();
+    private static Connection con;
 
     public static ArrayList<Product> getProduct()
             throws Exception {
         ArrayList<Product> Product = new ArrayList<>();
         //O AMOUNT DAQUI TEM QUE SER PELA FILIAL
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT "
                     + "A.ID_PRODUCT, "
                     + "A.NAMEPRODUCT, "
@@ -64,6 +65,7 @@ public class ProductDAO {
 
     public static boolean delete(int id)
             throws SQLException {
+        con = ConnectionManager.getConnection();
         String query = "DELETE FROM product WHERE ID_PRODUCT=? ";
 
         ps = con.prepareStatement(query);
@@ -78,6 +80,7 @@ public class ProductDAO {
             throws SQLException {
         // ESSE UPDATE TEM QUE SER POR FILIAL OU APENAS A DIRETORIA TER DIREITO DE FAZER
         try {
+            con = ConnectionManager.getConnection();
             String query = "UPDATE product SET"
                     + " NAMEPRODUCT = ?,"
                     + " BUYVALUE = ?,"
@@ -109,7 +112,7 @@ public class ProductDAO {
 
     public static boolean create(Product p, int quantity) throws SQLException {
         try {
-
+            con = ConnectionManager.getConnection();
             String query
                     = "INSERT INTO product"
                     + "(NAMEPRODUCT, BUYVALUE, SALEVALUE, DETAILS, CATEGORY_ID)"
@@ -160,6 +163,7 @@ public class ProductDAO {
 
     public static Product findBydId(int id) throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM product WHERE ID_PRODUCT = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -188,6 +192,7 @@ public class ProductDAO {
 
     public static List<Product> findByName(String name) throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT "
                     + "A.ID_PRODUCT, "
                     + "A.NAMEPRODUCT, "
@@ -229,6 +234,7 @@ public class ProductDAO {
 
     public static List<Category> findCategoryName() throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM category AS C";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();

@@ -10,6 +10,8 @@ import br.senac.codesquad.projeto.pi3.models.Client;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,16 +40,26 @@ public class ClientController {
     }
 
     public static Client findById(int id) {
-        return ClientDAO.findBydId(id);
+        try {
+            return ClientDAO.findBydId(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static List<Client> findByName(String name) {
-        List<Client> clientList = ClientDAO.findByName(name);
-        if (clientList == null) {
-            clientList = new ArrayList<>();
+        try {
+            List<Client> clientList = ClientDAO.findByName(name);
+            if (clientList == null) {
+                clientList = new ArrayList<>();
+                return clientList;
+            }
             return clientList;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return clientList;
+        return null;
     }
 
 }

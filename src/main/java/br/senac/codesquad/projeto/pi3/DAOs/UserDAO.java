@@ -31,9 +31,10 @@ public class UserDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static final Connection con = ConnectionManager.getConnection();
+    private static Connection con;
 
     public static boolean delete(int id) throws SQLException {
+        con = ConnectionManager.getConnection();
         String query = "DELETE FROM user WHERE ID_USER =?";
 
         ps = con.prepareStatement(query);
@@ -47,6 +48,7 @@ public class UserDAO {
     public static boolean update(int id, String name, String password) throws SQLException {
 
         try {
+            con = ConnectionManager.getConnection();
             String query = "UPDATE user SET NAME = ?, PASSWORD=? WHERE ID_USER = ?";
 
             ps = con.prepareStatement(query);
@@ -72,6 +74,7 @@ public class UserDAO {
     public static boolean create(String mail, String password, String name, Roles permission, int IdEmpresa) throws SQLException {
 
         try {
+            con = ConnectionManager.getConnection();
             String query = "INSERT INTO user (NAME, EMAIL, PASSWORD, PERMISSIONS, ID_BRANCHOFFICE) VALUES(?,?,?,?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
@@ -114,6 +117,7 @@ public class UserDAO {
     public static ArrayList<User> read() throws SQLException {
         ArrayList<User> users = new ArrayList<>();
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS FROM user";
 
             ps = con.prepareStatement(query);
@@ -133,6 +137,7 @@ public class UserDAO {
 
     public static User findBydId(int id) throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT ID_USER, NAME, EMAIL, PERMISSIONS  FROM user WHERE ID_USER = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -151,6 +156,7 @@ public class UserDAO {
     public static User findbyMail(String mail, String password) throws SQLException {
         try {
             //FALTA O ID BRANCH DAQUI
+            con = ConnectionManager.getConnection();
             String query = "SELECT EMAIL, PASSWORD, PERMISSIONS, ID_USER, ID_BRANCHOFFICE FROM user WHERE EMAIL = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, mail);

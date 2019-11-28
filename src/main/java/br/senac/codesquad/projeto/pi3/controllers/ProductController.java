@@ -6,6 +6,8 @@ import br.senac.codesquad.projeto.pi3.models.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,7 +18,12 @@ public class ProductController {
     public static boolean create(String nameProduct, double values, double valueSale,
             String details, int idBranchoffice, int categoryId, int quantity) {
         Product p = new Product(nameProduct, values, valueSale, details, idBranchoffice, categoryId);
-        return ProductDAO.create(p, quantity);
+        try {
+            return ProductDAO.create(p, quantity);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public static boolean update(int id, String nameProduct, double values,
@@ -36,16 +43,26 @@ public class ProductController {
     }
 
     public static Product findById(int id) {
-        return ProductDAO.findBydId(id);
+        try {
+            return ProductDAO.findBydId(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static List<Product> findByName(String name) {
-        List<Product> productList = ProductDAO.findByName(name);
-        if (productList == null) {
-            productList = new ArrayList<>();
+        try {
+            List<Product> productList = ProductDAO.findByName(name);
+            if (productList == null) {
+                productList = new ArrayList<>();
+                return productList;
+            }
             return productList;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return productList;
+        return null;
     }
 
     public static List<Category> findCategory() throws SQLException {

@@ -27,18 +27,19 @@ public class SaleDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
+    private static Connection con;
 
     public static ArrayList<Sale> getSales() {
         ArrayList<Sale> listaRetorno = new ArrayList<>();
-        Connection con = ConnectionManager.getConnection();
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT A.ID_SALES, A.DATE_SALE, B.NAME, A.VALUE_FULL "
                     + "FROM sales A "
                     + "INNER JOIN client AS B "
                     + "ON A.CLIENT_ID_CLIENT = B.ID_CLIENT;";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-            
+
             if (rs != null) {
                 while (rs.next()) {
                     Sale s = new Sale();
@@ -46,10 +47,10 @@ public class SaleDAO {
                     s.setId(rs.getInt("ID_SALES"));
                     s.setDate((Date) rs.getObject("DATE_SALE"));
                     c.setName((String) rs.getObject("NAME"));
-                    s.setClient(c); 
+                    s.setClient(c);
                     s.setTotalValue(rs.getDouble("VALUE_FULL"));
                     listaRetorno.add(s);
-                    
+
                 }
             } else {
                 throw new SQLException();
@@ -69,8 +70,8 @@ public class SaleDAO {
     }
 
     public static boolean delete(int id) throws SQLException {
-        Connection con = ConnectionManager.getConnection();
         try {
+            con = ConnectionManager.getConnection();
             String query
                     = "DELETE FROM sales WHERE ID_SALES= ?";
             ps = con.prepareStatement(query);
@@ -91,8 +92,8 @@ public class SaleDAO {
     }
 
     public static boolean update(Sale sale) throws SQLException {
-        Connection con = ConnectionManager.getConnection();
         try {
+            con = ConnectionManager.getConnection();
             String query
                     = "INSERT"
                     + "       INTO"
@@ -118,8 +119,8 @@ public class SaleDAO {
     }
 
     public static boolean create(Sale sale, User user) throws Exception {
-        Connection con = ConnectionManager.getConnection();
         try {
+            con = ConnectionManager.getConnection();
             String query
                     = "insert into sales "
                     + "(VALUE_FULL, "

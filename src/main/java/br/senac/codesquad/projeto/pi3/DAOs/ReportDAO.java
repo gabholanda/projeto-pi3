@@ -24,11 +24,12 @@ public class ReportDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
+    private static Connection con;
 
     public static Report generateReport() {
         ArrayList<Product> listaRetorno = new ArrayList<>();
-        Connection con = ConnectionManager.getConnection();
         try {
+            con = ConnectionManager.getConnection();
             String query
                     = "select A.ID_SALES,E.NAME,A.VALUE_FULL, C.*, sum(B.AMOUNT_ITEM), D.NAME "
                     + "from sales as A "
@@ -76,9 +77,8 @@ public class ReportDAO {
     //to com muito sono olhar isso aqui depois 
     public static ArrayList<Report> generateReportTotalBranch(int idbranchs) throws SQLException {
         ArrayList<Report> reportList = new ArrayList<>();
-        Connection con = ConnectionManager.getConnection();
-
         try {
+            con = ConnectionManager.getConnection();
             String query = "quero a querry disso";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
