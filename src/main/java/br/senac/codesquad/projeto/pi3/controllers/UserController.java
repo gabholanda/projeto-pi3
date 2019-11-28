@@ -66,13 +66,22 @@ public class UserController {
             return user;
         } else if (permission.equalsIgnoreCase("DIRETORIA") || permission.equalsIgnoreCase("GERENTE") || permission.equalsIgnoreCase("GERENTE GLOBAL")
                 || permission.equalsIgnoreCase("RH") || permission.equalsIgnoreCase("TI")) {
-            return UserDAO.read();
+            try {
+                return UserDAO.read();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return user;
     }
 
     public static User findById(int id) {
-        return UserDAO.findBydId(id);
+        try {
+            return UserDAO.findBydId(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static User findByMail(String mail, String password) {

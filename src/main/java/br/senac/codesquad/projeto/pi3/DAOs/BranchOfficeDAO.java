@@ -23,11 +23,11 @@ public class BranchOfficeDAO {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
     private static boolean retorno = false;
-    private static final Connection con = ConnectionManager.getConnection();
+    private static Connection con;
 
     public static boolean create(BranchOffice branch) throws SQLException {
-
         try {
+            con = ConnectionManager.getConnection();
             String query = "INSERT INTO branch_office(NAME,CNPJ,ADDRESS) VALUES(?,?,?)";
 
             ps = con.prepareStatement(query);
@@ -50,8 +50,8 @@ public class BranchOfficeDAO {
     }
 
     public static boolean delete(int id) throws SQLException {
+        con = ConnectionManager.getConnection();
         String query = "DELETE FROM branch_office WHERE ID=?";
-
         ps = con.prepareStatement(query);
         ps.setInt(1, id);
         int updatedlines = ps.executeUpdate();
@@ -62,10 +62,9 @@ public class BranchOfficeDAO {
 
     public static boolean update(BranchOffice branch) throws Exception {
         try {
+            con = ConnectionManager.getConnection();
             String query = "UPDATE branch_office SET NAME = ?,CNPJ= ?, ADDRESS =? WHERE ID = ?";
-
             ps = con.prepareStatement(query);
-
             ps.setString(1, branch.getName());
             ps.setString(2, branch.getCnpj());
             ps.setString(3, branch.getAddress());
@@ -88,8 +87,8 @@ public class BranchOfficeDAO {
     public static ArrayList<BranchOffice> read() throws Exception {
         ArrayList<BranchOffice> Branchs = new ArrayList<>();
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM branch_office";
-
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs != null) {
@@ -114,6 +113,7 @@ public class BranchOfficeDAO {
 
     public static BranchOffice findBydId(int id) throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM branch_office WHERE ID = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -157,6 +157,7 @@ public class BranchOfficeDAO {
 
     public static List<BranchOffice> findCategoryName() throws SQLException {
         try {
+            con = ConnectionManager.getConnection();
             String query = "SELECT * FROM branch_office";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
