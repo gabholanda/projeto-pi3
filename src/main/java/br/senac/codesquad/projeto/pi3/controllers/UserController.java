@@ -34,7 +34,7 @@ public class UserController {
     }
 
     public static boolean update(int id, String name, String password, String permission) {
-        if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
+        if (permission.equalsIgnoreCase("TI")) {
             try {
                 return UserDAO.update(id, name, BCrypt.hashpw(password, BCrypt.gensalt()));
             } catch (SQLException ex) {
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     public static boolean delete(int id, String permission) {
-        if (permission.equalsIgnoreCase("TI") || permission.equalsIgnoreCase("RH")) {
+        if (permission.equalsIgnoreCase("TI")) {
             try {
                 return UserDAO.delete(id);
             } catch (SQLException ex) {
