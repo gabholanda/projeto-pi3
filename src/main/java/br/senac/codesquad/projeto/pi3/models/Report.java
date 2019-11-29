@@ -6,7 +6,7 @@
 package br.senac.codesquad.projeto.pi3.models;
 
 import br.senac.codesquad.projeto.pi3.Interfaces.Emitable;
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,14 +17,14 @@ public class Report implements Emitable {
     private String BranchName;
     //valor total de todas as filiais solicitado pela diretoria. 
     private double totalValue;
-    //10 produtos mais vendidos solicitado pela diretoria. 
-    private Set<Sale> salesList;
+    //10 produtos mais vendidos solicitado pela diretoria.
+    private ArrayList<ItemOrdered> itemList = new ArrayList<>();
+    private ArrayList<BranchOffice> branchList = new ArrayList<>();
     //valor total por filial solicitado pela diretoria. 
     private double totalBranchValue;
     //data inicial do relatorio
     private String initialDateReport;
     //data final do relatorio
-    private String finalDateReport;
 
     public Report() {
 
@@ -36,11 +36,10 @@ public class Report implements Emitable {
         this.totalBranchValue = totalBranchValue;
     }
 
-    public Report(double totalValue, double totalBranchValue, String initialDateReport, String finalDateReport) {
+    public Report(double totalValue, double totalBranchValue, String initialDateReport) {
         this.totalValue = totalValue;
         this.totalBranchValue = totalBranchValue;
         this.initialDateReport = initialDateReport;
-        this.finalDateReport = finalDateReport;
     }
 
     public double getTotalValue() {
@@ -75,20 +74,20 @@ public class Report implements Emitable {
         this.initialDateReport = initialDateReport;
     }
 
-    public String getFinalDateReport() {
-        return finalDateReport;
+    public ArrayList<BranchOffice> getBranchList() {
+        return branchList;
     }
 
-    public void setFinalDateReport(String finalDateReport) {
-        this.finalDateReport = finalDateReport;
+    public void setBranchList(ArrayList<BranchOffice> branchList) {
+        this.branchList = branchList;
     }
 
-    public Set<Sale> getSalesList() {
-        return salesList;
+    public ArrayList<ItemOrdered> getItemList() {
+        return itemList;
     }
 
-    public void setSalesList(Set<Sale> salesList) {
-        this.salesList = salesList;
+    public void setItemList(ArrayList<ItemOrdered> itemList) {
+        this.itemList = itemList;
     }
 
     @Override

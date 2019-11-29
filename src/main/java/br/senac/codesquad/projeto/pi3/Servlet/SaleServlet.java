@@ -416,8 +416,8 @@ public class SaleServlet extends HttpServlet {
             ArrayList<Product> ProductList = SaleController.findByIdProduct(Integer.parseInt(idAttr));
             session.setAttribute("orderedItemList", ProductList);
 
-            ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
-            item.setName(p.getNameProduct());
+            ItemOrdered item = new ItemOrdered(1, 1, 1);
+            item.setName("");
             if (!sale.getItems().contains(item)) {
                 sale.getItems().add(item);
                 sumTotalValue(sale);

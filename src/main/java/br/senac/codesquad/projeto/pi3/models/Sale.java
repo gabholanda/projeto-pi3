@@ -21,6 +21,7 @@ public class Sale {
     private Client client;
     private User user;
     private Date date;
+    private String branchName;
 
     public Sale() {
         this.totalValue = 0;
@@ -90,6 +91,14 @@ public class Sale {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
     }
 
 }
