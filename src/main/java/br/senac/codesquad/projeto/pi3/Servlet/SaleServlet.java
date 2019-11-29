@@ -347,7 +347,7 @@ public class SaleServlet extends HttpServlet {
     }
 
     private static void sumTotalValue(Sale sale) {
-        int soma = 0;
+        double soma = 0;
         for (ItemOrdered item : sale.getItems()) {
             soma += item.getValue() * item.getQuantityItem();
         }
