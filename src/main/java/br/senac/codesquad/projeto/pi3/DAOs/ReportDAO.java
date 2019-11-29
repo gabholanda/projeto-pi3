@@ -31,20 +31,19 @@ public class ReportDAO {
         try {
             con = ConnectionManager.getConnection();
             String query
-                    = "select A.ID_SALES,E.NAME,A.VALUE_FULL, C.*, sum(B.AMOUNT_ITEM), D.NAME "
-                    + "from sales as A "
-                    + "inner join item_ordered as B "
-                    + "on A.ID_SALES = B.SALES_ID_SALES "
-                    + "inner join product AS C "
-                    + "ON B.PRODUCT_ID_PRODUCT = C.ID_PRODUCT "
-                    + "INNER JOIN category as D "
-                    + "on C.CATEGORY_ID = D.ID_CATEGORY "
-                    + "inner join client as E "
-                    + "on A.CLIENT_ID_CLIENT = E.ID_CLIENT "
-                    + "where A.ID_SALES = 6 "
-                    + "group by B.PRODUCT_ID_PRODUCT "
-                    + "Order by sum(B.AMOUNT_ITEM) desc "
-                    + "limit 10;";
+                    = "select\n"
+                    + "p.NAMEPRODUCT as Produto, "
+                    + "COUNT(IO.PRODUCT_ID_PRODUCT) as Vendas, "
+                    + "SUM(IO.AMOUNT_ITEM) as ItensVendidos, "
+                    + "SUM(IO.AMOUNT_ITEM)* IO.VALUE as ValorTotal, "
+                    + "rpb.BRANCH_OFFICE_ID_BRANCH_OFFICE as BranchOfficeID "
+                    + " from item_ordered as IO "
+                    + " inner join product as p "
+                    + " on IO.PRODUCT_ID_PRODUCT= p.ID_Product "
+                    + " inner join relation_product_and_branch_office rpb "
+                    + " on rpb.PRODUCT_ID_PRODUCT = p.ID_Product "
+                    + " where rpb.BRANCH_OFFICE_ID_BRANCH_OFFICE = ? "
+                    + "  group by Produto order by ItensVendidos  desc limit 10;";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
             if (rs != null) {
