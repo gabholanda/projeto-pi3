@@ -57,15 +57,15 @@ public class SaleServlet extends HttpServlet {
             switch (action) {
                 case "/sale":
                     read(request, response);
-                        break;
+                    break;
                 case "/delete":
-                    delete(request,response);
+                    delete(request, response);
                     break;
                 case "/update":
                     //update(request, response); aqui tbm
                     break;
                 case "/edit":
-                    // formEdit(request, response); aqui tbm
+                    formEdit(request, response);
                     break;
                 case "/new":
                     form(request, response);
@@ -137,7 +137,7 @@ public class SaleServlet extends HttpServlet {
 
             if (session.getAttribute("sale") == null) {
                 session.setAttribute("errorSale", "Erro ao tentar realizar venda");
-                response.sendRedirect(request.getContextPath() + "/4sale/new");
+                response.sendRedirect(request.getContextPath() + "/sale/new");
             } else {
                 Sale sale = (Sale) session.getAttribute("sale");
                 if (sale.getClient() == null || sale.getItems() == null || sale.getItems().size() <= 0) {
@@ -363,14 +363,14 @@ public class SaleServlet extends HttpServlet {
         session.setAttribute("selectedClient", new Client());
         session.setAttribute("errorSale", "");
     }
-    
+
     private void read(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException, Exception {
         try {
             HttpSession session = request.getSession();
-//            User user = (User) session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
 
-            ArrayList<Sale> saleList = SaleController.read();
+            ArrayList<Sale> saleList = SaleController.read(user.getIdBranch(), user.getPermission().getPermission());
             String path = "./Sale/SaleList.jsp";
             request.setAttribute("saleList", saleList);
             request.setAttribute("path", path);
@@ -382,7 +382,7 @@ public class SaleServlet extends HttpServlet {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
 
@@ -396,5 +396,52 @@ public class SaleServlet extends HttpServlet {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private static void formEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        try {
+            HttpSession session = request.getSession();
+            
+            String idAttr = request.getParameter("id");
+
+            if (session.getAttribute("sale") == null) {
+                session.setAttribute("sale",
+                        new Sale());
+            }
+            Sale sale = SaleController.findByIdSale(Integer.parseInt(idAttr));
+            session.setAttribute("sale", sale);
+                       
+            Client client = SaleController.findByIdClient(Integer.parseInt(idAttr));
+            session.setAttribute("selectedClient", client);
+            
+            Sale saleSession = (Sale) session.getAttribute("sale");
+            
+            saleSession.setClient(client);
+            
+           ArrayList<Product> ProductList = SaleController.findByIdProduct(Integer.parseInt(idAttr));
+            session.setAttribute("orderedItemList", ProductList);
+            
+            ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
+                item.setName(p.getNameProduct());
+                if (!sale.getItems().contains(item)) {
+                    sale.getItems().add(item);
+                    sumTotalValue(sale);
+                    session.setAttribute("errorProduct", "");
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/sale/new");
+                }
+            
+            String path = "./Sale/SaleEdit.jsp";
+            request.setAttribute("path", path);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher(
+                            "/WEB-INF/IndexJSP.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
