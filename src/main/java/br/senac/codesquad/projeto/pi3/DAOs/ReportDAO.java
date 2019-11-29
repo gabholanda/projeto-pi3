@@ -32,17 +32,20 @@ public class ReportDAO {
             con = ConnectionManager.getConnection();
             String query
                     = "select\n"
-                    + "p.NAMEPRODUCT as Produto, "
-                    + "COUNT(IO.PRODUCT_ID_PRODUCT) as Vendas, "
-                    + "SUM(IO.AMOUNT_ITEM) as ItensVendidos, "
-                    + "SUM(IO.AMOUNT_ITEM)* IO.VALUE as ValorTotal, "
-                    + "rpb.BRANCH_OFFICE_ID_BRANCH_OFFICE as BranchOfficeID "
-                    + " from item_ordered as IO "
-                    + " inner join product as p "
-                    + " on IO.PRODUCT_ID_PRODUCT= p.ID_Product "
-                    + " inner join relation_product_and_branch_office rpb "
-                    + " on rpb.PRODUCT_ID_PRODUCT = p.ID_Product "
-                    + " where rpb.BRANCH_OFFICE_ID_BRANCH_OFFICE = ? "
+                    + "p.NAMEPRODUCT as Produto,\n"
+                    + "COUNT(IO.PRODUCT_ID_PRODUCT) as Vendas,\n"
+                    + "SUM(IO.AMOUNT_ITEM) as ItensVendidos,\n"
+                    + "SUM(IO.AMOUNT_ITEM)* IO.VALUE as ValorTotal,\n"
+                    + "rpb.BRANCH_OFFICE_ID_BRANCH_OFFICE as BranchOfficeID,\n"
+                    + "s.DATE_SALE as DataVenda\n"
+                    + "\n"
+                    + " from item_ordered as IO \n"
+                    + " inner join product as p \n"
+                    + " on IO.PRODUCT_ID_PRODUCT= p.ID_Product \n"
+                    + " inner join relation_product_and_branch_office rpb \n"
+                    + " on rpb.PRODUCT_ID_PRODUCT = p.ID_Product \n"
+                    + " inner join sales s on IO.SALES_ID_SALES = s.ID_SALES\n"
+                    + " where rpb.BRANCH_OFFICE_ID_BRANCH_OFFICE = 2 and  s.DATE_SALE >= cast(subtime(current_date,3) as date) \n"
                     + "  group by Produto order by ItensVendidos  desc limit 10;";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
