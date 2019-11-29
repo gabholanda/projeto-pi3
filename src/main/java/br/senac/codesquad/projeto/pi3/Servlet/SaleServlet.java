@@ -137,7 +137,7 @@ public class SaleServlet extends HttpServlet {
 
             if (session.getAttribute("sale") == null) {
                 session.setAttribute("errorSale", "Erro ao tentar realizar venda");
-                response.sendRedirect(request.getContextPath() + "/sale/new");
+                response.sendRedirect(request.getContextPath() + "/4sale/new");
             } else {
                 Sale sale = (Sale) session.getAttribute("sale");
                 if (sale.getClient() == null || sale.getItems() == null || sale.getItems().size() <= 0) {
@@ -176,7 +176,7 @@ public class SaleServlet extends HttpServlet {
             List<Client> clientList = ClientController.findByName(name);
             session.setAttribute("clientList",
                     clientList);
-            response.sendRedirect(request.getContextPath() + "/sale");
+            response.sendRedirect(request.getContextPath() + "/sale/new");
         } catch (IOException ex) {
             Logger.getLogger(SaleServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
