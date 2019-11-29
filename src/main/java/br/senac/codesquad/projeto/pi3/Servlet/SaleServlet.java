@@ -421,16 +421,16 @@ public class SaleServlet extends HttpServlet {
            ArrayList<Product> ProductList = SaleController.findByIdProduct(Integer.parseInt(idAttr));
             session.setAttribute("orderedItemList", ProductList);
             
-            ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
-                item.setName(p.getNameProduct());
-                if (!sale.getItems().contains(item)) {
-                    sale.getItems().add(item);
-                    sumTotalValue(sale);
-                    session.setAttribute("errorProduct", "");
-                    response.sendRedirect(request.getContextPath() + "/sale/new");
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/sale/new");
-                }
+//            ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
+//                item.setName(p.getNameProduct());
+//                if (!sale.getItems().contains(item)) {
+//                    sale.getItems().add(item);
+//                    sumTotalValue(sale);
+//                    session.setAttribute("errorProduct", "");
+//                    response.sendRedirect(request.getContextPath() + "/sale/new");
+//                } else {
+//                    response.sendRedirect(request.getContextPath() + "/sale/new");
+//                }
             
             String path = "./Sale/SaleEdit.jsp";
             request.setAttribute("path", path);
