@@ -19,6 +19,7 @@ public class BranchOffice {
     private String address;
     private ArrayList<Product> productList;
     private ArrayList<Employee> employeeList;
+    private double totalValue;
 
     public BranchOffice(String name, String address, String cnpj) {
         this.name = name;
@@ -75,6 +76,14 @@ public class BranchOffice {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public double getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(double totalValue) {
+        this.totalValue = totalValue;
     }
 
 }

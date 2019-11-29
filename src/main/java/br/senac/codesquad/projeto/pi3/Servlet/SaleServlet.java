@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.senac.codesquad.projeto.pi3.Servlet;
 
 /**
@@ -95,7 +90,7 @@ public class SaleServlet extends HttpServlet {
                     changeDiscount(request, response);
                     break;
                 default:
-                    //read(request, response);
+                    read(request, response);
                     break;
             }
         } catch (Exception ex) {
@@ -401,7 +396,7 @@ public class SaleServlet extends HttpServlet {
     private static void formEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
             HttpSession session = request.getSession();
-            
+
             String idAttr = request.getParameter("id");
 
             if (session.getAttribute("sale") == null) {
@@ -410,17 +405,16 @@ public class SaleServlet extends HttpServlet {
             }
             Sale sale = SaleController.findByIdSale(Integer.parseInt(idAttr));
             session.setAttribute("sale", sale);
-                       
+
             Client client = SaleController.findByIdClient(Integer.parseInt(idAttr));
             session.setAttribute("selectedClient", client);
-            
+
             Sale saleSession = (Sale) session.getAttribute("sale");
-            
+
             saleSession.setClient(client);
-            
-           ArrayList<Product> ProductList = SaleController.findByIdProduct(Integer.parseInt(idAttr));
+
+            ArrayList<Product> ProductList = SaleController.findByIdProduct(Integer.parseInt(idAttr));
             session.setAttribute("orderedItemList", ProductList);
-            
 //            ItemOrdered item = new ItemOrdered(p.getId(), 1, p.getValuesSale());
 //                item.setName(p.getNameProduct());
 //                if (!sale.getItems().contains(item)) {
@@ -431,7 +425,6 @@ public class SaleServlet extends HttpServlet {
 //                } else {
 //                    response.sendRedirect(request.getContextPath() + "/sale/new");
 //                }
-            
             String path = "./Sale/SaleEdit.jsp";
             request.setAttribute("path", path);
             RequestDispatcher dispatcher
