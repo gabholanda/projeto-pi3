@@ -8,6 +8,7 @@ package br.senac.codesquad.projeto.pi3.DAOs;
 import br.senac.codesquad.projeto.pi3.application.ConnectionManager;
 import br.senac.codesquad.projeto.pi3.models.Client;
 import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
+import br.senac.codesquad.projeto.pi3.models.Product;
 import br.senac.codesquad.projeto.pi3.models.Sale;
 import br.senac.codesquad.projeto.pi3.models.User;
 import java.sql.Connection;
@@ -38,6 +39,48 @@ public class SaleDAO {
                     + "INNER JOIN client AS B "
                     + "ON A.CLIENT_ID_CLIENT = B.ID_CLIENT;";
             ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    Sale s = new Sale();
+                    Client c = new Client();
+                    s.setId(rs.getInt("ID_SALES"));
+                    s.setDate((Date) rs.getObject("DATE_SALE"));
+                    c.setName((String) rs.getObject("NAME"));
+                    s.setClient(c);
+                    s.setTotalValue(rs.getDouble("VALUE_FULL"));
+                    listaRetorno.add(s);
+
+                }
+            } else {
+                throw new SQLException();
+            }
+        } catch (SQLException e) {
+            listaRetorno = null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                listaRetorno = null;
+            }
+        }
+
+        return listaRetorno;
+
+    }
+
+    public static ArrayList<Sale> getSalesToBranch(int idBranch) {
+        ArrayList<Sale> listaRetorno = new ArrayList<>();
+        try {
+            con = ConnectionManager.getConnection();
+            String query = "SELECT A.ID_SALES, A.DATE_SALE, B.NAME, A.VALUE_FULL "
+                    + "FROM sales A "
+                    + "INNER JOIN client AS B "
+                    + "ON A.CLIENT_ID_CLIENT = B.ID_CLIENT "
+                    + "where A.BRANCH_OFFICE_ID_BRANCH_OFFICE = ? ;";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, idBranch);
             rs = ps.executeQuery();
 
             if (rs != null) {
@@ -179,5 +222,127 @@ public class SaleDAO {
             }
         }
         return retorno;
+    }
+
+    public static Sale findBydIdSale(int id) throws SQLException {
+        try {
+            con = ConnectionManager.getConnection();
+            String query = "select * from sales "
+                    + "where sales.ID_SALES = ? ;";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            Sale sale = null;
+            while (rs.next()) {
+                sale = new Sale();
+                sale.setId(rs.getInt("ID_SALES"));
+                sale.setDate((Date) rs.getObject("DATE_SALE"));
+                sale.setTotalValue(rs.getDouble("VALUE_FULL"));
+
+            }
+            con.close();
+            return sale;
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+            con.close();
+        }
+        con.close();
+        return null;
+    }
+
+    public static Client findBydIdClient(int id) throws SQLException {
+        try {
+            con = ConnectionManager.getConnection();
+            String query = "select B.* from sales as A "
+                    + "inner join client as  B "
+                    + "on B.ID_CLIENT = A.CLIENT_ID_CLIENT "
+                    + "where A.ID_SALES = ?;";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            Client client = null;
+            while (rs.next()) {
+                client = new Client();
+                client.setId(rs.getInt("ID_CLIENT"));
+                client.setName(rs.getString("NAME"));
+                client.setCpf(rs.getString("CPF"));
+                client.setAddress((rs.getString("ADDRESS")));
+                client.setMail(rs.getString("EMAIL"));
+            }
+
+            con.close();
+            return client;
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+            con.close();
+        } finally {
+
+            con.close();
+
+        }
+        return null;
+    }
+
+    public static ArrayList<Product> findBydIdProduct(int id) throws SQLException {
+        ArrayList<Product> listaRetorno = new ArrayList<>();
+        try {
+            con = ConnectionManager.getConnection();
+            String query = "select B.* from sales as A "
+                    + "inner join item_ordered as B "
+                    + "on B.SALES_ID_SALES = A.ID_SALES "
+                    + "where A.ID_SALES = ?;";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            if (rs != null) {
+                while (rs.next()) {
+//                    Product product = new Product();
+//                    product.setId(rs.getInt("ID_SALES"));
+//                    product.setNameProduct((Date) rs.getObject("DATE_SALE"));
+//                    product.set((String) rs.getObject("NAME"));
+//                    product.setTotalValue(rs.getDouble("VALUE_FULL"));
+//                    listaRetorno.add(s);
+
+                }
+            } else {
+                throw new SQLException();
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+            listaRetorno = null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                listaRetorno = null;
+            }
+        }
+        return listaRetorno;
+    }
+
+    // Method that helps to print SQL exceptions on console
+    private static void printSQLException(SQLException ex) {
+        for (Throwable e : ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
     }
 }
