@@ -293,9 +293,12 @@ public class SaleDAO {
         ArrayList<Product> listaRetorno = new ArrayList<>();
         try {
             con = ConnectionManager.getConnection();
-            String query = "select B.* from sales as A "
+            String query = "select B.ID_ITEM_PEDIDO, B.AMOUNT_ITEM, B.VALUE, C.NAMEPRODUCT  "
+                    + "from sales as A "
                     + "inner join item_ordered as B "
                     + "on B.SALES_ID_SALES = A.ID_SALES "
+                    + "inner join product as C "
+                    + "on C.ID_PRODUCT = B.PRODUCT_ID_PRODUCT "
                     + "where A.ID_SALES = ?;";
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
