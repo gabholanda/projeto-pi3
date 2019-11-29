@@ -38,7 +38,7 @@ public class Sale {
     }
 
     public void setTotalValue(double totalValue) {
-        this.totalValue += totalValue;
+        this.totalValue = totalValue;
     }
 
     public Set<ItemOrdered> getItems() {
