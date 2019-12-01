@@ -38,4 +38,14 @@ public class RH extends User {
     public void login(User user, HttpServletRequest request, HttpSession session) {
         session.setAttribute("user", user);
     }
+
+    @Override
+    public Report generateReport() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Report generateReport(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

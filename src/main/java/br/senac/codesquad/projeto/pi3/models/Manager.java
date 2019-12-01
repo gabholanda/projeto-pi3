@@ -5,6 +5,8 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
+import br.senac.codesquad.projeto.pi3.DAOs.ReportDAO;
+import br.senac.codesquad.projeto.pi3.Interfaces.Emitable;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,4 +37,23 @@ public class Manager extends User {
         session.setAttribute("user", user);
     }
 
+    @Override
+    public Report generateReport(int idBranch) {
+        Report report = ReportDAO.generateReport(idBranch);
+        if (report != null) {
+            double soma = 0;
+            for (ItemOrdered item : report.getItemList()) {
+                soma += item.getValue() * item.getQuantityItem();
+            }
+            report.setTotalBranchValue(soma);
+            return report;
+        }
+        return null;
+    }
+
+    @Override
+    public Report generateReport() {
+       return null;
+
+    }
 }

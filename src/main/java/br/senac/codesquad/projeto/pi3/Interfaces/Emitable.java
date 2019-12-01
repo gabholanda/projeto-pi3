@@ -14,6 +14,5 @@ import br.senac.codesquad.projeto.pi3.models.Report;
 public interface Emitable {
 
     public Report generateReport();
-
-    public Report generateOverallReport();
+    public Report generateReport(int id);
 }

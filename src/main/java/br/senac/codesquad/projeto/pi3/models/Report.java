@@ -5,14 +5,13 @@
  */
 package br.senac.codesquad.projeto.pi3.models;
 
-import br.senac.codesquad.projeto.pi3.Interfaces.Emitable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel.hsantos21
  */
-public class Report implements Emitable {
+public class Report{
 
     private String BranchName;
     //valor total de todas as filiais solicitado pela diretoria. 
@@ -88,16 +87,6 @@ public class Report implements Emitable {
 
     public void setItemList(ArrayList<ItemOrdered> itemList) {
         this.itemList = itemList;
-    }
-
-    @Override
-    public Report generateReport() {
-        return null;
-    }
-
-    @Override
-    public Report generateOverallReport() {
-        return null;
     }
 
 }

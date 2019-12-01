@@ -5,14 +5,11 @@
  */
 package br.senac.codesquad.projeto.pi3.controllers;
 
-import br.senac.codesquad.projeto.pi3.DAOs.ReportDAO;
 import br.senac.codesquad.projeto.pi3.models.BranchOffice;
 import br.senac.codesquad.projeto.pi3.models.ItemOrdered;
 import br.senac.codesquad.projeto.pi3.models.Report;
+import br.senac.codesquad.projeto.pi3.models.User;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,9 +17,8 @@ import java.util.logging.Logger;
  */
 public class ReportController {
 
-    //revisar depois muito sono
-    public static Report generateRegionalReport(int idBranch) throws SQLException {
-        Report report = ReportDAO.generateReport(idBranch);
+    public static Report generateRegionalReport(int idBranch, User user) throws SQLException {
+        Report report = user.generateReport(idBranch);
         if (report != null) {
             double soma = 0;
             for (ItemOrdered item : report.getItemList()) {
@@ -34,20 +30,15 @@ public class ReportController {
         return null;
     }
 
-    public static Report generateAllReports() {
-        try {
-            Report report = ReportDAO.generateReportTotalBranch();
-            if (report != null) {
-                double soma = 0;
-                for (BranchOffice total : report.getBranchList()) {
-                    soma += total.getTotalValue();
-                }
-                report.setTotalBranchValue(soma);
+    public static Report generateAllReports(User user) {
+        Report report = user.generateReport();
+        if (report != null) {
+            double soma = 0;
+            for (BranchOffice total : report.getBranchList()) {
+                soma += total.getTotalValue();
             }
-            return report;
-        } catch (SQLException ex) {
-            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+            report.setTotalBranchValue(soma);
         }
-        return null;
+        return report;
     }
 }

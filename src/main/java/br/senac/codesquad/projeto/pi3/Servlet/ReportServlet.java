@@ -95,11 +95,11 @@ public class ReportServlet extends HttpServlet {
             }
             User user = (User) session.getAttribute("user");
             if (user.checkRole(user, Roles.GERENTE)) {
-                Report report = ReportController.generateRegionalReport(user.getIdBranch());
+                Report report = ReportController.generateRegionalReport(user.getIdBranch(), user);
                 session.setAttribute("report", report);
                 session.setAttribute("reportItems", report.getItemList());
             } else if (user.checkRole(user, Roles.GERENTE_GLOBAL) || user.checkRole(user, Roles.DIRETORIA)) {
-                Report report = ReportController.generateAllReports();
+                Report report = ReportController.generateAllReports(user);
                 session.setAttribute("reportAll", report);
                 session.setAttribute("allBranches", report.getBranchList());
             }
