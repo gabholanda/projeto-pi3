@@ -6,6 +6,7 @@
 package br.senac.codesquad.projeto.pi3.models;
 
 import br.senac.codesquad.projeto.pi3.Interfaces.Authenticable;
+import br.senac.codesquad.projeto.pi3.Interfaces.Emitable;
 import br.senac.codesquad.projeto.pi3.enums.Roles;
 import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
@@ -14,7 +15,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author marcelo.moraes and Patrick
  */
-public abstract class User implements Authenticable {
+public abstract class User implements Authenticable, Emitable {
 
     private int id;
     private int idBranch;

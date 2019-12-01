@@ -35,4 +35,14 @@ public class ManagerGlobal extends User {
         session.setAttribute("user", user);
     }
 
+    @Override
+    public Report generateReport() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Report generateReport(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
